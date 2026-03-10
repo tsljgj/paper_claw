@@ -1,7 +1,7 @@
 import argparse
 import json
 import logging
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -61,7 +61,36 @@ def format_datetime(dt: datetime) -> str:
     return dt.astimezone(ASIA_SHANGHAI).strftime("%Y-%m-%d %H:%M:%S %Z")
 
 
+def parse_date_only(value: str) -> date:
+    return date.fromisoformat(value)
+
+
+def at_beijing_nine(day_value: date) -> datetime:
+    return datetime(day_value.year, day_value.month, day_value.day, 9, 0, 0, tzinfo=ASIA_SHANGHAI)
+
+
 def resolve_window(args: argparse.Namespace, state: dict, now: datetime) -> FetchWindow:
+    if args.day and (args.start or args.end or args.start_date or args.end_date):
+        raise ValueError("--day cannot be combined with other manual window arguments")
+
+    if args.day:
+        end_day = parse_date_only(args.day)
+        return FetchWindow(start=at_beijing_nine(end_day - timedelta(days=1)), end=at_beijing_nine(end_day))
+
+    if args.start_date or args.end_date:
+        start_day = parse_date_only(args.start_date) if args.start_date else None
+        end_day = parse_date_only(args.end_date) if args.end_date else None
+
+        if start_day and end_day and end_day <= start_day:
+            raise ValueError("end date must be later than start date")
+
+        if start_day:
+            start_dt = at_beijing_nine(start_day)
+            end_dt = at_beijing_nine(end_day) if end_day else now
+            if end_dt <= start_dt:
+                raise ValueError("resolved end time must be later than start time")
+            return FetchWindow(start=start_dt, end=end_dt)
+
     start_arg = ensure_timezone(isoparse(args.start)) if args.start else None
     end_arg = ensure_timezone(isoparse(args.end)) if args.end else now
 
@@ -124,6 +153,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--now", help="Override current time in ISO 8601 format.")
     parser.add_argument("--start", help="Explicit window start time in ISO 8601 format.")
     parser.add_argument("--end", help="Explicit window end time in ISO 8601 format.")
+    parser.add_argument("--day", help="Run a Beijing 09:00 daily window for YYYY-MM-DD.")
+    parser.add_argument("--start-date", help="Window start day in YYYY-MM-DD, interpreted as 09:00 Beijing time.")
+    parser.add_argument("--end-date", help="Window end day in YYYY-MM-DD, interpreted as 09:00 Beijing time.")
     parser.add_argument("--config", help="Path to a JSON config file.")
     return parser.parse_args()
 

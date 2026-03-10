@@ -41,16 +41,6 @@ Default buckets:
 - `Paralinguistics`
 - `Audio`
 
-## Why this is more than a one-off script
-
-This repository is intended to be a reusable research-digest template:
-
-- the source domain is configurable
-- the classification schema is configurable
-- the daily output is human-readable
-- the state machine supports repeated unattended runs
-- the workflow works locally and in GitHub Actions
-
 ## Example output
 
 Each paper entry includes:
@@ -86,7 +76,7 @@ config/default.json
 
 ## Configuration
 
-The repository is now config-driven.
+The repository is config-driven.
 
 Default config lives at:
 
@@ -104,8 +94,6 @@ It controls:
 
 ### Example: change the source domain
 
-You can replace the default speech/audio source list:
-
 ```json
 {
   "sources": {
@@ -115,8 +103,6 @@ You can replace the default speech/audio source list:
 ```
 
 ### Example: define your own buckets
-
-You can replace the built-in buckets entirely:
 
 ```json
 {
@@ -143,22 +129,57 @@ You can replace the built-in buckets entirely:
 python scripts/main.py --config config/default.json
 ```
 
-## Time window behavior
+For local experiments, use a separate file such as `local_config.json`. It is ignored by git by default and should not be committed.
 
-Default scheduled behavior:
+## Time window options
+
+The project supports both precise timestamps and more human-friendly date-only inputs.
+
+### Default scheduled behavior
 
 - workflow runs daily at `01:00 UTC`
 - this is `09:00` in Beijing time
 
-Window rules:
+### First run and later runs
 
 - first run:
   - previous day `09:00` Beijing time -> current day `09:00` Beijing time
 - later runs:
   - `last_successful_run` -> current run time
-- manual override:
-  - `--start`
-  - optional `--end`
+
+### Human-friendly date-only options
+
+Run a single daily window by date:
+
+```bash
+python scripts/main.py --day 2026-03-10
+```
+
+This means:
+
+- start: `2026-03-09 09:00 Asia/Shanghai`
+- end: `2026-03-10 09:00 Asia/Shanghai`
+
+Run a broader window using only dates:
+
+```bash
+python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-10
+```
+
+This means:
+
+- start: `2026-03-01 09:00 Asia/Shanghai`
+- end: `2026-03-10 09:00 Asia/Shanghai`
+
+If you only provide `--start-date`, the end time defaults to the current run time.
+
+### Precise timestamp override
+
+If you want full control, you can still pass exact timestamps:
+
+```bash
+python scripts/main.py --start 2026-03-09T09:00:00+08:00 --end 2026-03-10T09:00:00+08:00
+```
 
 ## Quick start
 
@@ -184,10 +205,16 @@ Use a fixed test time:
 python scripts/main.py --now 2026-03-10T09:00:00+08:00
 ```
 
-Use a custom window:
+Use a date-only daily window:
 
 ```bash
-python scripts/main.py --start 2026-03-09T09:00:00+08:00 --end 2026-03-10T09:00:00+08:00
+python scripts/main.py --day 2026-03-10
+```
+
+Use a custom date range:
+
+```bash
+python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-10
 ```
 
 Use a custom config:
@@ -202,11 +229,86 @@ Reset all state and generated outputs:
 python scripts/reset_state.py
 ```
 
+## Email configuration
+
+Email is optional.
+
+If these variables are present, the workflow will send the HTML digest email:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `EMAIL_TO`
+
+Optional:
+
+- `OPENAI_API_KEY`
+- `ARXIV_CONTACT_EMAIL`
+
+### GitHub Actions secrets
+
+In GitHub repository settings, add:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `EMAIL_TO`
+- `OPENAI_API_KEY`
+- `ARXIV_CONTACT_EMAIL`
+
+### Local testing without committing secrets
+
+Do not write real credentials into tracked files.
+
+Recommended local test pattern:
+
+PowerShell:
+
+```powershell
+$env:SMTP_HOST="smtp.example.com"
+$env:SMTP_PORT="465"
+$env:SMTP_USER="bot@example.com"
+$env:SMTP_PASS="your-app-password"
+$env:EMAIL_TO="you@example.com"
+$env:ARXIV_CONTACT_EMAIL="you@example.com"
+python scripts/main.py --day 2026-03-10
+```
+
+Git Bash:
+
+```bash
+export SMTP_HOST="smtp.example.com"
+export SMTP_PORT="465"
+export SMTP_USER="bot@example.com"
+export SMTP_PASS="your-app-password"
+export EMAIL_TO="you@example.com"
+export ARXIV_CONTACT_EMAIL="you@example.com"
+python scripts/main.py --day 2026-03-10
+```
+
+After testing, clear them:
+
+PowerShell:
+
+```powershell
+Remove-Item Env:SMTP_HOST,Env:SMTP_PORT,Env:SMTP_USER,Env:SMTP_PASS,Env:EMAIL_TO,Env:ARXIV_CONTACT_EMAIL
+```
+
+Git Bash:
+
+```bash
+unset SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS EMAIL_TO ARXIV_CONTACT_EMAIL
+```
+
+If you later give me test credentials for a local check, I will use them only for the current test and remove them before committing or pushing anything.
+
 ## Interactive and extensible points
 
-This is still a repository-first tool, but it already has useful interaction points:
+Current interaction points:
 
-- CLI time-window overrides with `--start`, `--end`, `--now`
+- CLI time-window overrides with `--day`, `--start-date`, `--end-date`, `--start`, `--end`, `--now`
 - CLI config override with `--config`
 - reset script for restarting the pipeline cleanly
 - issue templates and PR template for external collaboration
@@ -215,7 +317,7 @@ Natural next interaction layers for future PRs:
 
 - a tiny web UI to edit config
 - a review page to correct categories before publish
-- a highlight selector for “editor’s picks”
+- a highlight selector for editor's picks
 - a setup wizard that creates a new domain config interactively
 
 ## GitHub Actions
@@ -233,23 +335,6 @@ It:
 - commits generated artifacts back to the repo
 - optionally sends email
 
-## Secrets
-
-Optional or required secrets depending on your deployment:
-
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `EMAIL_TO`
-- `OPENAI_API_KEY`
-
-Optional environment variable:
-
-- `ARXIV_CONTACT_EMAIL`
-
-`ARXIV_CONTACT_EMAIL` is included in the HTTP `User-Agent` for better operational hygiene when talking to arXiv.
-
 ## Repository structure
 
 ```text
@@ -266,14 +351,6 @@ CONTRIBUTING.md
 LICENSE
 requirements.txt
 ```
-
-## Example use cases
-
-- daily speech/audio reading group digest
-- personalized arXiv scan for a lab
-- domain-specific newsletter for a niche category mix
-- internal team alerting with email summaries
-- a base repo for custom arXiv editorial workflows
 
 ## Good first PRs
 
