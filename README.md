@@ -10,7 +10,7 @@
 
 *每日自动抓取、分类、总结 arXiv 语音与音频领域论文*
 
-[开始使用](#快速开始) · [配置说明](#配置) · [查看示例](examples/sample_digest_excerpt.md)
+[简体中文](README.md) · [English](README_EN.md) · [开始使用](#快速开始) · [配置说明](#配置) · [查看示例](examples/sample_digest_excerpt.md)
 
 </div>
 
