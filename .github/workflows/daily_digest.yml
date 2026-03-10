@@ -1,4 +1,4 @@
-name: Daily arXiv Audio Digest
+name: Daily arXiv Digest
 
 on:
   schedule:
@@ -17,6 +17,7 @@ jobs:
       SMTP_PASS: ${{ secrets.SMTP_PASS }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      ARXIV_CONTACT_EMAIL: ${{ secrets.ARXIV_CONTACT_EMAIL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,14 +28,12 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r article_claw/requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Build digest
-        working-directory: article_claw
         run: python scripts/main.py
 
       - name: Commit generated files
-        working-directory: article_claw
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

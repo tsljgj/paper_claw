@@ -1,0 +1,132 @@
+{
+  "project": {
+    "name": "arxiv-audio-digest",
+    "title": "arXiv Speech & Audio Digest",
+    "timezone": "Asia/Shanghai",
+    "default_domain": "speech-audio"
+  },
+  "sources": {
+    "categories": [
+      "cs.SD",
+      "eess.AS"
+    ]
+  },
+  "classification": {
+    "categories": [
+      {
+        "name": "Speech LLM",
+        "label_zh": "语音大模型",
+        "keywords": [
+          "speech llm",
+          "spoken llm",
+          "speech language model",
+          "speech large language model",
+          "audio language model",
+          "audio large language model",
+          "speechgpt",
+          "audiollm",
+          "speech instruction",
+          "spoken dialogue model",
+          "speech question answering",
+          "speech-to-llm",
+          "audio-to-llm",
+          "llm-based speech",
+          "multimodal llm for speech"
+        ]
+      },
+      {
+        "name": "ASR",
+        "label_zh": "语音识别",
+        "keywords": [
+          "asr",
+          "automatic speech recognition",
+          "speech recognition",
+          "streaming asr",
+          "streaming recognition",
+          "transducer",
+          "ctc",
+          "rnnt",
+          "multilingual asr",
+          "audiovisual speech recognition",
+          "avsr"
+        ]
+      },
+      {
+        "name": "TTS",
+        "label_zh": "语音合成",
+        "keywords": [
+          "tts",
+          "text-to-speech",
+          "speech synthesis",
+          "neural vocoder",
+          "vocoder",
+          "voice conversion",
+          "singing synthesis",
+          "controllable tts"
+        ]
+      },
+      {
+        "name": "Enhancement",
+        "label_zh": "语音增强",
+        "keywords": [
+          "speech enhancement",
+          "denois",
+          "dereverb",
+          "dereverberation",
+          "aec",
+          "acoustic echo cancellation",
+          "source separation",
+          "speech separation",
+          "target speaker extraction",
+          "beamforming"
+        ]
+      },
+      {
+        "name": "SLU",
+        "label_zh": "口语理解",
+        "keywords": [
+          "spoken language understanding",
+          "speaker verification",
+          "speaker identification",
+          "language identification",
+          "keyword spotting",
+          "slot filling",
+          "intent detection",
+          "diarization"
+        ]
+      },
+      {
+        "name": "Paralinguistics",
+        "label_zh": "副语言学",
+        "keywords": [
+          "emotion",
+          "affective",
+          "depression",
+          "cognitive",
+          "age estimation",
+          "gender",
+          "deepfake",
+          "spoof",
+          "anti-spoofing",
+          "pathological speech",
+          "paralinguistic"
+        ]
+      },
+      {
+        "name": "Audio",
+        "label_zh": "通用音频",
+        "keywords": [
+          "audio",
+          "acoustic event",
+          "sound event",
+          "sound scene",
+          "music",
+          "bioacoustic",
+          "environmental sound",
+          "sonification",
+          "compression"
+        ]
+      }
+    ]
+  }
+}

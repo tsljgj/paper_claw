@@ -9,8 +9,9 @@ import requests
 from dateutil.parser import isoparse
 
 from build_markdown import render_email, render_markdown
+from config_loader import load_config
 from fetch_arxiv import FetchWindow, deduplicate_papers, fetch_category, save_raw_payload
-from process_papers import CATEGORY_PRIORITY, build_summary, enrich_papers
+from process_papers import build_summary, enrich_papers
 from send_email import send_html_email
 
 
@@ -21,8 +22,6 @@ RAW_DIR = ROOT / "data" / "raw"
 PROCESSED_DIR = ROOT / "data" / "processed"
 POSTS_DIR = ROOT / "content" / "posts"
 TEMPLATE_DIR = ROOT / "templates"
-CATEGORIES = ["cs.SD", "eess.AS"]
-
 
 def configure_logging() -> None:
     logging.basicConfig(
@@ -80,13 +79,14 @@ def filter_already_processed(papers: list[dict], state: dict) -> list[dict]:
     return [paper for paper in papers if paper["arxiv_id"] not in processed_ids]
 
 
-def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdown_path: Path) -> dict:
+def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdown_path: Path, category_priority: list[str], config: dict) -> dict:
     grouped = {
         category: [paper for paper in papers if paper["digest_category"] == category]
-        for category in CATEGORY_PRIORITY
+        for category in category_priority
     }
     return {
         "generated_at": datetime.now(tz=ASIA_SHANGHAI).isoformat(),
+        "project": config["project"],
         "window": {
             "start": window.start.isoformat(),
             "end": window.end.isoformat(),
@@ -124,31 +124,34 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--now", help="Override current time in ISO 8601 format.")
     parser.add_argument("--start", help="Explicit window start time in ISO 8601 format.")
     parser.add_argument("--end", help="Explicit window end time in ISO 8601 format.")
+    parser.add_argument("--config", help="Path to a JSON config file.")
     return parser.parse_args()
 
 
 def main() -> None:
     configure_logging()
     args = parse_args()
+    config = load_config(args.config)
     now = ensure_timezone(isoparse(args.now)) if args.now else datetime.now(tz=ASIA_SHANGHAI)
 
     state = load_state()
     window = resolve_window(args, state, now)
     logging.info("Using time window %s -> %s", window.start.isoformat(), window.end.isoformat())
+    source_categories = config["sources"]["categories"]
 
     with requests.Session() as session:
         papers = []
-        for category in CATEGORIES:
+        for category in source_categories:
             papers.extend(fetch_category(category, window, session=session))
 
     deduped = deduplicate_papers(papers)
     filtered = filter_already_processed(deduped, state)
-    enriched = enrich_papers(filtered)
-    summary = build_summary(enriched)
+    enriched, category_priority = enrich_papers(filtered, config)
+    summary = build_summary(enriched, category_priority)
 
     run_date = window.end.strftime("%Y-%m-%d")
     provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
-    payload = build_payload(window, enriched, summary, provisional_markdown)
+    payload = build_payload(window, enriched, summary, provisional_markdown, category_priority, config)
     raw_path = RAW_DIR / f"{run_date}.json"
     save_raw_payload(
         raw_path,
