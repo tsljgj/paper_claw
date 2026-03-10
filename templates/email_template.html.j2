@@ -20,7 +20,9 @@
         <p>
           <strong>{{ paper.title_en }}</strong><br>
           {{ paper.authors | join(", ") if paper.authors else "Unknown" }}<br>
-          {{ paper.review.summary_zh }}<br>
+          <strong>Abstract (EN):</strong> {{ paper.abstract_en }}<br>
+          <strong>总结：</strong>{{ paper.review.summary_zh }}<br>
+          <strong>可读性分析：</strong>{{ paper.review.readability_zh }}<br>
           <a href="{{ paper.arxiv_url }}">{{ paper.arxiv_url }}</a>
         </p>
       {% endfor %}

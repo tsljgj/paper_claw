@@ -110,12 +110,12 @@ def build_chinese_summary(title: str, abstract: str, category_label_zh: str, key
     method_cue = _extract_method_cue(abstract, keywords)
     claim_sentence = _extract_claim_sentence(abstract)
     summary_lines = [
-        f"这篇工作归入“{category_label_zh}”方向，核心任务由题目 {title} 所界定。",
+        f"这篇工作归入“{category_label_zh}”方向，核心任务由题目《{title}》所界定。",
         f"从摘要看，作者主要围绕 {method_cue} 展开方法设计、训练策略或系统建模。",
     ]
     if claim_sentence:
         summary_lines.append(f"结果部分最值得注意的是：{claim_sentence}")
-    summary_lines.append("如果你想快速判断这篇论文值不值得细读，这个摘要已经能帮助你抓住问题、方法和结果主线。")
+    summary_lines.append("如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。")
     return " ".join(summary_lines[:4])
 
 
@@ -169,6 +169,7 @@ def enrich_papers(papers: list[dict[str, Any]], config: dict[str, Any]) -> tuple
         llm_review = llm_reviews[index] if llm_reviews and index < len(llm_reviews) else {}
         summary_zh = str(llm_review.get("summary_zh", "")).strip() if isinstance(llm_review, dict) else ""
         readability_zh = str(llm_review.get("readability_zh", "")).strip() if isinstance(llm_review, dict) else ""
+
         if not summary_zh:
             summary_zh = build_chinese_summary(
                 paper["title_en"],
@@ -206,6 +207,6 @@ def build_summary(papers: list[dict[str, Any]], category_priority: list[str]) ->
         )
         trend = "整体上以方法改进、跨模态建模和系统化评测为主，适合按分类快速筛选当天值得细读的论文。"
     else:
-        headline = "今日时间窗口内未发现新的 arXiv 新论文。"
+        headline = "今日时间窗口内未发现新的 arXiv 论文。"
         trend = "系统仍已完成抓取、归档与状态更新，可等待下一次定时运行。"
     return {"total": len(papers), "counts": counts, "headline": headline, "trend": trend}
