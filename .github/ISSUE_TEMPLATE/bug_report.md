@@ -1,21 +1,30 @@
 ---
-name: Bug report
-about: Report an operational or content-quality bug
-title: "[bug] "
+name: 🐛 Bug 反馈
+about: 报告功能异常或内容质量问题
+title: '[Bug] '
 labels: bug
 assignees: ''
 ---
 
-## What happened
+## 问题描述
 
-## Expected behavior
+清晰描述遇到的问题
 
-## Reproduction
+## 复现步骤
 
-## Logs or screenshots
+1. 执行了 '...'
+2. 出现了 '...'
 
-## Environment
+## 期望行为
 
-- local or GitHub Actions
-- Python version
-- date/time window used
+描述期望的正常行为
+
+## 环境信息
+
+- 运行环境: [本地/GitHub Actions]
+- Python 版本: [如 3.11]
+- 时间窗口: [如 2026-03-10]
+
+## 附加信息
+
+日志截图或其他相关信息

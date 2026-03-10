@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="90" fill="url(#bg)"/>
+  
+  <!-- Document Base -->
+  <rect x="55" y="45" width="70" height="90" rx="5" fill="#ffffff" opacity="0.95"/>
+  
+  <!-- Document Lines -->
+  <rect x="65" y="65" width="50" height="4" rx="2" fill="#667eea" opacity="0.6"/>
+  <rect x="65" y="75" width="50" height="4" rx="2" fill="#667eea" opacity="0.4"/>
+  <rect x="65" y="85" width="35" height="4" rx="2" fill="#667eea" opacity="0.4"/>
+  <rect x="65" y="95" width="45" height="4" rx="2" fill="#667eea" opacity="0.4"/>
+  <rect x="65" y="105" width="40" height="4" rx="2" fill="#667eea" opacity="0.4"/>
+  
+  <!-- Claw/Hook -->
+  <path d="M125 45 L125 35 Q125 25 135 25 Q145 25 145 35 L145 40" 
+        stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M135 25 L135 15" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Claw Tips -->
+  <path d="M135 15 L128 8" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M135 15 L142 8" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Connection Ring -->
+  <circle cx="125" cy="45" r="6" fill="#764ba2"/>
+</svg>

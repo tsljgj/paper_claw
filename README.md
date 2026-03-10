@@ -1,374 +1,149 @@
-# arxiv-audio-digest
+<div align="center">
 
-[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
-[![GitHub Actions](https://img.shields.io/badge/workflow-daily%20digest-2ea44f)](.github/workflows/daily_digest.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
-[![Config Driven](https://img.shields.io/badge/config-driven-orange.svg)](config/default.json)
+# 📰 Article Claw
 
-Config-driven arXiv digest generator for speech, audio, and adjacent research domains.
+**智能 arXiv 论文日报生成器**
 
-The default setup ships with a speech/audio preset, but the repository is designed to be repurposed:
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/daily_digest.yml)
 
-- choose your own arXiv source categories
-- choose your own classification buckets
-- keep the same fetch -> classify -> digest -> email pipeline
+*每日自动抓取、分类、总结 arXiv 语音与音频领域论文*
 
-## What this repo does
+[开始使用](#快速开始) · [配置说明](#配置) · [查看示例](examples/sample_digest_excerpt.md)
 
-On each run, the project:
+</div>
 
-1. resolves a time window
-2. fetches new arXiv papers from configured categories
-3. deduplicates overlapping papers
-4. filters already processed IDs
-5. classifies each paper into one configured bucket
-6. renders a Markdown digest
-7. optionally sends an HTML email summary
-8. persists state for the next run
+---
 
-Default domain:
+## ✨ 功能特性
 
-- `cs.SD`
-- `eess.AS`
+| 特性 | 说明 |
+|------|------|
+| 🤖 **自动抓取** | 每日定时从 arXiv 获取最新论文 |
+| 📊 **智能分类** | 自动将论文归类到 7 大领域 |
+| 📝 **中文总结** | 生成简洁的中文摘要和可读性分析 |
+| 📧 **邮件推送** | 支持 HTML 邮件摘要推送 |
+| ⚙️ **配置驱动** | 零代码修改即可自定义领域和分类 |
+| 🔄 **状态持久** | 自动去重，避免重复处理 |
 
-Default buckets:
+## 📂 默认分类
 
-- `Speech LLM`
-- `ASR`
-- `TTS`
-- `Enhancement`
-- `SLU`
-- `Paralinguistics`
-- `Audio`
+- **🗣️ Speech LLM** - 语音大模型
+- **🎤 ASR** - 语音识别
+- **🔊 TTS** - 语音合成
+- **✨ Enhancement** - 语音增强
+- **🧠 SLU** - 口语理解
+- **😊 Paralinguistics** - 副语言学
+- **🎵 Audio** - 通用音频
 
-## Example output
+## 🚀 快速开始
 
-Each paper entry includes:
+### 1. 环境准备
 
-- original English title
-- authors
-- affiliations when available
-- original English abstract
-- arXiv link
-- `综合评价`
-  - `总结`: a short 2-4 sentence Chinese summary
-  - `可读性分析`: a concise note on whether the paper is easy to scan quickly
+```bash
+# 克隆仓库
+git clone https://github.com/yourusername/article_claw.git
+cd article_claw
 
-This keeps the source metadata intact while adding an editorial layer for fast reading.
-
-A tiny example excerpt lives at:
-
-- `examples/sample_digest_excerpt.md`
-
-## Architecture
-
-```text
-config/default.json
-  -> scripts/main.py
-     -> scripts/fetch_arxiv.py
-     -> scripts/process_papers.py
-     -> scripts/build_markdown.py
-     -> scripts/send_email.py
-  -> data/raw/
-  -> data/processed/
-  -> content/posts/
+# 创建虚拟环境
+conda create -n article_claw python=3.11 -y
+conda activate article_claw
+pip install -r requirements.txt
 ```
 
-## Configuration
+### 2. 本地运行
 
-The repository is config-driven.
+```bash
+# 运行今日日报
+python scripts/main.py
 
-Default config lives at:
+# 指定日期运行
+python scripts/main.py --day 2026-03-10
 
-```text
-config/default.json
+# 自定义日期范围
+python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-10
 ```
 
-It controls:
+### 3. GitHub Actions 自动运行
 
-- project metadata
-- source arXiv categories
-- classification categories
-- category labels
-- keyword rules
+仓库已配置每日 UTC 01:00 (北京时间 09:00) 自动运行。
 
-### Example: change the source domain
+**所需 Secrets：**
+
+| Secret | 说明 | 必需 |
+|--------|------|------|
+| `SMTP_HOST` | SMTP 服务器地址 | 可选 |
+| `SMTP_PORT` | SMTP 端口 | 可选 |
+| `SMTP_USER` | SMTP 用户名 | 可选 |
+| `SMTP_PASS` | SMTP 密码 | 可选 |
+| `EMAIL_TO` | 接收邮箱 | 可选 |
+| `OPENAI_API_KEY` | OpenAI API 密钥 | 可选 |
+
+## ⚙️ 配置
+
+编辑 `config/default.json` 自定义你的日报：
 
 ```json
 {
   "sources": {
-    "categories": ["cs.CL", "cs.LG"]
-  }
-}
-```
-
-### Example: define your own buckets
-
-```json
-{
+    "categories": ["cs.SD", "eess.AS"]
+  },
   "classification": {
     "categories": [
       {
-        "name": "Foundation Models",
-        "label_zh": "基础模型",
-        "keywords": ["foundation model", "large language model", "pretraining"]
-      },
-      {
-        "name": "Applications",
-        "label_zh": "应用",
-        "keywords": ["dialogue", "agent", "retrieval", "evaluation"]
+        "name": "ASR",
+        "label_zh": "语音识别",
+        "keywords": ["asr", "speech recognition"]
       }
     ]
   }
 }
 ```
 
-### Run with a custom config
+## 📁 项目结构
 
-```bash
-python scripts/main.py --config config/default.json
+```
+article_claw/
+├── .github/workflows/      # GitHub Actions 配置
+├── config/                 # 配置文件
+├── content/posts/          # 生成的日报
+├── data/
+│   ├── raw/               # 原始数据
+│   └── processed/         # 处理后数据
+├── scripts/               # 核心脚本
+├── templates/             # 输出模板
+└── examples/              # 示例输出
 ```
 
-For local experiments, use a separate file such as `local_config.json`. It is ignored by git by default and should not be committed.
+## 📖 示例输出
 
-## Time window options
+生成的日报包含：
 
-The project supports both precise timestamps and more human-friendly date-only inputs.
+- 📅 时间窗口和论文统计
+- 📊 各领域论文分布
+- 📝 每篇论文的详细信息：
+  - 英文标题
+  - 作者列表
+  - 英文摘要
+  - 中文总结
+  - 可读性分析
+  - arXiv 链接
 
-### Default scheduled behavior
+[查看完整示例 →](examples/sample_digest_excerpt.md)
 
-- workflow runs daily at `01:00 UTC`
-- this is `09:00` in Beijing time
+## 🤝 贡献
 
-### First run and later runs
+欢迎提交 Issue 和 PR！请参考 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-- first run:
-  - previous day `09:00` Beijing time -> current day `09:00` Beijing time
-- later runs:
-  - `last_successful_run` -> current run time
+## 📄 许可证
 
-### Human-friendly date-only options
+[MIT License](LICENSE) © 2026 Article Claw Contributors
 
-Run a single daily window by date:
+---
 
-```bash
-python scripts/main.py --day 2026-03-10
-```
+<div align="center">
 
-This means:
+**⭐ 如果这个项目对你有帮助，请给个 Star！**
 
-- start: `2026-03-09 09:00 Asia/Shanghai`
-- end: `2026-03-10 09:00 Asia/Shanghai`
-
-Run a broader window using only dates:
-
-```bash
-python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-10
-```
-
-This means:
-
-- start: `2026-03-01 09:00 Asia/Shanghai`
-- end: `2026-03-10 09:00 Asia/Shanghai`
-
-If you only provide `--start-date`, the end time defaults to the current run time.
-
-### Precise timestamp override
-
-If you want full control, you can still pass exact timestamps:
-
-```bash
-python scripts/main.py --start 2026-03-09T09:00:00+08:00 --end 2026-03-10T09:00:00+08:00
-```
-
-## Quick start
-
-### 1. Create an environment
-
-```bash
-conda create -n article_claw python=3.11 -y
-conda activate article_claw
-python -m pip install -r requirements.txt
-```
-
-### 2. Run locally
-
-Default run:
-
-```bash
-python scripts/main.py
-```
-
-Use a fixed test time:
-
-```bash
-python scripts/main.py --now 2026-03-10T09:00:00+08:00
-```
-
-Use a date-only daily window:
-
-```bash
-python scripts/main.py --day 2026-03-10
-```
-
-Use a custom date range:
-
-```bash
-python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-10
-```
-
-Use a custom config:
-
-```bash
-python scripts/main.py --config config/default.json
-```
-
-Reset all state and generated outputs:
-
-```bash
-python scripts/reset_state.py
-```
-
-## Email configuration
-
-Email is optional.
-
-If these variables are present, the workflow will send the HTML digest email:
-
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `EMAIL_TO`
-
-Optional:
-
-- `OPENAI_API_KEY`
-- `ARXIV_CONTACT_EMAIL`
-
-### GitHub Actions secrets
-
-In GitHub repository settings, add:
-
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `EMAIL_TO`
-- `OPENAI_API_KEY`
-- `ARXIV_CONTACT_EMAIL`
-
-### Local testing without committing secrets
-
-Do not write real credentials into tracked files.
-
-Recommended local test pattern:
-
-PowerShell:
-
-```powershell
-$env:SMTP_HOST="smtp.example.com"
-$env:SMTP_PORT="465"
-$env:SMTP_USER="bot@example.com"
-$env:SMTP_PASS="your-app-password"
-$env:EMAIL_TO="you@example.com"
-$env:ARXIV_CONTACT_EMAIL="you@example.com"
-python scripts/main.py --day 2026-03-10
-```
-
-Git Bash:
-
-```bash
-export SMTP_HOST="smtp.example.com"
-export SMTP_PORT="465"
-export SMTP_USER="bot@example.com"
-export SMTP_PASS="your-app-password"
-export EMAIL_TO="you@example.com"
-export ARXIV_CONTACT_EMAIL="you@example.com"
-python scripts/main.py --day 2026-03-10
-```
-
-After testing, clear them:
-
-PowerShell:
-
-```powershell
-Remove-Item Env:SMTP_HOST,Env:SMTP_PORT,Env:SMTP_USER,Env:SMTP_PASS,Env:EMAIL_TO,Env:ARXIV_CONTACT_EMAIL
-```
-
-Git Bash:
-
-```bash
-unset SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS EMAIL_TO ARXIV_CONTACT_EMAIL
-```
-
-If you later give me test credentials for a local check, I will use them only for the current test and remove them before committing or pushing anything.
-
-## Interactive and extensible points
-
-Current interaction points:
-
-- CLI time-window overrides with `--day`, `--start-date`, `--end-date`, `--start`, `--end`, `--now`
-- CLI config override with `--config`
-- reset script for restarting the pipeline cleanly
-- issue templates and PR template for external collaboration
-
-Natural next interaction layers for future PRs:
-
-- a tiny web UI to edit config
-- a review page to correct categories before publish
-- a highlight selector for editor's picks
-- a setup wizard that creates a new domain config interactively
-
-## GitHub Actions
-
-Workflow:
-
-- `.github/workflows/daily_digest.yml`
-
-It:
-
-- runs daily
-- supports manual trigger
-- installs dependencies
-- generates JSON and Markdown
-- commits generated artifacts back to the repo
-- optionally sends email
-
-## Repository structure
-
-```text
-.github/
-config/
-content/posts/
-data/raw/
-data/processed/
-examples/
-scripts/
-templates/
-README.md
-CONTRIBUTING.md
-LICENSE
-requirements.txt
-```
-
-## Good first PRs
-
-- add a setup wizard that generates a new config from prompts
-- add a small front-end preview for a generated digest
-- support multiple output themes
-- add RSS fallback when API throttling is severe
-- add classifier regression tests
-- add configurable highlight heuristics
-- add per-domain example configs under `config/examples/`
-
-## Current limitations
-
-- classification remains heuristic
-- LLM-free summaries are still weaker than LLM-assisted summaries
-- templates are intentionally simple
-- there is not yet a true interactive UI
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+</div>

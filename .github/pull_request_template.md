@@ -1,12 +1,28 @@
-## Summary
+## 📋 变更说明
 
-- what changed
-- why it changed
+描述本次 PR 的主要变更内容
 
-## Testing
+## 🎯 变更类型
 
-- how it was validated
+- [ ] 🐛 Bug 修复
+- [ ] ✨ 新功能
+- [ ] 📝 文档更新
+- [ ] 🎨 样式优化
+- [ ] ♻️ 代码重构
+- [ ] ⚡ 性能优化
+- [ ] 🔧 配置变更
 
-## Risks
+## ✅ 测试验证
 
-- any classification, rendering, or operational risk introduced
+- [ ] 本地测试通过
+- [ ] GitHub Actions 测试通过
+- [ ] 分类准确性验证
+- [ ] 输出格式检查
+
+## 📸 效果对比
+
+如果是样式或模板变更，请提供前后对比截图
+
+## ⚠️ 注意事项
+
+是否有需要特别注意的兼容性或配置问题
