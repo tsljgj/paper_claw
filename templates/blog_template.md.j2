@@ -1,0 +1,39 @@
+# arXiv 音频语音日报 {{ window.end[:10] }}
+
+## 今日速览
+
+- 时间窗口：北京时间 {{ window.start_display }} -> {{ window.end_display }}
+- 论文总数：{{ summary.total }}
+{% for category, count in summary.counts.items() %}
+- {{ category }}：{{ count }}
+{% endfor %}
+
+{{ summary.headline }}
+
+{{ summary.trend }}
+
+{% for category, items in grouped.items() %}
+## {{ category }}
+
+{% if items %}
+{% for paper in items %}
+### {{ loop.index }}. {{ paper.title_en }}
+
+- Authors: {{ paper.authors | join(", ") if paper.authors else "Unknown" }}
+{% if paper.affiliations %}
+- Affiliations: {{ paper.affiliations | join("; ") }}
+{% endif %}
+- Abstract (EN): {{ paper.abstract_en }}
+- arXiv: {{ paper.arxiv_url }}
+
+**综合评价**
+
+- 总结：{{ paper.review.summary_zh }}
+- 可读性分析：{{ paper.review.readability_zh }}
+
+{% endfor %}
+{% else %}
+今日该分类暂无新论文。
+
+{% endif %}
+{% endfor %}

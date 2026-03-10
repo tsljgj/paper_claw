@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>arXiv 音频语音日报 {{ window.end[:10] }}</title>
+</head>
+<body style="font-family: Arial, sans-serif; color: #222; line-height: 1.6;">
+  <h2>arXiv 音频语音日报 {{ window.end[:10] }}</h2>
+  <p>{{ summary.headline }}</p>
+  <p>{{ summary.trend }}</p>
+  <ul>
+  {% for category, count in summary.counts.items() %}
+    <li>{{ category }}: {{ count }}</li>
+  {% endfor %}
+  </ul>
+  {% for category, items in grouped.items() %}
+    <h3>{{ category }}</h3>
+    {% if items %}
+      {% for paper in items[:2] %}
+        <p>
+          <strong>{{ paper.title_en }}</strong><br>
+          {{ paper.authors | join(", ") if paper.authors else "Unknown" }}<br>
+          {{ paper.review.summary_zh }}<br>
+          <a href="{{ paper.arxiv_url }}">{{ paper.arxiv_url }}</a>
+        </p>
+      {% endfor %}
+    {% else %}
+      <p>暂无新论文。</p>
+    {% endif %}
+  {% endfor %}
+  <p>完整日报：{{ markdown_path }}</p>
+</body>
+</html>

@@ -1,0 +1,279 @@
+{
+  "window": {
+    "start": "2026-03-09T09:00:00+08:00",
+    "end": "2026-03-10T09:00:00+08:00"
+  },
+  "fetched_count": 17,
+  "deduplicated_count": 13,
+  "new_count": 13,
+  "papers": [
+    {
+      "arxiv_id": "2603.08126v1",
+      "title_en": "Foley-Flow: Coordinated Video-to-Audio Generation with Masked Audio-Visual Alignment and Dynamic Conditional Flows",
+      "abstract_en": "Coordinated audio generation based on video inputs typically requires a strict audio-visual (AV) alignment, where both semantics and rhythmics of the generated audio segments shall correspond to those in the video frames. Previous studies leverage a two-stage design where the AV encoders are firstly aligned via contrastive learning, then the encoded video representations guide the audio generation process. We observe that both contrastive learning and global video guidance are effective in aligning overall AV semantics while limiting temporally rhythmic synchronization. In this work, we propose FoleyFlow to first align unimodal AV encoders via masked modeling training, where the masked audio segments are recovered under the guidance of the corresponding video segments. After training, the AV encoders which are separately pretrained using only unimodal data are aligned with semantic and rhythmic consistency. Then, we develop a dynamic conditional flow for the final audio generation. Built upon the efficient velocity flow generation framework, our dynamic conditional flow utilizes temporally varying video features as the dynamic condition to guide corresponding audio segment generations. To this end, we extract coherent semantic and rhythmic representations during masked AV alignment, and use this representation of video segments to guide audio generation temporally. Our audio results are evaluated on the standard benchmarks and largely surpass existing results under several metrics. The superior performance indicates that FoleyFlow is effective in generating coordinated audios that are both semantically and rhythmically coherent to various video sequences.",
+      "authors": [
+        "Shentong Mo",
+        "Yibing Song"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08126v1",
+      "primary_category": "cs.CV",
+      "source_categories": [
+        "cs.AI",
+        "cs.CV",
+        "cs.LG",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-03-09T09:06:25Z",
+      "updated": "2026-03-09T09:06:25Z"
+    },
+    {
+      "arxiv_id": "2603.08154v1",
+      "title_en": "Soundscapes in Spectrograms: Pioneering Multilabel Classification for South Asian Sounds",
+      "abstract_en": "Environmental sound classification is a field of growing importance for urban monitoring and cultural soundscape analysis, especially within the acoustically rich environments of South Asia. These regions present a unique challenge as multiple natural, human, and cultural sounds often overlap, straining traditional methods that frequently rely on Mel Frequency Cepstral Coefficients (MFCC). This study introduces a novel spectrogram-based methodology with a superior ability to capture these complex auditory patterns. A Convolutional Neural Network (CNN) architecture is implemented to solve a demanding multilabel, multiclass classification problem on the SAS-KIIT dataset. To demonstrate robustness and comparability, the approach is also validated using the renowned UrbanSound8K dataset. The results confirm that the proposed spectrogram-based method significantly outperforms existing MFCC-based techniques, achieving higher classification accuracy across both datasets. This improvement lays the groundwork for more robust and accurate audio classification systems in real-world applications.",
+      "authors": [
+        "Sudip Chakrabarty",
+        "Pappu Bishwas",
+        "Rajdeep Chatterjee",
+        "Tathagata Bandyopadhyay",
+        "Digonto Biswas",
+        "Bibek Howlader"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08154v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.MM",
+        "cs.SD"
+      ],
+      "published": "2026-03-09T09:36:12Z",
+      "updated": "2026-03-09T09:36:12Z"
+    },
+    {
+      "arxiv_id": "2603.08173v1",
+      "title_en": "Evolution Strategy-Based Calibration for Low-Bit Quantization of Speech Models",
+      "abstract_en": "Quantization has become essential for the efficient deployment of speech processing systems. Although widely studied, most existing quantization methods were developed for vision and NLP architectures, while the specific challenges of audio signals remain largely overlooked. In particular, we show that audio activations can exhibit large calibration ranges, leading to significant information loss when standard calibration techniques are applied. To address this, we propose ESC, an Evolution Strategy-based Calibration method that formulates activation scaling as an optimization problem and solves it using a two-step local-global scheme driven by an evolution strategy. ESC enables unaltered performance under full INT8 quantization and is the first calibration method to achieve near-lossless performance for full INT4 quantization across multiple speech tasks. Integrating ESC with PTQ methods further reduces performance loss, achieving a 1% relative accuracy degradation on the AST model.",
+      "authors": [
+        "Lucas Rakotoarivony"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08173v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.SD"
+      ],
+      "published": "2026-03-09T09:53:05Z",
+      "updated": "2026-03-09T09:53:05Z"
+    },
+    {
+      "arxiv_id": "2603.08179v1",
+      "title_en": "Privacy-Preserving End-to-End Full-Duplex Speech Dialogue Models",
+      "abstract_en": "End-to-end full-duplex speech models feed user audio through an always-on LLM backbone, yet the speaker privacy implications of their hidden representations remain unexamined. Following the VoicePrivacy 2024 protocol with a lazy-informed attacker, we show that the hidden states of SALM-Duplex and Moshi leak substantial speaker identity across all transformer layers. Layer-wise and turn-wise analyses reveal that leakage persists across all layers, with SALM-Duplex showing stronger leakage in early layers while Moshi leaks uniformly, and that Linkability rises sharply within the first few turns. We propose two streaming anonymization setups using Stream-Voice-Anon: a waveform-level front-end (Anon-W2W) and a feature-domain replacement (Anon-W2F). Anon-W2F raises EER by over 3.5x relative to the discrete encoder baseline (11.2% to 41.0%), approaching the 50% random-chance ceiling, while Anon-W2W retains 78-93% of baseline sBERT across setups with sub-second response latency (FRL under 0.8 s).",
+      "authors": [
+        "Nikita Kuzmin",
+        "Tao Zhong",
+        "Jiajun Deng",
+        "Yingke Zhu",
+        "Tristan Tsoi",
+        "Tianxiang Cao",
+        "Simon Lui",
+        "Kong Aik Lee",
+        "Eng Siong Chng"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08179v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "cs.AI",
+        "eess.AS",
+        "eess.SP"
+      ],
+      "published": "2026-03-09T10:01:24Z",
+      "updated": "2026-03-09T10:01:24Z"
+    },
+    {
+      "arxiv_id": "2603.08216v1",
+      "title_en": "DualTurn: Learning Turn-Taking from Dual-Channel Generative Speech Pretraining",
+      "abstract_en": "Speech-to-speech models handle turn-taking naturally but offer limited support for tool-calling or complex reasoning, while production ASR-LLM-TTS voice pipelines offer these capabilities but rely on silence timeouts, which lead to unnatural turn-taking. We present DualTurn, which narrows this gap through generative pretraining on dual-channel conversational audio. The model generates both speakers' future audio autoregressively, implicitly learning conversational dynamics without any labels, and is then fine-tuned to predict interpretable turn-taking signals that map directly to agent actions. DualTurn monitors both channels continuously, anticipating turn boundaries and producing five agent actions. On standard benchmarks, DualTurn (0.5B) outperforms both VAP on agent action prediction (wF1 0.633 vs. 0.389) and a 3.1B audio-text model on word-level turn prediction (AUC 0.930 vs. 0.880), while anticipating turn boundaries earlier with fewer interruptions.",
+      "authors": [
+        "Shangeth Rajaa"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08216v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "cs.CL",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-03-09T10:48:37Z",
+      "updated": "2026-03-09T10:48:37Z"
+    },
+    {
+      "arxiv_id": "2603.08230v1",
+      "title_en": "Disentangling Reasoning in Large Audio-Language Models for Ambiguous Emotion Prediction",
+      "abstract_en": "Speech emotion recognition plays an important role in various applications. However, most existing approaches predict a single emotion label, oversimplifying the inherently ambiguous nature of human emotional expression. Recent large audio-language models show promise in generating richer outputs, but their reasoning ability for ambiguous emotional understanding remains limited. In this work, we reformulate ambiguous emotion recognition as a distributional reasoning problem and present the first systematic study of ambiguity-aware reasoning in LALMs. Our framework comprises two complementary components: an ambiguity-aware objective that aligns predictions with human perceptual distributions, and a structured ambiguity-aware chain-of-thought supervision that guides reasoning over emotional cues. Experiments on IEMOCAP and CREMA-D demonstrate consistent improvements across SFT, DPO, and GRPO training strategies.",
+      "authors": [
+        "Xiaofeng Yu",
+        "Jiaheng Dong",
+        "Jean Honorio",
+        "Abhirup Ghosh",
+        "Hong Jia",
+        "Ting Dang"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08230v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-03-09T11:02:34Z",
+      "updated": "2026-03-09T11:02:34Z"
+    },
+    {
+      "arxiv_id": "2603.08231v1",
+      "title_en": "Quantifying Cross-Lingual Transfer in Paralinguistic Speech Tasks",
+      "abstract_en": "Paralinguistic speech tasks are often considered relatively language-agnostic, as they rely on extralinguistic acoustic cues rather than lexical content. However, prior studies report performance degradation under cross-lingual conditions, indicating non-negligible language dependence. Still, these studies typically focus on isolated language pairs or task-specific settings, limiting comparability and preventing a systematic assessment of task-level language dependence. We introduce the Cross-Lingual Transfer Matrix (CLTM), a systematic method to quantify cross-lingual interactions between pairs of languages within a given task. We apply the CLTM to two paralinguistic tasks, gender identification and speaker verification, using a multilingual HuBERT-based encoder, to analyze how donor-language data affects target-language performance during fine-tuning. Our results reveal distinct transfer patterns across tasks and languages, reflecting systematic, language-dependent effects.",
+      "authors": [
+        "Pol Buitrago",
+        "Oriol Pareras",
+        "Federico Costa",
+        "Javier Hernando"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08231v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "cs.CL",
+        "eess.AS"
+      ],
+      "published": "2026-03-09T11:02:57Z",
+      "updated": "2026-03-09T11:02:57Z"
+    },
+    {
+      "arxiv_id": "2603.08249v1",
+      "title_en": "Bootstrapping Audiovisual Speech Recognition in Zero-AV-Resource Scenarios with Synthetic Visual Data",
+      "abstract_en": "Audiovisual speech recognition (AVSR) combines acoustic and visual cues to improve transcription robustness under challenging conditions but remains out of reach for most under-resourced languages due to the lack of labeled video corpora for training. We propose a zero-AV-resource AVSR framework that relies on synthetic visual streams generated by lip-syncing static facial images with real audio. We first evaluate synthetic visual augmentation on Spanish benchmarks, then apply it to Catalan, a language with no annotated audiovisual corpora. We synthesize over 700 hours of talking-head video and fine-tune a pre-trained AV-HuBERT model. On a manually annotated Catalan benchmark, our model achieves near state-of-the-art performance with much fewer parameters and training data, outperforms an identically trained audio-only baseline, and preserves multimodal advantages in noise. Scalable synthetic video thus offers a viable substitute for real recordings in zero-AV-resource AVSR.",
+      "authors": [
+        "Pol Buitrago",
+        "Pol Gàlvez",
+        "Oriol Pareras",
+        "Javier Hernando"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08249v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "cs.CL",
+        "eess.AS",
+        "eess.IV"
+      ],
+      "published": "2026-03-09T11:22:24Z",
+      "updated": "2026-03-09T11:22:24Z"
+    },
+    {
+      "arxiv_id": "2603.08359v1",
+      "title_en": "Computational modeling of early language learning from acoustic speech and audiovisual input without linguistic priors",
+      "abstract_en": "Learning to understand speech appears almost effortless for typically developing infants, yet from an information-processing perspective, acquiring a language from acoustic speech is an enormous challenge. This chapter reviews recent developments in using computational models to understand early language acquisition from speech and audiovisual input. The focus is on self-supervised and visually grounded models of perceptual learning. We show how these models are becoming increasingly powerful in learning various aspects of speech without strong linguistic priors, and how many features of early language development can be explained through a shared set of learning principles-principles broadly compatible with multiple theories of language acquisition and human cognition. We also discuss how modern learning simulations are gradually becoming more realistic, both in terms of input data and in linking model behavior to empirical findings on infant language development.",
+      "authors": [
+        "Okko Räsänen"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08359v1",
+      "primary_category": "cs.CL",
+      "source_categories": [
+        "cs.AI",
+        "cs.CL",
+        "eess.AS"
+      ],
+      "published": "2026-03-09T13:24:03Z",
+      "updated": "2026-03-09T13:24:03Z"
+    },
+    {
+      "arxiv_id": "2603.08397v1",
+      "title_en": "NLE: Non-autoregressive LLM-based ASR by Transcript Editing",
+      "abstract_en": "While autoregressive (AR) LLM-based ASR systems achieve strong accuracy, their sequential decoding limits parallelism and incurs high latency. We propose NLE, a non-autoregressive (NAR) approach that formulates speech recognition as conditional transcript editing, enabling fully parallel prediction. NLE extracts acoustic embeddings and an initial hypothesis from a pretrained speech encoder, then refines the hypothesis using a bidirectional LLM editor trained with a latent alignment objective. An interleaved padding strategy exploits the identity mapping bias of Transformers, allowing the model to focus on corrections rather than full reconstruction. On the Open ASR leaderboard, NLE++ achieves 5.67% average WER with an RTFx (inverse real-time factor) of 1630. In single-utterance scenarios, NLE achieves 27x speedup over the AR baseline, making it suitable for real-time applications.",
+      "authors": [
+        "Avihu Dekel",
+        "Samuel Thomas",
+        "Takashi Fukada",
+        "George Saon"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08397v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "eess.AS"
+      ],
+      "published": "2026-03-09T13:56:52Z",
+      "updated": "2026-03-09T13:56:52Z"
+    },
+    {
+      "arxiv_id": "2603.08571v1",
+      "title_en": "LoopLens: Supporting Search as Creation in Loop-Based Music Composition",
+      "abstract_en": "Creativity support tools (CSTs) typically frame search as information retrieval, yet in practices like electronic dance music production, search serves as a creative medium for collage-style composition. To address this gap, we present LoopLens, a research probe for loop-based music composition that visualizes audio search results to support creative foraging and assembling. We evaluated LoopLens in a within-subject user study with 16 participants of diverse musical domain expertise, performing both open-ended (divergent) and goal-directed (convergent) tasks. Our results reveal a clear behavioral split: participants with domain expertise leveraged multimodal cues to quickly exploit a narrow set of loops, while those without domain knowledge relied primarily on audio impressions, engaging in broad exploration often constrained by limited musical vocabulary for query formulation. This behavioral dichotomy provides a new lens for understanding the balance between exploration and exploitation in creative search and offers clear design implications for supporting vocabulary-independent discovery in future CSTs.",
+      "authors": [
+        "Sheng Long",
+        "Atsuya Kobayashi",
+        "Kei Tateno"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08571v1",
+      "primary_category": "cs.HC",
+      "source_categories": [
+        "cs.HC",
+        "cs.IR",
+        "cs.SD"
+      ],
+      "published": "2026-03-09T16:27:51Z",
+      "updated": "2026-03-09T16:27:51Z"
+    },
+    {
+      "arxiv_id": "2603.08574v1",
+      "title_en": "Scalable Neural Vocoder from Range-Null Space Decomposition",
+      "abstract_en": "Although deep neural networks have facilitated significant progress of neural vocoders in recent years, they usually suffer from intrinsic challenges like opaque modeling, inflexible retraining under different input configurations, and parameter-performance trade-off. These inherent hurdles can heavily impede the development of this field. To resolve these problems, in this paper, we propose a novel neural vocoder in the time-frequency (T-F) domain. Specifically, we bridge the connection between the classical range-null decomposition (RND) theory and the vocoder task, where the reconstruction of the target spectrogram is formulated into the superimposition between range-space and null-space. The former aims to project the representation in the original mel-domain into the target linear-scale domain, and the latter can be instantiated via neural networks to further infill the spectral details. To fully leverage the spectrum prior, an elaborate dual-path framework is devised, where the spectrum is hierarchically encoded and decoded, and the cross- and narrow-band modules are leveraged for effectively modeling along sub-band and time dimensions. To enable inference under various configurations, we propose a simple yet effective strategy, which transforms the multi-condition adaption in the inference stage into the data augmentation in the training stage. Comprehensive experiments are conducted on various benchmarks. Quantitative and qualitative results show that while enjoying lightweight network structure and scalable inference paradigm, the proposed framework achieves state-ofthe-art performance among existing advanced methods. Code is available at https://github.com/Andong-Li-speech/RNDVoC.",
+      "authors": [
+        "Andong Li",
+        "Tong Lei",
+        "Zhihang Sun",
+        "Rilin Chen",
+        "Xiaodong Li",
+        "Dong Yu",
+        "Chengshi Zheng"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08574v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD"
+      ],
+      "published": "2026-03-09T16:29:42Z",
+      "updated": "2026-03-09T16:29:42Z"
+    },
+    {
+      "arxiv_id": "2603.08683v1",
+      "title_en": "Benchmarking Language Modeling for Lossless Compression of Full-Fidelity Audio",
+      "abstract_en": "Autoregressive \"language\" models (LMs) trained on raw waveforms can be repurposed for lossless audio compression, but prior work is limited to 8-bit audio, leaving open whether such approaches work for practical settings (16/24-bit) and can compete with existing codecs. We benchmark LM-based compression on full-fidelity audio across diverse domains (music, speech, bioacoustics), sampling rates (16kHz-48kHz), and bit depths (8, 16, 24-bit). Standard sample-level tokenization becomes intractable at higher bit depths due to vocabulary size (65K for 16-bit; 16.7M for 24-bit). We propose Trilobyte, a byte-level tokenization schema for full resolution audio, improving vocabulary scaling from $O(2^{b})$ to $O(1)$ and enabling the first tractable 24-bit LM-based lossless compression. While LMs consistently outperform FLAC and yield state-of-the-art compression at 8-bit and 16-bit, we observe that compression gains become more modest as bit depth increases beyond 8-bit.",
+      "authors": [
+        "Phillip Long",
+        "Zachary Novack",
+        "Chris Donahue"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.08683v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-03-09T17:52:02Z",
+      "updated": "2026-03-09T17:52:02Z"
+    }
+  ]
+}
