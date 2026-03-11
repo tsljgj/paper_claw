@@ -24,8 +24,16 @@
     .header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      padding: 40px 30px;
+      padding: 30px;
       text-align: center;
+    }
+    .header img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      background: white;
+      padding: 8px;
     }
     .header h1 {
       font-size: 28px;
@@ -35,6 +43,32 @@
     .header .date {
       font-size: 16px;
       opacity: 0.9;
+    }
+    .header .github-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .header .github-link:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .notice-box {
+      background: #e7f3ff;
+      border-left: 4px solid #2196F3;
+      padding: 15px 20px;
+      margin: 20px 30px;
+      border-radius: 8px;
+    }
+    .notice-box p {
+      color: #1976D2;
+      font-size: 14px;
+      margin: 0;
     }
     .summary {
       padding: 30px;
@@ -261,22 +295,58 @@
       color: #667eea;
       text-decoration: none;
     }
+    .attachment-notice {
+      background: #fff3e0;
+      border: 2px dashed #ff9800;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 30px;
+      text-align: center;
+    }
+    .attachment-notice h4 {
+      color: #e65100;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .attachment-notice p {
+      color: #f57c00;
+      font-size: 14px;
+      margin: 0;
+    }
     @media (max-width: 600px) {
       body { padding: 10px; }
-      .header { padding: 30px 20px; }
+      .header { padding: 20px; }
+      .header img { width: 60px; height: 60px; }
       .summary, .content { padding: 20px; }
       .stats-grid { grid-template-columns: 1fr; }
       .paper-header { flex-direction: column; }
       .paper-meta { padding-left: 0; }
+      .notice-box, .attachment-notice { margin: 15px 20px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
+    <!-- Header with Logo -->
     <div class="header">
+      <img src="https://raw.githubusercontent.com/PigeonDan1/paper_claw/main/assets/logo_icon.png" alt="Article Claw Logo">
       <h1>📰 {{ project.title }}</h1>
       <div class="date">{{ window.end[:10] }}</div>
+      <a href="https://github.com/PigeonDan1/paper_claw" class="github-link" target="_blank">
+        ⭐ Star us on GitHub
+      </a>
+    </div>
+
+    <!-- Attachment Notice -->
+    <div class="attachment-notice">
+      <h4>📎 完整日报附件</h4>
+      <p>此邮件包含 {{ summary.total }} 篇论文的完整信息。<br>
+      详细内容请查看邮件附件中的 Markdown 文件。</p>
+    </div>
+
+    <!-- Notice Box -->
+    <div class="notice-box">
+      <p>💡 <strong>提示：</strong>这是一个自动生成的研究日报。如需自定义分类、更换语言或配置其他功能，请访问我们的 <a href="https://github.com/PigeonDan1/paper_claw" target="_blank" style="color: #1976D2; text-decoration: underline;">GitHub 仓库</a> 获取完整文档。</p>
     </div>
 
     <!-- Summary -->
@@ -304,15 +374,14 @@
       {% endif %}
     </div>
 
-    <!-- Content -->
+    <!-- Content Preview (First 3 papers) -->
     <div class="content">
-      <!-- Table of Contents -->
       <div class="toc">
-        <h3>📑 分类导航</h3>
+        <h3>📑 分类导航（邮件中显示前 3 篇预览）</h3>
         <ul class="toc-list">
           {% for category, items in grouped.items() %}
           <li class="toc-item">
-            <a href="#cat-{{ loop.index }}" class="toc-link">{{ category }}</a>
+            <span class="toc-link">{{ category }}</span>
             <span class="toc-count">{{ items | length }} 篇</span>
           </li>
           {% endfor %}
@@ -320,14 +389,15 @@
       </div>
 
       {% for category, items in grouped.items() %}
-      <div class="category-section" id="cat-{{ loop.index }}">
+      <div class="category-section">
         <h3 class="category-title">
           🏷️ {{ category }}
           <span class="paper-count">{{ items | length }} 篇</span>
         </h3>
         
         {% if items %}
-          {% for paper in items %}
+          {# Show only first 3 papers in email body #}
+          {% for paper in items[:3] %}
           <div class="paper-card">
             <div class="paper-header">
               <span class="paper-index">{{ loop.index }}</span>
@@ -336,28 +406,29 @@
             
             <div class="paper-meta">
               {% if paper.authors %}👤 {{ paper.authors | join(", ") }}{% endif %}
-              {% if paper.affiliations %}<br>🏢 {{ paper.affiliations | join("; ") }}{% endif %}
             </div>
             
             <div class="paper-abstract">
               <span class="abstract-label">📝 英文摘要</span>
-              {{ paper.abstract_en }}
+              {{ paper.abstract_en[:300] }}{% if paper.abstract_en | length > 300 %}...{% endif %}
             </div>
             
             <div class="review-box">
               <div class="review-item">
                 <span class="review-label">🇨🇳 中文总结</span>
-                <span class="review-content">{{ paper.review.summary_zh }}</span>
-              </div>
-              <div class="review-item">
-                <span class="review-label">📖 可读性</span>
-                <span class="review-content">{{ paper.review.readability_zh }}</span>
+                <span class="review-content">{{ paper.review.summary }}</span>
               </div>
             </div>
             
             <a href="{{ paper.arxiv_url }}" class="arxiv-link">🔗 查看原文 →</a>
           </div>
           {% endfor %}
+          
+          {% if items | length > 3 %}
+          <p style="text-align: center; color: #6c757d; font-size: 14px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+            📎 还有 {{ items | length - 3 }} 篇论文，请查看邮件附件
+          </p>
+          {% endif %}
         {% else %}
           <div class="empty-notice">📭 今日该分类暂无新论文</div>
         {% endif %}
@@ -367,9 +438,9 @@
 
     <!-- Footer -->
     <div class="footer">
-      <p>Generated by <a href="#">Article Claw</a> · {{ window.end[:10] }}</p>
+      <p>Generated by <a href="https://github.com/PigeonDan1/paper_claw" target="_blank">Article Claw</a> · {{ window.end[:10] }}</p>
       <p style="margin-top: 5px; font-size: 12px;">
-        📧 此邮件包含 {{ summary.total }} 篇论文的完整信息
+        📎 完整日报请查看邮件附件 | ⭐ <a href="https://github.com/PigeonDan1/paper_claw" target="_blank">GitHub 仓库</a>
       </p>
     </div>
   </div>

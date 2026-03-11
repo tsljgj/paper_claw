@@ -1,7 +1,11 @@
+"""
+Email sending module with attachment support for full digest.
+"""
 import json
 import logging
 import os
 import smtplib
+from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -31,7 +35,15 @@ def email_enabled() -> bool:
     return all(os.getenv(item) for item in required)
 
 
-def send_html_email(subject: str, html_body: str) -> None:
+def send_html_email(subject: str, html_body: str, attachment_path: Path = None) -> None:
+    """
+    Send HTML email with optional attachment.
+    
+    Args:
+        subject: Email subject
+        html_body: HTML content
+        attachment_path: Path to file attachment (e.g., Markdown digest)
+    """
     if not email_enabled():
         logging.info("SMTP secrets not fully configured; skipping email.")
         return
@@ -54,14 +66,35 @@ def send_html_email(subject: str, html_body: str) -> None:
         logging.warning("No recipients configured; skipping email.")
         return
 
-    message = MIMEMultipart("alternative")
+    # Create multipart message
+    message = MIMEMultipart("mixed")
     message["Subject"] = subject
     message["From"] = user
     message["To"] = ", ".join(recipients)
-    message.attach(MIMEText(html_body, "html", "utf-8"))
+    
+    # Add HTML part
+    html_part = MIMEMultipart("alternative")
+    html_part.attach(MIMEText(html_body, "html", "utf-8"))
+    message.attach(html_part)
+    
+    # Add attachment if provided
+    if attachment_path and attachment_path.exists():
+        try:
+            with open(attachment_path, "rb") as f:
+                attachment = MIMEApplication(f.read())
+                attachment.add_header(
+                    "Content-Disposition",
+                    f"attachment; filename=\"{attachment_path.name}\""
+                )
+                message.attach(attachment)
+                logging.info("Attached file: %s", attachment_path.name)
+        except Exception as e:
+            logging.warning("Failed to attach file %s: %s", attachment_path, e)
+    elif attachment_path:
+        logging.warning("Attachment file not found: %s", attachment_path)
 
     logging.info("Sending digest email to %s recipient(s): %s", len(recipients), ", ".join(recipients))
     with smtplib.SMTP_SSL(host, port, timeout=30) as server:
         server.login(user, password)
         server.sendmail(user, recipients, message.as_string())
-    logging.info("Email sent successfully.")
+    logging.info("Email sent successfully with attachment.")
