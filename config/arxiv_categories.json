@@ -1,0 +1,250 @@
+{
+  "_comment": "Complete arXiv subject categories. Select categories by adding them to sources.arxiv.categories in default.json",
+  "major_categories": [
+    {
+      "code": "cs",
+      "name": "Computer Science",
+      "url": "https://arxiv.org/list/cs/recent",
+      "subcategories": [
+        {"code": "cs.AI", "name": "Artificial Intelligence", "description": "All areas of AI"},
+        {"code": "cs.AR", "name": "Hardware Architecture", "description": "Systems organization and hardware"},
+        {"code": "cs.CC", "name": "Computational Complexity", "description": "Models of computation, complexity classes"},
+        {"code": "cs.CE", "name": "Computational Engineering, Finance, and Science", "description": "Scientific and engineering computing"},
+        {"code": "cs.CG", "name": "Computational Geometry", "description": "Geometric algorithms and data structures"},
+        {"code": "cs.CL", "name": "Computation and Language", "description": "Natural language processing, computational linguistics"},
+        {"code": "cs.CR", "name": "Cryptography and Security", "description": "Cryptography, security and privacy"},
+        {"code": "cs.CV", "name": "Computer Vision and Pattern Recognition", "description": "Image processing, computer vision, scene understanding"},
+        {"code": "cs.CY", "name": "Computers and Society", "description": "Social implications of computers, ethics, education"},
+        {"code": "cs.DB", "name": "Databases", "description": "Database management, data models, query languages"},
+        {"code": "cs.DC", "name": "Distributed, Parallel, and Cluster Computing", "description": "Distributed systems, parallel computing"},
+        {"code": "cs.DL", "name": "Digital Libraries", "description": "Digital libraries, archives, metadata"},
+        {"code": "cs.DM", "name": "Discrete Mathematics", "description": "Combinatorics, graph theory, discrete structures"},
+        {"code": "cs.DS", "name": "Data Structures and Algorithms", "description": "Algorithm design and analysis"},
+        {"code": "cs.ET", "name": "Emerging Technologies", "description": "Quantum computing, biocomputing, novel devices"},
+        {"code": "cs.FL", "name": "Formal Languages and Automata Theory", "description": "Automata, grammars, formal languages"},
+        {"code": "cs.GL", "name": "General Literature", "description": "Surveys, introductory material, biographies"},
+        {"code": "cs.GR", "name": "Graphics", "description": "Computer graphics, rendering, visualization"},
+        {"code": "cs.GT", "name": "Computer Science and Game Theory", "description": "Algorithmic game theory, mechanism design"},
+        {"code": "cs.HC", "name": "Human-Computer Interaction", "description": "User interfaces, usability, interaction design"},
+        {"code": "cs.IR", "name": "Information Retrieval", "description": "Search, recommendation, text mining"},
+        {"code": "cs.IT", "name": "Information Theory", "description": "Coding theory, Shannon theory, communications"},
+        {"code": "cs.LG", "name": "Machine Learning", "description": "Machine learning, statistical learning, deep learning"},
+        {"code": "cs.LO", "name": "Logic in Computer Science", "description": "Formal logic, verification, proof theory"},
+        {"code": "cs.MA", "name": "Multiagent Systems", "description": "Distributed AI, intelligent agents, coordination"},
+        {"code": "cs.MM", "name": "Multimedia", "description": "Multimedia systems, streaming, content analysis"},
+        {"code": "cs.MS", "name": "Mathematical Software", "description": "Software for mathematical computation"},
+        {"code": "cs.NA", "name": "Numerical Analysis", "description": "Numerical algorithms, scientific computing"},
+        {"code": "cs.NE", "name": "Neural and Evolutionary Computing", "description": "Neural networks, genetic algorithms, evolutionary methods"},
+        {"code": "cs.NI", "name": "Networking and Internet Architecture", "description": "Networks, protocols, Internet architecture"},
+        {"code": "cs.OH", "name": "Other Computer Science", "description": "Miscellaneous computer science"},
+        {"code": "cs.OS", "name": "Operating Systems", "description": "OS design, kernels, distributed systems"},
+        {"code": "cs.PF", "name": "Performance", "description": "Performance evaluation, modeling, simulation"},
+        {"code": "cs.PL", "name": "Programming Languages", "description": "Language design, type theory, compilers"},
+        {"code": "cs.RO", "name": "Robotics", "description": "Robotics, autonomous systems, motion planning"},
+        {"code": "cs.SC", "name": "Symbolic Computation", "description": "Computer algebra, algebraic algorithms"},
+        {"code": "cs.SD", "name": "Sound", "description": "Audio processing, music computing, sonification"},
+        {"code": "cs.SE", "name": "Software Engineering", "description": "Software design, testing, maintenance"},
+        {"code": "cs.SI", "name": "Social and Information Networks", "description": "Network analysis, social networks, web graphs"},
+        {"code": "cs.SY", "name": "Systems and Control", "description": "Control theory, dynamical systems, automation"}
+      ]
+    },
+    {
+      "code": "eess",
+      "name": "Electrical Engineering and Systems Science",
+      "url": "https://arxiv.org/list/eess/recent",
+      "subcategories": [
+        {"code": "eess.AS", "name": "Audio and Speech Processing", "description": "Speech recognition, audio analysis, music processing"},
+        {"code": "eess.IV", "name": "Image and Video Processing", "description": "Image processing, video compression, medical imaging"},
+        {"code": "eess.SP", "name": "Signal Processing", "description": "Digital signal processing, filter design, spectral analysis"},
+        {"code": "eess.SY", "name": "Systems and Control", "description": "Control systems, optimization, dynamical systems"}
+      ]
+    },
+    {
+      "code": "stat",
+      "name": "Statistics",
+      "url": "https://arxiv.org/list/stat/recent",
+      "subcategories": [
+        {"code": "stat.AP", "name": "Applications", "description": "Applied statistics"},
+        {"code": "stat.CO", "name": "Computation", "description": "Statistical computing"},
+        {"code": "stat.ME", "name": "Methodology", "description": "Statistical methodology"},
+        {"code": "stat.ML", "name": "Machine Learning", "description": "Statistical machine learning"},
+        {"code": "stat.OT", "name": "Other Statistics", "description": "Miscellaneous statistics"},
+        {"code": "stat.TH", "name": "Statistics Theory", "description": "Theoretical statistics"}
+      ]
+    },
+    {
+      "code": "math",
+      "name": "Mathematics",
+      "url": "https://arxiv.org/list/math/recent",
+      "subcategories": [
+        {"code": "math.AC", "name": "Commutative Algebra", "description": "Commutative rings and algebras"},
+        {"code": "math.AG", "name": "Algebraic Geometry", "description": "Algebraic varieties, schemes"},
+        {"code": "math.AP", "name": "Analysis of PDEs", "description": "Partial differential equations"},
+        {"code": "math.AT", "name": "Algebraic Topology", "description": "Homology, homotopy, K-theory"},
+        {"code": "math.CA", "name": "Classical Analysis and ODEs", "description": "Real and complex analysis"},
+        {"code": "math.CO", "name": "Combinatorics", "description": "Enumerative combinatorics, graph theory"},
+        {"code": "math.CT", "name": "Category Theory", "description": "Categories, functors, natural transformations"},
+        {"code": "math.CV", "name": "Complex Variables", "description": "Several complex variables, complex geometry"},
+        {"code": "math.DG", "name": "Differential Geometry", "description": "Riemannian geometry, symplectic geometry"},
+        {"code": "math.DS", "name": "Dynamical Systems", "description": "Ergodic theory, chaotic dynamics"},
+        {"code": "math.FA", "name": "Functional Analysis", "description": "Banach spaces, operator theory"},
+        {"code": "math.GM", "name": "General Mathematics", "description": "General mathematical topics"},
+        {"code": "math.GN", "name": "General Topology", "description": "Point-set topology"},
+        {"code": "math.GR", "name": "Group Theory", "description": "Finite groups, representation theory"},
+        {"code": "math.GT", "name": "Geometric Topology", "description": "Low-dimensional topology, knot theory"},
+        {"code": "math.HO", "name": "History and Overview", "description": "History of mathematics"},
+        {"code": "math.IT", "name": "Information Theory", "description": "Coding theory, Shannon theory"},
+        {"code": "math.KT", "name": "K-Theory and Homology", "description": "Algebraic K-theory"},
+        {"code": "math.LO", "name": "Logic", "description": "Mathematical logic, set theory"},
+        {"code": "math.MG", "name": "Metric Geometry", "description": "Convex geometry, discrete geometry"},
+        {"code": "math.MP", "name": "Mathematical Physics", "description": "Quantum theory, statistical mechanics"},
+        {"code": "math.NA", "name": "Numerical Analysis", "description": "Numerical algorithms"},
+        {"code": "math.NT", "name": "Number Theory", "description": "Algebraic number theory, analytic number theory"},
+        {"code": "math.OA", "name": "Operator Algebras", "description": "C*-algebras, von Neumann algebras"},
+        {"code": "math.OC", "name": "Optimization and Control", "description": "Operations research, optimization"},
+        {"code": "math.PR", "name": "Probability", "description": "Probability theory, stochastic processes"},
+        {"code": "math.QA", "name": "Quantum Algebra", "description": "Quantum groups, noncommutative geometry"},
+        {"code": "math.RA", "name": "Rings and Algebras", "description": "Associative rings, noncommutative algebra"},
+        {"code": "math.RT", "name": "Representation Theory", "description": "Representation of groups and algebras"},
+        {"code": "math.SG", "name": "Symplectic Geometry", "description": "Symplectic manifolds, Hamiltonian systems"},
+        {"code": "math.SP", "name": "Spectral Theory", "description": "Linear operators, eigenvalue problems"},
+        {"code": "math.ST", "name": "Statistics Theory", "description": "Theoretical statistics"}
+      ]
+    },
+    {
+      "code": "physics",
+      "name": "Physics",
+      "url": "https://arxiv.org/list/physics/recent",
+      "subcategories": [
+        {"code": "physics.acc-ph", "name": "Accelerator Physics", "description": "Particle accelerators and beams"},
+        {"code": "physics.ao-ph", "name": "Atmospheric and Oceanic Physics", "description": "Atmosphere, ocean, climate"},
+        {"code": "physics.app-ph", "name": "Applied Physics", "description": "Applications of physics"},
+        {"code": "physics.atm-clus", "name": "Atomic and Molecular Clusters", "description": "Clusters, nanoparticles"},
+        {"code": "physics.atom-ph", "name": "Atomic Physics", "description": "Atomic structure, spectroscopy"},
+        {"code": "physics.bio-ph", "name": "Biological Physics", "description": "Biophysics, biomechanics"},
+        {"code": "physics.chem-ph", "name": "Chemical Physics", "description": "Physical chemistry"},
+        {"code": "physics.class-ph", "name": "Classical Physics", "description": "Classical mechanics, thermodynamics"},
+        {"code": "physics.comp-ph", "name": "Computational Physics", "description": "Numerical methods in physics"},
+        {"code": "physics.data-an", "name": "Data Analysis, Statistics and Probability", "description": "Data analysis in physics"},
+        {"code": "physics.ed-ph", "name": "Physics Education", "description": "Physics teaching and learning"},
+        {"code": "physics.flu-dyn", "name": "Fluid Dynamics", "description": "Fluid mechanics, turbulence"},
+        {"code": "physics.gen-ph", "name": "General Physics", "description": "General physics topics"},
+        {"code": "physics.geo-ph", "name": "Geophysics", "description": "Solid earth geophysics"},
+        {"code": "physics.hist-ph", "name": "History and Philosophy of Physics", "description": "History, philosophy of physics"},
+        {"code": "physics.ins-det", "name": "Instrumentation and Detectors", "description": "Experimental apparatus, detectors"},
+        {"code": "physics.med-ph", "name": "Medical Physics", "description": "Medical imaging, radiation therapy"},
+        {"code": "physics.optics", "name": "Optics", "description": "Optical physics, lasers"},
+        {"code": "physics.plasm-ph", "name": "Plasma Physics", "description": "Plasma, fusion"},
+        {"code": "physics.pop-ph", "name": "Popular Physics", "description": "Physics outreach"},
+        {"code": "physics.soc-ph", "name": "Physics and Society", "description": "Social aspects of physics"},
+        {"code": "physics.space-ph", "name": "Space Physics", "description": "Space, planetary physics"}
+      ]
+    },
+    {
+      "code": "q-bio",
+      "name": "Quantitative Biology",
+      "url": "https://arxiv.org/list/q-bio/recent",
+      "subcategories": [
+        {"code": "q-bio.BM", "name": "Biomolecules", "description": "Molecular biology"},
+        {"code": "q-bio.CB", "name": "Cell Behavior", "description": "Cellular processes"},
+        {"code": "q-bio.GN", "name": "Genomics", "description": "Genome analysis"},
+        {"code": "q-bio.MN", "name": "Molecular Networks", "description": "Biological networks"},
+        {"code": "q-bio.NC", "name": "Neurons and Cognition", "description": "Neuroscience, cognition"},
+        {"code": "q-bio.OT", "name": "Other Quantitative Biology", "description": "Miscellaneous"},
+        {"code": "q-bio.PE", "name": "Populations and Evolution", "description": "Evolutionary biology"},
+        {"code": "q-bio.QM", "name": "Quantitative Methods", "description": "Computational methods"},
+        {"code": "q-bio.SC", "name": "Subcellular Processes", "description": "Intracellular processes"},
+        {"code": "q-bio.TO", "name": "Tissues and Organs", "description": "Organ-level biology"}
+      ]
+    },
+    {
+      "code": "q-fin",
+      "name": "Quantitative Finance",
+      "url": "https://arxiv.org/list/q-fin/recent",
+      "subcategories": [
+        {"code": "q-fin.CP", "name": "Computational Finance", "description": "Numerical methods in finance"},
+        {"code": "q-fin.EC", "name": "Economics", "description": "Financial economics"},
+        {"code": "q-fin.GN", "name": "General Finance", "description": "General finance topics"},
+        {"code": "q-fin.MF", "name": "Mathematical Finance", "description": "Mathematical models in finance"},
+        {"code": "q-fin.PM", "name": "Portfolio Management", "description": "Asset allocation, risk management"},
+        {"code": "q-fin.PR", "name": "Pricing of Securities", "description": "Option pricing, derivatives"},
+        {"code": "q-fin.RM", "name": "Risk Management", "description": "Risk analysis, credit risk"},
+        {"code": "q-fin.ST", "name": "Statistical Finance", "description": "Econophysics, statistical models"},
+        {"code": "q-fin.TR", "name": "Trading and Market Microstructure", "description": "Market microstructure, algorithmic trading"}
+      ]
+    },
+    {
+      "code": "astro-ph",
+      "name": "Astrophysics",
+      "url": "https://arxiv.org/list/astro-ph/recent",
+      "subcategories": [
+        {"code": "astro-ph.CO", "name": "Cosmology and Nongalactic Astrophysics", "description": "Cosmology, early universe"},
+        {"code": "astro-ph.EP", "name": "Earth and Planetary Astrophysics", "description": "Planetary science"},
+        {"code": "astro-ph.GA", "name": "Astrophysics of Galaxies", "description": "Galaxy formation, evolution"},
+        {"code": "astro-ph.HE", "name": "High Energy Astrophysical Phenomena", "description": "Black holes, gamma-ray bursts"},
+        {"code": "astro-ph.IM", "name": "Instrumentation and Methods for Astrophysics", "description": "Telescopes, detectors"},
+        {"code": "astro-ph.SR", "name": "Solar and Stellar Astrophysics", "description": "Stars, stellar evolution"}
+      ]
+    },
+    {
+      "code": "cond-mat",
+      "name": "Condensed Matter",
+      "url": "https://arxiv.org/list/cond-mat/recent",
+      "subcategories": [
+        {"code": "cond-mat.dis-nn", "name": "Disordered Systems and Neural Networks", "description": "Spin glasses, neural networks"},
+        {"code": "cond-mat.mes-hall", "name": "Mesoscale and Nanoscale Physics", "description": "Nanophysics, quantum dots"},
+        {"code": "cond-mat.mtrl-sci", "name": "Materials Science", "description": "Materials, surfaces"},
+        {"code": "cond-mat.other", "name": "Other Condensed Matter", "description": "Miscellaneous"},
+        {"code": "cond-mat.quant-gas", "name": "Quantum Gases", "description": "Bose-Einstein condensation"},
+        {"code": "cond-mat.soft", "name": "Soft Condensed Matter", "description": "Polymers, liquid crystals"},
+        {"code": "cond-mat.stat-mech", "name": "Statistical Mechanics", "description": "Phase transitions, critical phenomena"},
+        {"code": "cond-mat.str-el", "name": "Strongly Correlated Electrons", "description": "Superconductivity, magnetism"},
+        {"code": "cond-mat.supr-con", "name": "Superconductivity", "description": "Superconducting materials"}
+      ]
+    },
+    {
+      "code": "nlin",
+      "name": "Nonlinear Sciences",
+      "url": "https://arxiv.org/list/nlin/recent",
+      "subcategories": [
+        {"code": "nlin.AO", "name": "Adaptation and Self-Organizing Systems", "description": "Self-organization, complex systems"},
+        {"code": "nlin.CD", "name": "Chaotic Dynamics", "description": "Chaos, nonlinear dynamics"},
+        {"code": "nlin.CG", "name": "Cellular Automata and Lattice Gases", "description": "Cellular automata"},
+        {"code": "nlin.PS", "name": "Pattern Formation and Solitons", "description": "Pattern formation, solitons"},
+        {"code": "nlin.SI", "name": "Exactly Solvable and Integrable Systems", "description": "Integrable systems"}
+      ]
+    },
+    {
+      "code": "nucl",
+      "name": "Nuclear",
+      "url": "https://arxiv.org/list/nucl/recent",
+      "subcategories": [
+        {"code": "nucl-ex", "name": "Nuclear Experiment", "description": "Experimental nuclear physics"},
+        {"code": "nucl-th", "name": "Nuclear Theory", "description": "Theoretical nuclear physics"}
+      ]
+    },
+    {
+      "code": "hep",
+      "name": "High Energy Physics",
+      "url": "https://arxiv.org/list/hep/recent",
+      "subcategories": [
+        {"code": "hep-ex", "name": "High Energy Physics - Experiment", "description": "Particle physics experiments"},
+        {"code": "hep-lat", "name": "High Energy Physics - Lattice", "description": "Lattice field theory"},
+        {"code": "hep-ph", "name": "High Energy Physics - Phenomenology", "description": "Phenomenology"},
+        {"code": "hep-th", "name": "High Energy Physics - Theory", "description": "Theoretical particle physics"}
+      ]
+    },
+    {
+      "code": "gr-qc",
+      "name": "General Relativity and Quantum Cosmology",
+      "url": "https://arxiv.org/list/gr-qc/recent",
+      "subcategories": []
+    },
+    {
+      "code": "quant-ph",
+      "name": "Quantum Physics",
+      "url": "https://arxiv.org/list/quant-ph/recent",
+      "subcategories": []
+    }
+  ]
+}

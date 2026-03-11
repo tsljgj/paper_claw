@@ -11,7 +11,7 @@
 
 *Fetch, classify, and summarize papers from multiple sources in multiple languages*
 
-[English](README.md) · [简体中文](README_CN.md) · [Quick Start](#-quick-start) · [Features](#-features) · [Agent Skill](#-agent-skill)
+[English](README.md) · [简体中文](README_CN.md) · [Quick Start](#-quick-start) · [ArXiv Categories](#-arxiv-categories) · [Agent Skill](#-for-agents--openclaw)
 
 </div>
 
@@ -24,27 +24,16 @@
 <td width="60%">
 
 🌐 **Multi-Source Support**
-- arXiv (cs.SD, eess.AS, customizable)
-- CNKI (知网) - planned
-- Web of Science - planned
-- Extensible architecture for new sources
+- arXiv — 170+ subject categories
+- CNKI (知网) — planned
+- Web of Science — planned
+- Extensible architecture
 
-🗣️ **Multi-Language Summaries**
-- 🇨🇳 Chinese (中文)
-- 🇺🇸 English
-- 🇯🇵 Japanese (日本語)
-- 🇰🇷 Korean (한국어)
-- 🇩🇪 German (Deutsch)
-- 🇫🇷 French (Français)
-- 🇪🇸 Spanish (Español)
+🗣️ **7 Languages**
+🇨🇳 🇺🇸 🇯🇵 🇰🇷 🇩🇪 🇫🇷 🇪🇸
 
-🤖 **Multi-Provider LLM**
-- Kimi AI (Moonshot) - recommended
-- OpenAI (GPT-4)
-- Anthropic Claude
-- Google Gemini
-- DeepSeek
-- Auto-fallback chain
+🤖 **5 LLM Providers**
+Kimi · OpenAI · Claude · Gemini · DeepSeek
 
 </td>
 <td width="40%">
@@ -60,28 +49,156 @@
 ## 🚀 Quick Start
 
 ```bash
-# 1. Clone & Setup
+# Clone & install
 git clone https://github.com/yourusername/article_claw.git
 cd article_claw && pip install -r requirements.txt
 
-# 2. Configure
+# Configure
 cp .env.example .env
 cp config/recipients.example.json config/recipients.json
 
-# 3. Run with different languages
-python scripts/main.py --day 2026-03-10 --language zh  # Chinese
-python scripts/main.py --day 2026-03-10 --language en  # English
-python scripts/main.py --day 2026-03-10 --language ja  # Japanese
+# Run (select your arXiv categories in config/default.json)
+python scripts/main.py --day 2026-03-10 --language en
 ```
+
+---
+
+## 📚 ArXiv Categories
+
+<details>
+<summary><b>🎯 How to Select Categories</b> — Click to expand</summary><br>
+
+We provide **all 170+ arXiv subject categories** in `config/arxiv_categories.json`. 
+
+**To select your categories:**
+
+1. **Browse** the complete category list in `config/arxiv_categories.json`
+2. **Choose** the categories relevant to your field
+3. **Add** them to `config/default.json` under `sources.arxiv.categories`
+
+**Example configuration:**
+
+```json
+{
+  "sources": {
+    "arxiv": {
+      "enabled": true,
+      "categories": [
+        {"id": "cs.CL", "name": "Computation and Language", "url": "https://arxiv.org/list/cs.CL/recent"},
+        {"id": "cs.CV", "name": "Computer Vision", "url": "https://arxiv.org/list/cs.CV/recent"},
+        {"id": "cs.LG", "name": "Machine Learning", "url": "https://arxiv.org/list/cs.LG/recent"}
+      ]
+    }
+  }
+}
+```
+
+**URL Generation:**
+The system automatically generates arXiv URLs from category IDs:
+```
+Category ID: cs.CL
+Generated URL: https://arxiv.org/list/cs.CL/recent
+```
+
+</details>
+
+<details>
+<summary><b>📂 Popular Category Combinations</b> — Click to expand</summary><br>
+
+**🤖 AI/ML Research:**
+```json
+["cs.AI", "cs.LG", "cs.CL", "cs.CV", "stat.ML"]
+```
+
+**🗣️ Speech & Audio (Default):**
+```json
+["cs.SD", "eess.AS"]
+```
+
+**🧬 Computational Biology:**
+```json
+["q-bio.BM", "q-bio.GN", "q-bio.NC", "cs.CE"]
+```
+
+**⚛️ Physics:**
+```json
+["physics.optics", "physics.chem-ph", "cond-mat.mtrl-sci"]
+```
+
+**💹 Quantitative Finance:**
+```json
+["q-fin.PM", "q-fin.RM", "q-fin.ST", "q-fin.TR"]
+```
+
+**🔬 Interdisciplinary:**
+```json
+["cs.CY", "cs.HC", "cs.SI", "physics.soc-ph"]
+```
+
+See [`config/arxiv_categories.json`](config/arxiv_categories.json) for the **complete list** of 170+ categories.
+
+</details>
+
+---
+
+## 🤖 For Agents & OpenClaw
+
+<details open>
+<summary><b>🎯 Quick Integration for AI Agents</b></summary><br>
+
+Article Claw provides a **standardized Skill interface** for AI agents like OpenClaw, Kimi, and other LLM-based tools.
+
+### One-Line Integration
+
+```python
+from skill.example import fetch_papers, get_digest_content
+
+# Fetch and summarize papers
+result = fetch_papers(day="2026-03-10", language="en")
+content = get_digest_content("2026-03-10", format="summary")
+```
+
+### Tool Definitions
+
+Agents can discover capabilities via [`skill/tools.json`](skill/tools.json):
+
+| Tool | Purpose | Parameters |
+|------|---------|------------|
+| `fetch_papers` | Fetch from configured sources | `day`, `language` |
+| `configure_categories` | Update arXiv categories | `categories[]` |
+| `configure_recipients` | Update email list | `recipients[]` |
+| `configure_language` | Set output language | `language` |
+| `get_digest_content` | Retrieve generated digest | `date`, `format` |
+
+### Agent Configuration
+
+```json
+{
+  "skill": "article_claw",
+  "config": {
+    "sources": ["cs.AI", "cs.LG", "cs.CL"],
+    "language": "en",
+    "recipients": ["researcher@lab.edu"]
+  }
+}
+```
+
+### Complete Skill Documentation
+
+📖 **[skill/SKILL.md](skill/SKILL.md)** — Full integration guide  
+🔧 **[skill/tools.json](skill/tools.json)** — Tool schema definitions  
+💡 **[skill/example.py](skill/example.py)** — Python usage examples
+
+</details>
 
 ---
 
 ## 📂 Configuration
 
 <details>
-<summary><b>🌐 Sources Configuration</b> — Click to expand</summary><br>
+<summary><b>🌐 Data Sources</b></summary><br>
 
-Edit `config/default.json` to configure data sources:
+Configure sources in `config/default.json`:
 
 ```json
 {
@@ -91,136 +208,60 @@ Edit `config/default.json` to configure data sources:
       "name": "arXiv",
       "url": "https://arxiv.org",
       "categories": [
-        {"id": "cs.SD", "name": "Sound", "url": "https://arxiv.org/list/cs.SD/recent"},
-        {"id": "eess.AS", "name": "Audio and Speech", "url": "https://arxiv.org/list/eess.AS/recent"}
+        {"id": "cs.CL", "name": "NLP", "url": "https://arxiv.org/list/cs.CL/recent"}
       ]
-    },
-    "cnki": {
-      "enabled": false,
-      "name": "中国知网",
-      "url": "https://www.cnki.net"
     }
   }
 }
 ```
 
-Each source includes:
-- `enabled`: Whether to fetch from this source
-- `name`: Display name
-- `url`: Source URL
-- `categories`: List of categories with IDs and URLs
-
 </details>
 
 <details>
-<summary><b>🗣️ Language Settings</b> — Click to expand</summary><br>
+<summary><b>🗣️ Language Settings</b></summary><br>
 
-Edit `config/default.json`:
-
-```json
-{
-  "language": {
-    "default": "zh",
-    "supported": ["zh", "en", "ja", "ko", "de", "fr", "es"]
-  }
-}
-```
-
-Or use command line:
 ```bash
-python scripts/main.py --language ja  # Japanese output
-```
+# Command line
+python scripts/main.py --language ja  # Japanese
 
-Category labels are also multilingual:
-```json
-{
-  "name": "ASR",
-  "labels": {
-    "zh": "语音识别",
-    "en": "Speech Recognition",
-    "ja": "音声認識",
-    "ko": "음성 인식"
-  }
-}
+# Or config/default.json
+{"language": {"default": "zh", "supported": ["zh", "en", "ja", "ko", "de", "fr", "es"]}}
 ```
 
 </details>
 
 <details>
-<summary><b>🤖 LLM Provider Configuration</b> — Click to expand</summary><br>
-
-Configure multiple LLM providers in `config/default.json`:
-
-```json
-{
-  "llm": {
-    "default_provider": "kimi",
-    "providers": {
-      "kimi": {
-        "name": "Kimi AI (Moonshot)",
-        "api_base": "https://api.moonshot.cn/v1",
-        "model": "moonshot-v1-8k",
-        "env_key": "MOONSHOT_API_KEY"
-      },
-      "openai": {
-        "name": "OpenAI",
-        "api_base": "https://api.openai.com/v1",
-        "model": "gpt-4.1-mini",
-        "env_key": "OPENAI_API_KEY"
-      },
-      "claude": {
-        "name": "Anthropic Claude",
-        "api_base": "https://api.anthropic.com",
-        "model": "claude-3-haiku-20240307",
-        "env_key": "ANTHROPIC_API_KEY"
-      },
-      "gemini": {
-        "name": "Google Gemini",
-        "api_base": "https://generativelanguage.googleapis.com/v1beta",
-        "model": "gemini-pro",
-        "env_key": "GOOGLE_API_KEY"
-      },
-      "deepseek": {
-        "name": "DeepSeek",
-        "api_base": "https://api.deepseek.com/v1",
-        "model": "deepseek-chat",
-        "env_key": "DEEPSEEK_API_KEY"
-      }
-    },
-    "fallback_chain": ["kimi", "openai", "claude", "deepseek", "gemini", "rule_based"]
-  }
-}
-```
+<summary><b>🤖 LLM Providers</b></summary><br>
 
 Set API keys in `.env`:
 ```bash
-MOONSHOT_API_KEY=sk-your-key
-OPENAI_API_KEY=sk-your-key
-ANTHROPIC_API_KEY=sk-your-key
-GOOGLE_API_KEY=your-key
-DEEPSEEK_API_KEY=sk-your-key
+MOONSHOT_API_KEY=sk-xxx  # Recommended
+OPENAI_API_KEY=sk-xxx
+ANTHROPIC_API_KEY=sk-xxx
+GOOGLE_API_KEY=xxx
+DEEPSEEK_API_KEY=sk-xxx
 ```
 
-The system automatically tries providers in the fallback chain.
+Auto-fallback: Kimi → OpenAI → Claude → DeepSeek → Gemini → Rule-based
 
 </details>
 
 <details>
-<summary><b>📧 Email & Recipients</b> — Click to expand</summary><br>
+<summary><b>📧 Email Setup</b></summary><br>
 
-**SMTP Settings** (`.env`):
 ```bash
+# .env
 SMTP_HOST=smtp.qq.com
 SMTP_PORT=465
-SMTP_USER=your-email@qq.com
+SMTP_USER=your@email.com
 SMTP_PASS=your-auth-code
 ```
 
-**Recipients** (`config/recipients.json`):
 ```json
+// config/recipients.json
 {
   "recipients": [
-    {"email": "prof@university.edu.cn", "name": "Professor", "enabled": true}
+    {"email": "user@example.com", "name": "User", "enabled": true}
   ]
 }
 ```
@@ -234,18 +275,17 @@ SMTP_PASS=your-auth-code
 <details>
 <summary><b>☁️ GitHub Actions</b></summary><br>
 
-1. Fork repository
-2. Add secrets: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
-3. Add LLM API keys (optional): `MOONSHOT_API_KEY`, `OPENAI_API_KEY`, etc.
-4. Runs daily at UTC 01:00
+1. Fork repo
+2. Add secrets: `SMTP_*`, `MOONSHOT_API_KEY`, etc.
+3. Runs daily at UTC 01:00
 
 </details>
 
 <details>
-<summary><b>🖥️ Local / Server</b></summary><br>
+<summary><b>🖥️ Local</b></summary><br>
 
 ```bash
-# Linux/Mac Cron (daily at 9 AM)
+# Cron (Linux/Mac)
 0 1 * * * cd /path/to/article_claw && python scripts/main.py
 
 # Windows Task Scheduler
@@ -256,62 +296,36 @@ schtasks /create /tn "ArticleClaw" /tr "python scripts/main.py" /sc daily /st 09
 
 ---
 
-## 🤖 Agent Skill
-
-<details>
-<summary><b>🔧 Using the Skill</b> — Click to expand</summary><br>
-
-```python
-from skill.example import fetch_papers, get_digest_content
-
-# Fetch with language
-result = fetch_papers(day="2026-03-10", language="ja")
-
-# Get content
-content = get_digest_content("2026-03-10", format="summary")
-```
-
-**Available Tools:**
-- `fetch_papers` — Fetch from configured sources
-- `configure_sources` — Add/modify sources
-- `configure_llm` — Switch LLM providers
-- `configure_language` — Set output language
-- `get_digest_content` — Retrieve generated content
-
-See [skill/SKILL.md](skill/SKILL.md) for complete documentation.
-
-</details>
-
----
-
 ## 📁 Project Structure
 
 ```
 article_claw/
 ├── config/
-│   ├── default.json           # Sources, languages, LLM config
-│   ├── recipients.json        # Email recipients
-│   └── recipients.example.json
+│   ├── default.json              # Main config
+│   ├── arxiv_categories.json     # ⭐ 170+ arXiv categories
+│   └── recipients.json           # Email recipients
+├── skill/                        # ⭐ Agent Skill interface
+│   ├── SKILL.md                  # Integration guide
+│   ├── tools.json                # Tool definitions
+│   └── example.py                # Usage examples
 ├── scripts/
-│   ├── main.py                # Main entry
-│   ├── llm_client.py          # Multi-provider LLM client ⭐ NEW
-│   ├── process_papers.py      # Multi-language processing
-│   └── ...
-├── skill/                     # Agent Skill interface
-├── content/posts/             # Generated digests
-└── ...
+│   ├── main.py                   # Entry point
+│   ├── llm_client.py             # Multi-LLM support
+│   └── process_papers.py         # Multi-language processing
+└── content/posts/                # Generated digests
 ```
 
 ---
 
 ## 🗺️ Roadmap
 
-- [x] Multi-provider LLM support (Kimi, OpenAI, Claude, Gemini, DeepSeek)
-- [x] Multi-language output (7 languages)
-- [x] Extensible source architecture
-- [ ] CNKI (知网) integration
+- [x] arXiv — 170+ categories
+- [x] Multi-LLM (5 providers)
+- [x] Multi-language (7 languages)
+- [x] Agent Skill interface
+- [ ] CNKI integration
 - [ ] Web of Science integration
-- [ ] Web UI for configuration
+- [ ] Web UI
 
 ---
 
