@@ -195,6 +195,19 @@ def get_source_categories(config: dict) -> list[str]:
     return categories
 
 
+def load_existing_digest(run_date: str) -> dict | None:
+    """Load existing processed data if available."""
+    processed_path = PROCESSED_DIR / f"{run_date}.json"
+    if processed_path.exists():
+        try:
+            data = json.loads(processed_path.read_text(encoding="utf-8"))
+            logging.info("Found existing digest for %s with %s papers", run_date, data.get("summary", {}).get("total", 0))
+            return data
+        except Exception as e:
+            logging.warning("Failed to load existing digest: %s", e)
+    return None
+
+
 def main() -> None:
     configure_logging()
     args = parse_args()
@@ -210,8 +223,59 @@ def main() -> None:
         config["language"] = {}
     config["language"]["default"] = language
 
+    # Determine run date
     state = load_state()
     window = resolve_window(args, state, now)
+    run_date = window.end.strftime("%Y-%m-%d")
+    
+    # Check if we already have processed data for this date
+    existing_data = load_existing_digest(run_date)
+    if existing_data:
+        logging.info("Using existing digest for %s", run_date)
+        
+        # Reconstruct payload from existing data
+        from process_papers import build_classification_assets
+        _, category_priority, _ = build_classification_assets(config)
+        
+        # Build window from existing data or use current
+        window_start = window.start
+        window_end = window.end
+        if "window" in existing_data:
+            try:
+                window_start = isoparse(existing_data["window"].get("start", window.start.isoformat()))
+                window_end = isoparse(existing_data["window"].get("end", window.end.isoformat()))
+            except:
+                pass
+        
+        window = FetchWindow(start=window_start, end=window_end)
+        
+        provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
+        payload = build_payload(
+            window,
+            existing_data.get("papers", []),
+            existing_data.get("summary", {}),
+            provisional_markdown,
+            category_priority,
+            config
+        )
+        
+        # Check if markdown exists
+        markdown_path = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
+        if not markdown_path.exists():
+            # Save markdown if missing
+            markdown_content = render_markdown(TEMPLATE_DIR, payload)
+            markdown_path.parent.mkdir(parents=True, exist_ok=True)
+            markdown_path.write_text(markdown_content, encoding="utf-8")
+            logging.info("Recreated missing markdown: %s", markdown_path)
+        
+        # Send email with existing data
+        email_html = render_email(TEMPLATE_DIR, payload)
+        subject = f"📰 Paper Claw Digest - {run_date}"
+        send_html_email(subject, email_html, markdown_path)
+        logging.info("Email sent using existing digest for %s", run_date)
+        return
+
+    # No existing data, fetch and process normally
     logging.info("Using time window %s -> %s", window.start.isoformat(), window.end.isoformat())
     
     source_categories = get_source_categories(config)
@@ -227,7 +291,6 @@ def main() -> None:
     enriched, category_priority = enrich_papers(filtered, config)
     summary = build_summary(enriched, category_priority, language)
 
-    run_date = window.end.strftime("%Y-%m-%d")
     provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
     payload = build_payload(window, enriched, summary, provisional_markdown, category_priority, config)
     raw_path = RAW_DIR / f"{run_date}.json"
