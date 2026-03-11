@@ -47,12 +47,12 @@
     }
     .powered-by {
       display: inline-block;
-      margin-top: 15px;
-      padding: 8px 20px;
+      margin-top: 10px;
+      padding: 6px 16px;
       background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
-      color: white;
+      color: #fff;
       border-radius: 20px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
@@ -71,14 +71,19 @@
     /* Removed - merged with .header-title-box style above */
     .header .date {
       font-size: 16px;
-      opacity: 0.9;
+      color: #333;
+      background: rgba(255,255,255,0.9);
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      margin: 8px 0;
     }
     .header .github-link {
       display: inline-block;
       margin-top: 15px;
       padding: 8px 16px;
-      background: rgba(255,255,255,0.2);
-      color: white;
+      background: #333;
+      color: #fff;
       text-decoration: none;
       border-radius: 20px;
       font-size: 14px;
@@ -442,7 +447,7 @@
             
             <div class="paper-abstract">
               <span class="abstract-label">📝 英文摘要</span>
-              {{ paper.abstract_en[:300] }}{% if paper.abstract_en | length > 300 %}...{% endif %}
+              {{ paper.abstract_en }}
             </div>
             
             <div class="review-box">
