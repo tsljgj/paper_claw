@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/logo_icon.png" width="120" height="120" alt="Article Claw Logo">
+
 # 📰 Article Claw
 
 **Intelligent Multi-Source Paper Digest Generator**
