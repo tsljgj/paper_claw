@@ -41,6 +41,7 @@ env/
 # Local config (user-specific settings)
 local_config.json
 config.local.json
+config/recipients.json
 
 # Logs
 *.log

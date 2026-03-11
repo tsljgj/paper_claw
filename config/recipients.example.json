@@ -1,0 +1,30 @@
+{
+  "_comment": "Copy this file to recipients.json and customize your recipient list",
+  "recipients": [
+    {
+      "email": "professor@university.edu.cn",
+      "name": "教授",
+      "enabled": true
+    },
+    {
+      "email": "student1@university.edu.cn",
+      "name": "学生1",
+      "enabled": true
+    },
+    {
+      "email": "colleague@example.com",
+      "name": "同事",
+      "enabled": false
+    },
+    {
+      "email": "student2@university.edu.cn",
+      "name": "学生2",
+      "enabled": true
+    }
+  ],
+  "settings": {
+    "display_mode": "full",
+    "papers_per_category": 999,
+    "show_full_abstract": true
+  }
+}
