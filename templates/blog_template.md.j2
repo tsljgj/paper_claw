@@ -12,7 +12,7 @@
 
 | {{ labels.metric }} | {{ labels.value }} |
 |:---|:---|
-| �?{{ labels.time_window }} | {{ window.start_display }} �?{{ window.end_display }} |
+| ⏰ {{ labels.time_window }} | {{ window.start_display }} → {{ window.end_display }} |
 | 📄 {{ labels.total_papers }} | **{{ summary.total }}** {{ labels.papers_unit }} |
 
 ### {{ labels.category_stats }}
@@ -30,7 +30,7 @@
 ---
 
 {% for category, items in grouped.items() %}
-## 🏷�?{{ category }}
+## 🏷️ {{ category }}
 
 {% if items %}{% for paper in items %}
 ### {{ loop.index }}. {{ paper.title_en }}

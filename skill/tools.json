@@ -1,14 +1,14 @@
 {
   "name": "paper_claw",
-  "version": "1.0.0",
-  "description": "Fetch, classify, and summarize arXiv papers in speech & audio domains",
-  "author": "Article Claw Team",
+  "version": "2.0.0",
+  "description": "Fetch, classify, and summarize papers from multiple sources with AI-powered multi-language summaries",
+  "author": "Paper Claw Team",
   "license": "MIT",
-  "homepage": "https://github.com/yourusername/paper_claw",
+  "homepage": "https://github.com/PigeonDan1/paper_claw",
   "tools": [
     {
       "name": "fetch_papers",
-      "description": "Fetch papers from arXiv for a specific date or date range",
+      "description": "Fetch papers from configured sources for a specific date or date range",
       "parameters": {
         "type": "object",
         "properties": {
@@ -26,6 +26,12 @@
             "type": "string",
             "description": "End date for range in YYYY-MM-DD format",
             "format": "date"
+          },
+          "language": {
+            "type": "string",
+            "description": "Output language for summaries",
+            "enum": ["zh", "en", "ja", "ko", "de", "fr", "es"],
+            "default": "zh"
           }
         },
         "oneOf": [
@@ -53,8 +59,71 @@
       }
     },
     {
+      "name": "configure_sources",
+      "description": "Configure data sources and categories",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sources": {
+            "type": "object",
+            "description": "Source configuration",
+            "properties": {
+              "arxiv": {
+                "type": "object",
+                "properties": {
+                  "enabled": {"type": "boolean"},
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {"type": "string"},
+                        "name": {"type": "string"},
+                        "url": {"type": "string"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": ["sources"]
+      },
+      "returns": {
+        "type": "object",
+        "properties": {
+          "success": {"type": "boolean"},
+          "message": {"type": "string"}
+        }
+      }
+    },
+    {
+      "name": "configure_language",
+      "description": "Set default output language for summaries",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "language": {
+            "type": "string",
+            "description": "Language code",
+            "enum": ["zh", "en", "ja", "ko", "de", "fr", "es"]
+          }
+        },
+        "required": ["language"]
+      },
+      "returns": {
+        "type": "object",
+        "properties": {
+          "success": {"type": "boolean"},
+          "language": {"type": "string"},
+          "message": {"type": "string"}
+        }
+      }
+    },
+    {
       "name": "send_digest",
-      "description": "Send email digest to configured recipients",
+      "description": "Send email digest with HTML preview and Markdown attachment",
       "parameters": {
         "type": "object",
         "properties": {
@@ -68,19 +137,14 @@
       "returns": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean",
-            "description": "Whether email was sent successfully"
-          },
+          "success": {"type": "boolean"},
           "recipients": {
             "type": "array",
             "items": {"type": "string"},
             "description": "List of recipient emails"
           },
-          "message": {
-            "type": "string",
-            "description": "Status message"
-          }
+          "attachment_sent": {"type": "boolean"},
+          "message": {"type": "string"}
         }
       }
     },
@@ -100,9 +164,15 @@
                   "type": "string",
                   "description": "Category name in English"
                 },
-                "label_zh": {
-                  "type": "string",
-                  "description": "Category label in Chinese"
+                "labels": {
+                  "type": "object",
+                  "description": "Multi-language labels",
+                  "properties": {
+                    "zh": {"type": "string"},
+                    "en": {"type": "string"},
+                    "ja": {"type": "string"},
+                    "ko": {"type": "string"}
+                  }
                 },
                 "keywords": {
                   "type": "array",
@@ -110,7 +180,7 @@
                   "description": "Keywords for classification"
                 }
               },
-              "required": ["name", "label_zh", "keywords"]
+              "required": ["name", "labels", "keywords"]
             }
           }
         },
@@ -232,12 +302,12 @@
   },
   "examples": [
     {
-      "description": "Fetch papers for a specific date",
-      "command": "python scripts/main.py --day 2026-03-10"
+      "description": "Fetch papers for a specific date in English",
+      "command": "python scripts/main.py --day 2026-03-10 --language en"
     },
     {
-      "description": "Fetch papers for a date range",
-      "command": "python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-10"
+      "description": "Fetch papers in Japanese",
+      "command": "python scripts/main.py --day 2026-03-10 --language ja"
     },
     {
       "description": "View paper count from JSON",
