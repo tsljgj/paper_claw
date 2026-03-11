@@ -1,12 +1,25 @@
 import argparse
 import json
 import logging
+import os
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import requests
 from dateutil.parser import isoparse
+
+# Auto-load .env file if exists
+ROOT = Path(__file__).resolve().parents[1]
+env_path = ROOT / ".env"
+if env_path.exists():
+    with open(env_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, value = line.split("=", 1)
+                if key not in os.environ:
+                    os.environ[key] = value
 
 from build_markdown import render_email, render_markdown
 from config_loader import load_config
@@ -16,7 +29,6 @@ from send_email import send_html_email
 
 
 ASIA_SHANGHAI = ZoneInfo("Asia/Shanghai")
-ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = ROOT / "data" / "state.json"
 RAW_DIR = ROOT / "data" / "raw"
 PROCESSED_DIR = ROOT / "data" / "processed"
