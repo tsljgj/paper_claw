@@ -1,21 +1,79 @@
 {
   "project": {
-    "name": "arxiv-audio-digest",
-    "title": "arXiv Speech & Audio Digest",
+    "name": "article-claw",
+    "title": "Article Claw",
+    "description": "Multi-source paper digest generator with AI-powered summaries",
     "timezone": "Asia/Shanghai",
-    "default_domain": "speech-audio"
+    "version": "2.0.0"
+  },
+  "language": {
+    "default": "zh",
+    "supported": ["zh", "en", "ja", "ko", "de", "fr", "es"],
+    "labels": {
+      "zh": "中文",
+      "en": "English",
+      "ja": "日本語",
+      "ko": "한국어",
+      "de": "Deutsch",
+      "fr": "Français",
+      "es": "Español"
+    }
   },
   "sources": {
-    "categories": [
-      "cs.SD",
-      "eess.AS"
-    ]
+    "arxiv": {
+      "enabled": true,
+      "name": "arXiv",
+      "url": "https://arxiv.org",
+      "categories": [
+        {
+          "id": "cs.SD",
+          "name": "Sound",
+          "url": "https://arxiv.org/list/cs.SD/recent"
+        },
+        {
+          "id": "eess.AS",
+          "name": "Audio and Speech Processing",
+          "url": "https://arxiv.org/list/eess.AS/recent"
+        }
+      ]
+    },
+    "cnki": {
+      "enabled": false,
+      "name": "中国知网",
+      "url": "https://www.cnki.net",
+      "categories": [
+        {
+          "id": "audio",
+          "name": "音频处理",
+          "url": "https://www.cnki.net/search"
+        }
+      ],
+      "note": "Requires additional implementation for CNKI API"
+    },
+    "wos": {
+      "enabled": false,
+      "name": "Web of Science",
+      "url": "https://www.webofscience.com",
+      "categories": [
+        {
+          "id": "acoustics",
+          "name": "Acoustics",
+          "url": "https://www.webofscience.com/wos/woscc/basic-search"
+        }
+      ],
+      "note": "Requires institutional access"
+    }
   },
   "classification": {
     "categories": [
       {
         "name": "Speech LLM",
-        "label_zh": "语音大模型",
+        "labels": {
+          "zh": "语音大模型",
+          "en": "Speech LLM",
+          "ja": "音声大規模言語モデル",
+          "ko": "음성 대형 언어 모델"
+        },
         "keywords": [
           "speech llm",
           "spoken llm",
@@ -36,7 +94,12 @@
       },
       {
         "name": "ASR",
-        "label_zh": "语音识别",
+        "labels": {
+          "zh": "语音识别",
+          "en": "Speech Recognition",
+          "ja": "音声認識",
+          "ko": "음성 인식"
+        },
         "keywords": [
           "asr",
           "automatic speech recognition",
@@ -53,7 +116,12 @@
       },
       {
         "name": "TTS",
-        "label_zh": "语音合成",
+        "labels": {
+          "zh": "语音合成",
+          "en": "Speech Synthesis",
+          "ja": "音声合成",
+          "ko": "음성 합성"
+        },
         "keywords": [
           "tts",
           "text-to-speech",
@@ -67,7 +135,12 @@
       },
       {
         "name": "Enhancement",
-        "label_zh": "语音增强",
+        "labels": {
+          "zh": "语音增强",
+          "en": "Speech Enhancement",
+          "ja": "音声強調",
+          "ko": "음성 강화"
+        },
         "keywords": [
           "speech enhancement",
           "denois",
@@ -83,7 +156,12 @@
       },
       {
         "name": "SLU",
-        "label_zh": "口语理解",
+        "labels": {
+          "zh": "口语理解",
+          "en": "Spoken Language Understanding",
+          "ja": "音声言語理解",
+          "ko": "구어 이해"
+        },
         "keywords": [
           "spoken language understanding",
           "speaker verification",
@@ -97,7 +175,12 @@
       },
       {
         "name": "Paralinguistics",
-        "label_zh": "副语言学",
+        "labels": {
+          "zh": "副语言学",
+          "en": "Paralinguistics",
+          "ja": "副言語学",
+          "ko": "부언어학"
+        },
         "keywords": [
           "emotion",
           "affective",
@@ -114,7 +197,12 @@
       },
       {
         "name": "Audio",
-        "label_zh": "通用音频",
+        "labels": {
+          "zh": "通用音频",
+          "en": "General Audio",
+          "ja": "一般音声",
+          "ko": "일반 오디오"
+        },
         "keywords": [
           "audio",
           "acoustic event",
@@ -128,5 +216,60 @@
         ]
       }
     ]
+  },
+  "llm": {
+    "default_provider": "kimi",
+    "providers": {
+      "kimi": {
+        "name": "Kimi AI (Moonshot)",
+        "api_base": "https://api.moonshot.cn/v1",
+        "model": "moonshot-v1-8k",
+        "env_key": "MOONSHOT_API_KEY",
+        "max_retries": 3,
+        "timeout": 90
+      },
+      "openai": {
+        "name": "OpenAI",
+        "api_base": "https://api.openai.com/v1",
+        "model": "gpt-4.1-mini",
+        "env_key": "OPENAI_API_KEY",
+        "max_retries": 3,
+        "timeout": 90
+      },
+      "claude": {
+        "name": "Anthropic Claude",
+        "api_base": "https://api.anthropic.com",
+        "model": "claude-3-haiku-20240307",
+        "env_key": "ANTHROPIC_API_KEY",
+        "max_retries": 3,
+        "timeout": 90
+      },
+      "gemini": {
+        "name": "Google Gemini",
+        "api_base": "https://generativelanguage.googleapis.com/v1beta",
+        "model": "gemini-pro",
+        "env_key": "GOOGLE_API_KEY",
+        "max_retries": 3,
+        "timeout": 90
+      },
+      "deepseek": {
+        "name": "DeepSeek",
+        "api_base": "https://api.deepseek.com/v1",
+        "model": "deepseek-chat",
+        "env_key": "DEEPSEEK_API_KEY",
+        "max_retries": 3,
+        "timeout": 90
+      }
+    },
+    "fallback_chain": ["kimi", "openai", "claude", "deepseek", "gemini", "rule_based"]
+  },
+  "output": {
+    "formats": ["markdown", "json", "html"],
+    "include_full_abstract": true,
+    "papers_per_category": 999,
+    "email": {
+      "enabled": true,
+      "template": "email_template.html.j2"
+    }
   }
 }

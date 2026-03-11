@@ -2,16 +2,16 @@
 
 # 📰 Article Claw
 
-**Intelligent arXiv Paper Digest Generator**
+**Intelligent Multi-Source Paper Digest Generator**
 
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/daily_digest.yml)
-[![Kimi AI](https://img.shields.io/badge/Kimi-AI-blueviolet)](https://www.moonshot.cn/)
+[![Multi-LLM](https://img.shields.io/badge/LLM-Kimi%20%7C%20OpenAI%20%7C%20Claude%20%7C%20Gemini-blue)](https://github.com/yourusername/article_claw)
 
-*Automatically fetch, classify, and summarize arXiv papers in speech & audio daily*
+*Fetch, classify, and summarize papers from multiple sources in multiple languages*
 
-[English](README.md) · [简体中文](README_CN.md) · [Quick Start](#-quick-start) · [Agent Skill](#-agent-skill)
+[English](README.md) · [简体中文](README_CN.md) · [Quick Start](#-quick-start) · [Features](#-features) · [Agent Skill](#-agent-skill)
 
 </div>
 
@@ -21,19 +21,33 @@
 
 <table>
 <tr>
-<td width="50%">
+<td width="60%">
 
-- 🤖 **Auto Fetch** — Daily arXiv paper retrieval
-- 📊 **Smart Classification** — 7-domain auto-categorization
-- 📝 **AI Summaries** — Kimi/OpenAI Chinese summaries
-- 📧 **Email Delivery** — Multi-recipient HTML digests
-- 👥 **Recipient Management** — JSON-based configuration
-- ⚙️ **Config-Driven** — Zero-code customization
-- 🔄 **State Persistence** — Auto-deduplication
-- 🤖 **LLM Fallback** — Graceful degradation
+🌐 **Multi-Source Support**
+- arXiv (cs.SD, eess.AS, customizable)
+- CNKI (知网) - planned
+- Web of Science - planned
+- Extensible architecture for new sources
+
+🗣️ **Multi-Language Summaries**
+- 🇨🇳 Chinese (中文)
+- 🇺🇸 English
+- 🇯🇵 Japanese (日本語)
+- 🇰🇷 Korean (한국어)
+- 🇩🇪 German (Deutsch)
+- 🇫🇷 French (Français)
+- 🇪🇸 Spanish (Español)
+
+🤖 **Multi-Provider LLM**
+- Kimi AI (Moonshot) - recommended
+- OpenAI (GPT-4)
+- Anthropic Claude
+- Google Gemini
+- DeepSeek
+- Auto-fallback chain
 
 </td>
-<td width="50%">
+<td width="40%">
 
 <img src="assets/fig.png" width="100%" alt="System Architecture">
 
@@ -46,17 +60,18 @@
 ## 🚀 Quick Start
 
 ```bash
-# 1. Clone and Setup
+# 1. Clone & Setup
 git clone https://github.com/yourusername/article_claw.git
 cd article_claw && pip install -r requirements.txt
 
 # 2. Configure
 cp .env.example .env
 cp config/recipients.example.json config/recipients.json
-# Edit .env and config/recipients.json with your settings
 
-# 3. Run
-python scripts/main.py --day 2026-03-10
+# 3. Run with different languages
+python scripts/main.py --day 2026-03-10 --language zh  # Chinese
+python scripts/main.py --day 2026-03-10 --language en  # English
+python scripts/main.py --day 2026-03-10 --language ja  # Japanese
 ```
 
 ---
@@ -64,100 +79,151 @@ python scripts/main.py --day 2026-03-10
 ## 📂 Configuration
 
 <details>
-<summary><b>📁 Categories and Sources</b> — Click to expand</summary><br>
+<summary><b>🌐 Sources Configuration</b> — Click to expand</summary><br>
+
+Edit `config/default.json` to configure data sources:
+
+```json
+{
+  "sources": {
+    "arxiv": {
+      "enabled": true,
+      "name": "arXiv",
+      "url": "https://arxiv.org",
+      "categories": [
+        {"id": "cs.SD", "name": "Sound", "url": "https://arxiv.org/list/cs.SD/recent"},
+        {"id": "eess.AS", "name": "Audio and Speech", "url": "https://arxiv.org/list/eess.AS/recent"}
+      ]
+    },
+    "cnki": {
+      "enabled": false,
+      "name": "中国知网",
+      "url": "https://www.cnki.net"
+    }
+  }
+}
+```
+
+Each source includes:
+- `enabled`: Whether to fetch from this source
+- `name`: Display name
+- `url`: Source URL
+- `categories`: List of categories with IDs and URLs
+
+</details>
+
+<details>
+<summary><b>🗣️ Language Settings</b> — Click to expand</summary><br>
 
 Edit `config/default.json`:
 
 ```json
 {
-  "sources": {"categories": ["cs.SD", "eess.AS"]},
-  "classification": {
-    "categories": [
-      {"name": "ASR", "label_zh": "语音识别", "keywords": ["asr", "speech recognition"]}
-    ]
+  "language": {
+    "default": "zh",
+    "supported": ["zh", "en", "ja", "ko", "de", "fr", "es"]
   }
 }
 ```
 
-**Default Categories:**
-- 🗣️ Speech LLM — Speech Large Language Models
-- 🎤 ASR — Automatic Speech Recognition
-- 🔊 TTS — Text-to-Speech / Speech Synthesis
-- ✨ Enhancement — Speech Enhancement
-- 🧠 SLU — Spoken Language Understanding
-- 😊 Paralinguistics — Paralinguistics and Affective Computing
-- 🎵 Audio — General Audio Processing
+Or use command line:
+```bash
+python scripts/main.py --language ja  # Japanese output
+```
 
-</details>
-
-<details>
-<summary><b>📧 Email Recipients</b> — Click to expand</summary><br>
-
-Edit `config/recipients.json`:
-
+Category labels are also multilingual:
 ```json
 {
-  "recipients": [
-    {"email": "prof@university.edu.cn", "name": "Professor", "enabled": true},
-    {"email": "student@university.edu.cn", "name": "Student", "enabled": true}
-  ]
+  "name": "ASR",
+  "labels": {
+    "zh": "语音识别",
+    "en": "Speech Recognition",
+    "ja": "音声認識",
+    "ko": "음성 인식"
+  }
 }
 ```
 
-Enable or disable recipients individually.
+</details>
+
+<details>
+<summary><b>🤖 LLM Provider Configuration</b> — Click to expand</summary><br>
+
+Configure multiple LLM providers in `config/default.json`:
+
+```json
+{
+  "llm": {
+    "default_provider": "kimi",
+    "providers": {
+      "kimi": {
+        "name": "Kimi AI (Moonshot)",
+        "api_base": "https://api.moonshot.cn/v1",
+        "model": "moonshot-v1-8k",
+        "env_key": "MOONSHOT_API_KEY"
+      },
+      "openai": {
+        "name": "OpenAI",
+        "api_base": "https://api.openai.com/v1",
+        "model": "gpt-4.1-mini",
+        "env_key": "OPENAI_API_KEY"
+      },
+      "claude": {
+        "name": "Anthropic Claude",
+        "api_base": "https://api.anthropic.com",
+        "model": "claude-3-haiku-20240307",
+        "env_key": "ANTHROPIC_API_KEY"
+      },
+      "gemini": {
+        "name": "Google Gemini",
+        "api_base": "https://generativelanguage.googleapis.com/v1beta",
+        "model": "gemini-pro",
+        "env_key": "GOOGLE_API_KEY"
+      },
+      "deepseek": {
+        "name": "DeepSeek",
+        "api_base": "https://api.deepseek.com/v1",
+        "model": "deepseek-chat",
+        "env_key": "DEEPSEEK_API_KEY"
+      }
+    },
+    "fallback_chain": ["kimi", "openai", "claude", "deepseek", "gemini", "rule_based"]
+  }
+}
+```
+
+Set API keys in `.env`:
+```bash
+MOONSHOT_API_KEY=sk-your-key
+OPENAI_API_KEY=sk-your-key
+ANTHROPIC_API_KEY=sk-your-key
+GOOGLE_API_KEY=your-key
+DEEPSEEK_API_KEY=sk-your-key
+```
+
+The system automatically tries providers in the fallback chain.
 
 </details>
 
 <details>
-<summary><b>🔐 Environment Variables</b> — Click to expand</summary><br>
+<summary><b>📧 Email & Recipients</b> — Click to expand</summary><br>
 
-Create `.env` file:
-
+**SMTP Settings** (`.env`):
 ```bash
-# SMTP Configuration (Required for email)
 SMTP_HOST=smtp.qq.com
 SMTP_PORT=465
 SMTP_USER=your-email@qq.com
 SMTP_PASS=your-auth-code
-
-# AI API Keys (Optional, for better summaries)
-MOONSHOT_API_KEY=sk-your-kimi-key
-OPENAI_API_KEY=sk-your-openai-key
 ```
 
-**SMTP Providers:**
-
-| Service | Host | Port | Note |
-|---------|------|------|------|
-| QQ Mail | smtp.qq.com | 465 | Use authorization code |
-| 163 Mail | smtp.163.com | 465 | Use authorization code |
-| Gmail | smtp.gmail.com | 465 | Use app password |
-
-</details>
-
----
-
-## 🤖 AI Summaries
-
-<details>
-<summary><b>🎨 How It Works</b> — Click to expand</summary><br>
-
-**Priority Chain:** Kimi AI → OpenAI → Rule-based
-
-**Kimi AI** (Recommended for Chinese):
-```bash
-MOONSHOT_API_KEY=sk-your-key
+**Recipients** (`config/recipients.json`):
+```json
+{
+  "recipients": [
+    {"email": "prof@university.edu.cn", "name": "Professor", "enabled": true}
+  ]
+}
 ```
-- Native Chinese language understanding
-- Better context comprehension
-- Automatic retry on rate limit
-
-**OpenAI** (Alternative):
-```bash
-OPENAI_API_KEY=sk-your-key
-```
-
-**Fallback:** Works without API keys using rule-based generation.
 
 </details>
 
@@ -166,30 +232,24 @@ OPENAI_API_KEY=sk-your-key
 ## 🚀 Deployment
 
 <details>
-<summary><b>☁️ GitHub Actions (Recommended)</b></summary><br>
+<summary><b>☁️ GitHub Actions</b></summary><br>
 
-1. Fork this repository
-2. Add secrets in Settings → Secrets:
-   - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
-   - `MOONSHOT_API_KEY` or `OPENAI_API_KEY` (optional)
-3. Enable Actions
-4. Runs daily at UTC 01:00 (09:00 Beijing Time)
+1. Fork repository
+2. Add secrets: `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
+3. Add LLM API keys (optional): `MOONSHOT_API_KEY`, `OPENAI_API_KEY`, etc.
+4. Runs daily at UTC 01:00
 
 </details>
 
 <details>
-<summary><b>🖥️ Local Deployment</b></summary><br>
+<summary><b>🖥️ Local / Server</b></summary><br>
 
-**Linux/Mac Cron:**
 ```bash
+# Linux/Mac Cron (daily at 9 AM)
 0 1 * * * cd /path/to/article_claw && python scripts/main.py
-```
 
-**Windows Task Scheduler:**
-```powershell
-$Action = New-ScheduledTaskAction -Execute "python.exe" -Argument "scripts/main.py"
-$Trigger = New-ScheduledTaskTrigger -Daily -At "09:00"
-Register-ScheduledTask -TaskName "ArticleClaw" -Action $Action -Trigger $Trigger
+# Windows Task Scheduler
+schtasks /create /tn "ArticleClaw" /tr "python scripts/main.py" /sc daily /st 09:00
 ```
 
 </details>
@@ -199,32 +259,26 @@ Register-ScheduledTask -TaskName "ArticleClaw" -Action $Action -Trigger $Trigger
 ## 🤖 Agent Skill
 
 <details>
-<summary><b>🔧 Skill Interface</b> — Click to expand</summary><br>
-
-**Location:** `skill/` directory
+<summary><b>🔧 Using the Skill</b> — Click to expand</summary><br>
 
 ```python
 from skill.example import fetch_papers, get_digest_content
 
-# Fetch papers
-result = fetch_papers(day="2026-03-10")
+# Fetch with language
+result = fetch_papers(day="2026-03-10", language="ja")
 
-# Get summary
+# Get content
 content = get_digest_content("2026-03-10", format="summary")
 ```
 
 **Available Tools:**
+- `fetch_papers` — Fetch from configured sources
+- `configure_sources` — Add/modify sources
+- `configure_llm` — Switch LLM providers
+- `configure_language` — Set output language
+- `get_digest_content` — Retrieve generated content
 
-| Tool | Description |
-|------|-------------|
-| `fetch_papers` | Fetch arXiv papers |
-| `send_digest` | Send email digest |
-| `configure_categories` | Update categories |
-| `configure_recipients` | Update recipients |
-| `get_digest_content` | Retrieve content |
-| `schedule_digest` | Schedule runs |
-
-See [skill/SKILL.md](skill/SKILL.md) and [skill/tools.json](skill/tools.json) for details.
+See [skill/SKILL.md](skill/SKILL.md) for complete documentation.
 
 </details>
 
@@ -234,36 +288,30 @@ See [skill/SKILL.md](skill/SKILL.md) and [skill/tools.json](skill/tools.json) fo
 
 ```
 article_claw/
-├── .github/workflows/      # CI/CD configuration
-├── assets/                 # Logos and figures
-├── config/                 # Configuration files
-├── content/posts/          # Generated digests
-├── data/                   # Raw and processed data
-├── scripts/                # Core scripts
-├── skill/                  # Agent Skill interface
-├── templates/              # Email templates
-├── .env.example            # Environment template
-└── examples/               # Example outputs
+├── config/
+│   ├── default.json           # Sources, languages, LLM config
+│   ├── recipients.json        # Email recipients
+│   └── recipients.example.json
+├── scripts/
+│   ├── main.py                # Main entry
+│   ├── llm_client.py          # Multi-provider LLM client ⭐ NEW
+│   ├── process_papers.py      # Multi-language processing
+│   └── ...
+├── skill/                     # Agent Skill interface
+├── content/posts/             # Generated digests
+└── ...
 ```
-
----
-
-## 📖 Documentation
-
-- [View Example Output](examples/sample_digest_excerpt.md)
-- [Agent Skill Guide](skill/SKILL.md)
-- [Contributing Guide](CONTRIBUTING.md)
 
 ---
 
 ## 🗺️ Roadmap
 
-- [x] Kimi AI integration
-- [x] Multi-recipient support
-- [x] Agent Skill interface
-- [ ] Web UI
-- [ ] RSS feed
-- [ ] Multi-language support
+- [x] Multi-provider LLM support (Kimi, OpenAI, Claude, Gemini, DeepSeek)
+- [x] Multi-language output (7 languages)
+- [x] Extensible source architecture
+- [ ] CNKI (知网) integration
+- [ ] Web of Science integration
+- [ ] Web UI for configuration
 
 ---
 
@@ -275,6 +323,6 @@ article_claw/
 
 <div align="center">
 
-**⭐ If you find this project helpful, please give us a star!**
+**⭐ Star this repo if you find it helpful!**
 
 </div>

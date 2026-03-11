@@ -8,16 +8,16 @@
 
 ---
 
-## 📊 今日速览
+## 📊 {{ labels.overview }}
 
-| 指标 | 数值 |
+| {{ labels.metric }} | {{ labels.value }} |
 |:---|:---|
-| ⏰ 时间窗口 | {{ window.start_display }} → {{ window.end_display }} |
-| 📄 论文总数 | **{{ summary.total }}** 篇 |
+| ⏰ {{ labels.time_window }} | {{ window.start_display }} → {{ window.end_display }} |
+| 📄 {{ labels.total_papers }} | **{{ summary.total }}** {{ labels.papers_unit }} |
 
-### 分类统计
+### {{ labels.category_stats }}
 
-{% for category, count in summary.counts.items() %}- **{{ category }}**: {{ count }} 篇
+{% for category, count in summary.counts.items() %}- **{{ category }}**: {{ count }} {{ labels.papers_unit }}
 {% endfor %}
 
 {% if summary.headline %}
@@ -35,24 +35,24 @@
 {% if items %}{% for paper in items %}
 ### {{ loop.index }}. {{ paper.title_en }}
 
-{% if paper.authors %}👤 **作者**: {{ paper.authors | join(", ") }}{% endif %}
+{% if paper.authors %}👤 **{{ labels.authors }}**: {{ paper.authors | join(", ") }}{% endif %}
 {% if paper.affiliations %}
-🏢 **机构**: {{ paper.affiliations | join("; ") }}{% endif %}
+🏢 **{{ labels.affiliations }}**: {{ paper.affiliations | join("; ") }}{% endif %}
 
-🔗 **arXiv**: [{{ paper.arxiv_url }}]({{ paper.arxiv_url }})
+🔗 **{{ labels.source }}**: [{{ paper.arxiv_url }}]({{ paper.arxiv_url }})
 
-**摘要**
+**{{ labels.abstract }}**
 > {{ paper.abstract_en }}
 
-**综合评价**
-| 项目 | 内容 |
+**{{ labels.assessment }}**
+| {{ labels.item }} | {{ labels.content }} |
 |:---|:---|
-| 📝 总结 | {{ paper.review.summary_zh }} |
-| 📖 可读性 | {{ paper.review.readability_zh }} |
+| 📝 {{ labels.summary }} | {{ paper.review.summary }} |
+| 📖 {{ labels.readability }} | {{ paper.review.readability }} |
 
 ---
 {% endfor %}{% else %}
-> 📭 今日该分类暂无新论文。
+> 📭 {{ labels.no_papers }}
 
 ---
 {% endif %}

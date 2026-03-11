@@ -161,15 +161,38 @@ def update_state(state: dict, window: FetchWindow, papers: list[dict]) -> None:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build a daily arXiv audio digest.")
+    parser = argparse.ArgumentParser(description="Build a daily paper digest from multiple sources.")
     parser.add_argument("--now", help="Override current time in ISO 8601 format.")
     parser.add_argument("--start", help="Explicit window start time in ISO 8601 format.")
     parser.add_argument("--end", help="Explicit window end time in ISO 8601 format.")
-    parser.add_argument("--day", help="Run a Beijing 09:00 daily window for YYYY-MM-DD.")
-    parser.add_argument("--start-date", help="Window start day in YYYY-MM-DD, interpreted as 09:00 Beijing time.")
-    parser.add_argument("--end-date", help="Window end day in YYYY-MM-DD, interpreted as 09:00 Beijing time.")
+    parser.add_argument("--day", help="Run a daily window for YYYY-MM-DD.")
+    parser.add_argument("--start-date", help="Window start day in YYYY-MM-DD.")
+    parser.add_argument("--end-date", help="Window end day in YYYY-MM-DD.")
     parser.add_argument("--config", help="Path to a JSON config file.")
+    parser.add_argument("--language", choices=["zh", "en", "ja", "ko", "de", "fr", "es"],
+                        help="Output language for summaries.")
     return parser.parse_args()
+
+
+def get_source_categories(config: dict) -> list[str]:
+    """Extract category IDs from enabled sources."""
+    sources = config.get("sources", {})
+    categories = []
+    
+    # Handle new format with multiple sources
+    if isinstance(sources, dict):
+        for source_name, source_config in sources.items():
+            if source_config.get("enabled", True):
+                for cat in source_config.get("categories", []):
+                    if isinstance(cat, dict):
+                        categories.append(cat["id"])
+                    else:
+                        categories.append(cat)
+    # Handle old format (backward compatibility)
+    elif isinstance(sources, list):
+        categories = sources
+    
+    return categories
 
 
 def main() -> None:
@@ -177,11 +200,22 @@ def main() -> None:
     args = parse_args()
     config = load_config(args.config)
     now = ensure_timezone(isoparse(args.now)) if args.now else datetime.now(tz=ASIA_SHANGHAI)
+    
+    # Get language from args or config
+    language = args.language or config.get("language", {}).get("default", "zh")
+    logging.info("Using language: %s", language)
+    
+    # Override config language for this run
+    if "language" not in config:
+        config["language"] = {}
+    config["language"]["default"] = language
 
     state = load_state()
     window = resolve_window(args, state, now)
     logging.info("Using time window %s -> %s", window.start.isoformat(), window.end.isoformat())
-    source_categories = config["sources"]["categories"]
+    
+    source_categories = get_source_categories(config)
+    logging.info("Fetching from categories: %s", source_categories)
 
     with requests.Session() as session:
         papers = []
@@ -191,7 +225,7 @@ def main() -> None:
     deduped = deduplicate_papers(papers)
     filtered = filter_already_processed(deduped, state)
     enriched, category_priority = enrich_papers(filtered, config)
-    summary = build_summary(enriched, category_priority)
+    summary = build_summary(enriched, category_priority, language)
 
     run_date = window.end.strftime("%Y-%m-%d")
     provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
