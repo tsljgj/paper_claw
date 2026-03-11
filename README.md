@@ -11,7 +11,7 @@
 
 *Automatically fetch, classify, and summarize arXiv papers in speech & audio daily*
 
-[English](README.md) · [简体中文](README_CN.md) · [Quick Start](#quick-start) · [Configuration](#configuration) · [View Example](examples/sample_digest_excerpt.md)
+[English](README.md) · [简体中文](README_CN.md) · [Quick Start](#quick-start) · [Configuration](#configuration) · [🤖 Agent Skill](#-agent-skill) · [View Example](examples/sample_digest_excerpt.md)
 
 </div>
 
@@ -215,6 +215,10 @@ article_claw/
 │   ├── raw/               # Raw data
 │   └── processed/         # Processed data
 ├── scripts/               # Core scripts
+├── skill/                 # 🤖 Agent Skill interface
+│   ├── SKILL.md           # Skill documentation
+│   ├── tools.json         # Tool definitions
+│   └── example.py         # Usage example
 ├── templates/             # Output templates
 ├── .env                   # Local secrets (private)
 ├── .env.example           # Environment template
@@ -275,6 +279,58 @@ Generated digests include:
 
 - 🇨🇳 **Chinese** - Full Chinese summaries via Kimi AI or rule-based generation
 - 🇺🇸 **English** - Original English paper metadata
+
+---
+
+## 🤖 Agent Skill
+
+Article Claw provides a standardized **Skill** interface for AI agents (OpenClaw, Kimi, etc.) to integrate paper digest functionality.
+
+### Skill Location
+
+```
+skill/
+├── SKILL.md           # Skill documentation
+├── tools.json         # Tool definitions for agents
+└── example.py         # Usage example
+```
+
+### Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `fetch_papers` | Fetch papers from arXiv for a date/range |
+| `send_digest` | Send email digest to configured recipients |
+| `configure_categories` | Update paper classification categories |
+| `configure_recipients` | Update email recipients |
+| `get_digest_content` | Retrieve generated digest content |
+| `schedule_digest` | Schedule automatic daily runs |
+
+### Quick Integration
+
+```python
+# For agents: use the skill interface
+from skill.example import fetch_papers, get_digest_content
+
+# Fetch papers
+result = fetch_papers(day="2026-03-10")
+
+# Get content
+content = get_digest_content("2026-03-10", format="summary")
+```
+
+### Tool Definitions
+
+See [skill/tools.json](skill/tools.json) for complete tool schema definitions compatible with OpenAI Function Calling and similar agent frameworks.
+
+### Configuration
+
+All Skill configurations are centralized in `config/`:
+
+- `config/default.json` - Categories and sources
+- `config/recipients.json` - Email recipients
+
+See [skill/SKILL.md](skill/SKILL.md) for detailed agent integration guide.
 
 ---
 

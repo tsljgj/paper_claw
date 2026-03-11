@@ -11,7 +11,7 @@
 
 *每日自动抓取、分类、总结 arXiv 语音与音频领域论文*
 
-[English](README.md) · [简体中文](README_CN.md) · [快速开始](#快速开始) · [配置说明](#配置说明) · [查看示例](examples/sample_digest_excerpt.md)
+[English](README.md) · [简体中文](README_CN.md) · [快速开始](#快速开始) · [配置说明](#配置说明) · [🤖 Agent Skill](#-agent-skill) · [查看示例](examples/sample_digest_excerpt.md)
 
 </div>
 
@@ -215,6 +215,10 @@ article_claw/
 │   ├── raw/               # 原始数据
 │   └── processed/         # 处理后数据
 ├── scripts/               # 核心脚本
+├── skill/                 # 🤖 Agent Skill 接口
+│   ├── SKILL.md           # Skill 文档
+│   ├── tools.json         # 工具定义
+│   └── example.py         # 使用示例
 ├── templates/             # 输出模板
 ├── .env                   # 本地密钥（隐私）
 ├── .env.example           # 环境变量模板
@@ -275,6 +279,58 @@ Register-ScheduledTask -TaskName "ArticleClaw-Daily" -Action $Action -Trigger $T
 
 - 🇨🇳 **中文** - 通过 Kimi AI 或规则生成完整中文摘要
 - 🇺🇸 **英文** - 保留原始英文论文元数据
+
+---
+
+## 🤖 Agent Skill
+
+Article Claw 提供标准化的 **Skill** 接口，供 AI Agent（OpenClaw、Kimi 等）集成论文日报功能。
+
+### Skill 位置
+
+```
+skill/
+├── SKILL.md           # Skill 文档
+├── tools.json         # Agent 工具定义
+└── example.py         # 使用示例
+```
+
+### 可用工具
+
+| 工具 | 说明 |
+|------|------|
+| `fetch_papers` | 从 arXiv 抓取指定日期/范围的论文 |
+| `send_digest` | 发送邮件推送给配置的收件人 |
+| `configure_categories` | 更新论文分类配置 |
+| `configure_recipients` | 更新邮件收件人 |
+| `get_digest_content` | 获取生成的日报内容 |
+| `schedule_digest` | 设置定时自动运行 |
+
+### 快速集成
+
+```python
+# Agent 使用 Skill 接口
+from skill.example import fetch_papers, get_digest_content
+
+# 抓取论文
+result = fetch_papers(day="2026-03-10")
+
+# 获取内容
+content = get_digest_content("2026-03-10", format="summary")
+```
+
+### 工具定义
+
+参见 [skill/tools.json](skill/tools.json) 获取兼容 OpenAI Function Calling 等框架的完整工具模式定义。
+
+### 配置说明
+
+所有 Skill 配置统一放在 `config/` 目录：
+
+- `config/default.json` - 分类和数据源
+- `config/recipients.json` - 邮件收件人
+
+详细集成指南参见 [skill/SKILL.md](skill/SKILL.md)。
 
 ---
 
