@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Fetch, classify, and summarize arXiv papers in speech & audio domains",
   "author": "Article Claw Team",
+  "license": "MIT",
+  "homepage": "https://github.com/yourusername/article_claw",
   "tools": [
     {
       "name": "fetch_papers",
@@ -12,7 +14,7 @@
         "properties": {
           "day": {
             "type": "string",
-            "description": "Specific date in YYYY-MM-DD format (e.g., 2026-03-10)",
+            "description": "Specific date in YYYY-MM-DD format",
             "format": "date"
           },
           "start_date": {
@@ -227,5 +229,19 @@
     "config_dir": "config",
     "output_dir": "content/posts",
     "data_dir": "data/processed"
-  }
+  },
+  "examples": [
+    {
+      "description": "Fetch papers for a specific date",
+      "command": "python scripts/main.py --day 2026-03-10"
+    },
+    {
+      "description": "Fetch papers for a date range",
+      "command": "python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-10"
+    },
+    {
+      "description": "View paper count from JSON",
+      "command": "jq '.summary.total' data/processed/2026-03-10.json"
+    }
+  ]
 }

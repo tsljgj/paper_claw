@@ -43,6 +43,10 @@ local_config.json
 config.local.json
 config/recipients.json
 
+# Reference files (not to be committed)
+reference_skill/
+*.zip
+
 # Logs
 *.log
 logs/
