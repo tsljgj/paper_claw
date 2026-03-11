@@ -86,6 +86,89 @@ def maybe_openai_json(prompt_text: str, payload: list[dict[str, Any]]) -> list[d
     return parsed if isinstance(parsed, list) else None
 
 
+def _extract_json_from_markdown(content: str) -> str:
+    """Extract JSON from markdown code block."""
+    content = content.strip()
+    if content.startswith("```json"):
+        content = content[7:]
+    if content.startswith("```"):
+        content = content[3:]
+    if content.endswith("```"):
+        content = content[:-3]
+    return content.strip()
+
+
+def maybe_kimi_json(prompt_text: str, payload: list[dict[str, Any]]) -> list[dict[str, Any]] | None:
+    """Call Moonshot AI (Kimi) API for Chinese summaries with retry logic."""
+    import time
+    
+    api_key = os.getenv("MOONSHOT_API_KEY")
+    if not api_key or not payload:
+        return None
+
+    # Process in smaller batches to avoid rate limiting
+    batch_size = 3
+    all_results: list[dict[str, Any]] = []
+    max_retries = 3
+    base_delay = 2  # seconds
+    
+    for i in range(0, len(payload), batch_size):
+        batch = payload[i:i + batch_size]
+        
+        for attempt in range(max_retries):
+            try:
+                response = requests.post(
+                    "https://api.moonshot.cn/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                    json={
+                        "model": "moonshot-v1-8k",
+                        "temperature": 0.3,
+                        "messages": [
+                            {"role": "system", "content": prompt_text},
+                            {"role": "user", "content": json.dumps(batch, ensure_ascii=False)},
+                        ],
+                    },
+                    timeout=90,
+                )
+                response.raise_for_status()
+                data = response.json()
+                
+                content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+                if not content:
+                    break
+                
+                content = _extract_json_from_markdown(content)
+                parsed = json.loads(content)
+                
+                if isinstance(parsed, list):
+                    all_results.extend(parsed)
+                    logging.debug("Kimi batch %d-%d succeeded", i, i + len(batch))
+                break  # Success, exit retry loop
+                
+            except requests.exceptions.HTTPError as e:
+                if e.response.status_code == 429:
+                    # Rate limited, retry with exponential backoff
+                    delay = base_delay * (2 ** attempt)
+                    logging.warning("Kimi rate limited (batch %d-%d), retrying in %ds...", i, i + len(batch), delay)
+                    time.sleep(delay)
+                    if attempt == max_retries - 1:
+                        logging.error("Kimi failed after %d retries for batch %d-%d", max_retries, i, i + len(batch))
+                else:
+                    logging.warning("Kimi HTTP error (batch %d-%d): %s", i, i + len(batch), e)
+                    break
+            except Exception as e:
+                logging.warning("Kimi API error (batch %d-%d): %s", i, i + len(batch), e)
+                break
+        
+        # Delay between batches
+        if i + batch_size < len(payload):
+            time.sleep(1)
+    
+    if all_results:
+        logging.info("Kimi AI processed %d/%d papers", len(all_results), len(payload))
+    return all_results if all_results else None
+
+
 def _extract_claim_sentence(abstract: str) -> str:
     sentences = re.split(r"(?<=[.!?])\s+", abstract.strip())
     if not sentences:
@@ -151,16 +234,24 @@ def enrich_papers(papers: list[dict[str, Any]], config: dict[str, Any]) -> tuple
         {"title": paper["title_en"], "abstract": paper["abstract_en"], "category": category}
         for paper, category in zip(papers, categories)
     ]
-    llm_reviews = maybe_openai_json(
-        (
-            "For each paper, return a JSON array where each item has keys "
-            "`summary_zh` and `readability_zh`. "
-            "`summary_zh` must be a faithful 2-4 sentence Simplified Chinese summary. "
-            "`readability_zh` must be one concise Simplified Chinese sentence analyzing readability. "
-            "Do not invent results or claims not present in the abstract."
-        ),
-        llm_payload,
+    
+    # Build prompt for Chinese summaries
+    prompt = (
+        "For each paper, return a JSON array where each item has keys "
+        "`summary_zh` and `readability_zh`. "
+        "`summary_zh` must be a faithful 2-4 sentence Simplified Chinese summary. "
+        "`readability_zh` must be one concise Simplified Chinese sentence analyzing readability. "
+        "Do not invent results or claims not present in the abstract."
     )
+    
+    # Try Kimi first (better for Chinese), then OpenAI, then fallback
+    llm_reviews = maybe_kimi_json(prompt, llm_payload)
+    if llm_reviews:
+        logging.info("Using Kimi AI for Chinese summaries (%d papers)", len(papers))
+    else:
+        llm_reviews = maybe_openai_json(prompt, llm_payload)
+        if llm_reviews:
+            logging.info("Using OpenAI for Chinese summaries (%d papers)", len(papers))
 
     enriched: list[dict[str, Any]] = []
     for index, paper in enumerate(papers):
