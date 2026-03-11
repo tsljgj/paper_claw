@@ -26,6 +26,39 @@
       color: white;
       padding: 30px;
       text-align: center;
+      position: relative;
+    }
+    .header-title-box {
+      background: rgba(255,255,255,0.95);
+      display: inline-block;
+      padding: 15px 30px;
+      border-radius: 12px;
+      margin: 10px 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 0;
+      font-weight: 700;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .powered-by {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+      color: white;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .powered-by::before {
+      content: "🤖";
+      margin-right: 6px;
     }
     .header img {
       width: 80px;
@@ -35,11 +68,7 @@
       background: white;
       padding: 8px;
     }
-    .header h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
+    /* Removed - merged with .header-title-box style above */
     .header .date {
       font-size: 16px;
       opacity: 0.9;
@@ -330,8 +359,11 @@
     <!-- Header with Logo -->
     <div class="header">
       <img src="https://raw.githubusercontent.com/PigeonDan1/paper_claw/main/assets/logo_icon.png" alt="Paper Claw Logo">
-      <h1>📰 {{ project.title }}</h1>
+      <div class="header-title-box">
+        <h1>📰 {{ project.title }}</h1>
+      </div>
       <div class="date">{{ window.end[:10] }}</div>
+      <div class="powered-by">Powered by DeepSeek v3</div>
       <a href="https://github.com/PigeonDan1/paper_claw" class="github-link" target="_blank">
         ⭐ Star us on GitHub
       </a>
