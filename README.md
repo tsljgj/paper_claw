@@ -83,36 +83,53 @@ python scripts/main.py --day 2026-03-11
 
 #### 1. Select Your Research Categories
 
-Edit `config/default.json`:
+Paper Claw provides **170+ arXiv categories** in `config/arxiv_categories.json`. The default configuration is set for **Speech & Audio** research, but you can easily customize it for your field.
+
+**How to customize:**
+
+1. Open `config/arxiv_categories.json` to browse available categories
+2. Find your category codes (e.g., `cs.CL` for NLP, `cs.CV` for Computer Vision)
+3. Edit `config/default.json` → `sources.arxiv.categories`
+
+**Example configurations:**
 
 ```json
+// For NLP Research
 {
   "sources": {
     "arxiv": {
       "enabled": true,
       "categories": [
-        {"id": "cs.SD", "name": "Sound", "url": "https://arxiv.org/list/cs.SD/recent"},
-        {"id": "eess.AS", "name": "Audio and Speech Processing", "url": "https://arxiv.org/list/eess.AS/recent"}
+        {"id": "cs.CL", "name": "Computation and Language", "url": "https://arxiv.org/list/cs.CL/recent"},
+        {"id": "cs.LG", "name": "Machine Learning", "url": "https://arxiv.org/list/cs.LG/recent"}
+      ]
+    }
+  }
+}
+
+// For Computer Vision
+{
+  "sources": {
+    "arxiv": {
+      "enabled": true,
+      "categories": [
+        {"id": "cs.CV", "name": "Computer Vision", "url": "https://arxiv.org/list/cs.CV/recent"},
+        {"id": "cs.MM", "name": "Multimedia", "url": "https://arxiv.org/list/cs.MM/recent"}
       ]
     }
   }
 }
 ```
 
-**Available categories:** See [`config/arxiv_categories.json`](config/arxiv_categories.json) for 170+ options.
-
-<details>
-<summary><b>Popular Category Combinations</b></summary>
+**Popular combinations:**
 
 | Field | Categories |
 |-------|------------|
-| **Speech & Audio** | `cs.SD`, `eess.AS` |
+| **Speech & Audio** (Default) | `cs.SD`, `eess.AS` |
 | **AI/ML** | `cs.AI`, `cs.LG`, `cs.CL`, `cs.CV` |
 | **NLP** | `cs.CL`, `cs.LG` |
 | **Computer Vision** | `cs.CV`, `cs.MM` |
 | **Computational Biology** | `q-bio.BM`, `q-bio.GN`, `q-bio.NC` |
-
-</details>
 
 #### 2. Set Up Email (SMTP)
 
@@ -182,9 +199,9 @@ Edit `config/default.json` to set default:
 }
 ```
 
-#### 4. Classification Categories
+#### 4. Customize Paper Classification
 
-Edit `config/default.json` to customize paper classification:
+Define how papers are categorized in your digest. The default is set for **Speech & Audio** research:
 
 ```json
 {
@@ -199,6 +216,31 @@ Edit `config/default.json` to customize paper classification:
         "name": "TTS",
         "labels": {"zh": "语音合成", "en": "Speech Synthesis"},
         "keywords": ["tts", "text-to-speech", "speech synthesis"]
+      }
+    ]
+  }
+}
+```
+
+**Structure explained:**
+- `name`: Category ID (used internally)
+- `labels`: Display names in different languages (`zh`, `en`, `ja`, `ko`, etc.)
+- `keywords`: Keywords for automatic classification (case-insensitive matching)
+
+**Example for NLP research:**
+```json
+{
+  "classification": {
+    "categories": [
+      {
+        "name": "LLM",
+        "labels": {"zh": "大语言模型", "en": "Large Language Models"},
+        "keywords": ["llm", "large language model", "gpt", "transformer"]
+      },
+      {
+        "name": "RAG",
+        "labels": {"zh": "检索增强", "en": "Retrieval-Augmented Generation"},
+        "keywords": ["rag", "retrieval", "knowledge base", "embedding"]
       }
     ]
   }
