@@ -11,7 +11,7 @@
 
 *Automatically fetch, classify, and summarize arXiv papers in speech & audio daily*
 
-[English](README.md) · [简体中文](README_CN.md) · [Quick Start](#quick-start) · [Configuration](#configuration) · [🤖 Agent Skill](#-agent-skill) · [View Example](examples/sample_digest_excerpt.md)
+[English](README.md) · [简体中文](README_CN.md) · [Quick Start](#-quick-start) · [Agent Skill](#-agent-skill)
 
 </div>
 
@@ -19,217 +19,154 @@
 
 ## ✨ Features
 
-| Feature | Description |
-|---------|-------------|
-| 🤖 **Auto Fetch** | Daily scheduled fetching of latest papers from arXiv |
-| 📊 **Smart Classification** | Automatically categorize papers into 7 domains |
-| 📝 **Chinese Summary** | Generate high-quality Chinese summaries via **Kimi AI** or **OpenAI** |
-| 📧 **Email Delivery** | Support multiple recipients with HTML email digest |
-| 👥 **Recipient Management** | Configure multiple recipients via JSON file |
-| ⚙️ **Config-Driven** | Customize domains and categories without code changes |
-| 🔄 **State Persistence** | Automatic deduplication to avoid reprocessing |
-| 🤖 **LLM Fallback** | Automatic fallback when API is unavailable |
+<table>
+<tr>
+<td width="50%">
 
-## 🏗️ System Architecture
+- 🤖 **Auto Fetch** — Daily arXiv paper retrieval
+- 📊 **Smart Classification** — 7-domain auto-categorization
+- 📝 **AI Summaries** — Kimi/OpenAI Chinese summaries
+- 📧 **Email Delivery** — Multi-recipient HTML digests
+- 👥 **Recipient Management** — JSON-based configuration
+- ⚙️ **Config-Driven** — Zero-code customization
+- 🔄 **State Persistence** — Auto-deduplication
+- 🤖 **LLM Fallback** — Graceful degradation
 
-![System Architecture](assets/fig.png)
+</td>
+<td width="50%">
 
-## 📂 Default Categories
+<img src="assets/fig.png" width="100%" alt="System Architecture">
 
-- **🗣️ Speech LLM** - Speech Large Language Models
-- **🎤 ASR** - Automatic Speech Recognition
-- **🔊 TTS** - Text-to-Speech / Speech Synthesis
-- **✨ Enhancement** - Speech Enhancement
-- **🧠 SLU** - Spoken Language Understanding
-- **😊 Paralinguistics** - Paralinguistics & Affective Computing
-- **🎵 Audio** - General Audio Processing
+</td>
+</tr>
+</table>
+
+---
 
 ## 🚀 Quick Start
 
-### 1. Environment Setup
-
 ```bash
-# Clone the repository
+# 1. Clone and Setup
 git clone https://github.com/yourusername/article_claw.git
-cd article_claw
+cd article_claw && pip install -r requirements.txt
 
-# Create virtual environment
-conda create -n article_claw python=3.11 -y
-conda activate article_claw
-pip install -r requirements.txt
-```
-
-### 2. Local Configuration
-
-Create `.env` file for local configuration (auto-loaded by the program):
-
-```bash
-# Copy from template
+# 2. Configure
 cp .env.example .env
-
-# Edit .env with your settings
-SMTP_HOST=smtp.qq.com
-SMTP_PORT=465
-SMTP_USER=your-email@qq.com
-SMTP_PASS=your-auth-code
-MOONSHOT_API_KEY=sk-your-kimi-api-key
-```
-
-### 3. Configure Recipients
-
-Create `config/recipients.json` to manage email recipients:
-
-```bash
-# Copy from template
 cp config/recipients.example.json config/recipients.json
+# Edit .env and config/recipients.json with your settings
+
+# 3. Run
+python scripts/main.py --day 2026-03-10
 ```
+
+---
+
+## 📂 Configuration
+
+<details>
+<summary><b>📁 Categories and Sources</b> — Click to expand</summary><br>
+
+Edit `config/default.json`:
+
+```json
+{
+  "sources": {"categories": ["cs.SD", "eess.AS"]},
+  "classification": {
+    "categories": [
+      {"name": "ASR", "label_zh": "语音识别", "keywords": ["asr", "speech recognition"]}
+    ]
+  }
+}
+```
+
+**Default Categories:**
+- 🗣️ Speech LLM — Speech Large Language Models
+- 🎤 ASR — Automatic Speech Recognition
+- 🔊 TTS — Text-to-Speech / Speech Synthesis
+- ✨ Enhancement — Speech Enhancement
+- 🧠 SLU — Spoken Language Understanding
+- 😊 Paralinguistics — Paralinguistics and Affective Computing
+- 🎵 Audio — General Audio Processing
+
+</details>
+
+<details>
+<summary><b>📧 Email Recipients</b> — Click to expand</summary><br>
 
 Edit `config/recipients.json`:
 
 ```json
 {
   "recipients": [
-    {
-      "email": "professor@university.edu.cn",
-      "name": "Professor",
-      "enabled": true
-    },
-    {
-      "email": "student@university.edu.cn",
-      "name": "Student",
-      "enabled": true
-    }
+    {"email": "prof@university.edu.cn", "name": "Professor", "enabled": true},
+    {"email": "student@university.edu.cn", "name": "Student", "enabled": true}
   ]
 }
 ```
 
-### 4. Run
+Enable or disable recipients individually.
+
+</details>
+
+<details>
+<summary><b>🔐 Environment Variables</b> — Click to expand</summary><br>
+
+Create `.env` file:
 
 ```bash
-# Run today's digest
-python scripts/main.py
+# SMTP Configuration (Required for email)
+SMTP_HOST=smtp.qq.com
+SMTP_PORT=465
+SMTP_USER=your-email@qq.com
+SMTP_PASS=your-auth-code
 
-# Run for specific date
-python scripts/main.py --day 2026-03-10
-
-# Custom date range
-python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-10
+# AI API Keys (Optional, for better summaries)
+MOONSHOT_API_KEY=sk-your-kimi-key
+OPENAI_API_KEY=sk-your-openai-key
 ```
+
+**SMTP Providers:**
+
+| Service | Host | Port | Note |
+|---------|------|------|------|
+| QQ Mail | smtp.qq.com | 465 | Use authorization code |
+| 163 Mail | smtp.163.com | 465 | Use authorization code |
+| Gmail | smtp.gmail.com | 465 | Use app password |
+
+</details>
 
 ---
 
-## 🤖 AI-Powered Summaries
+## 🤖 AI Summaries
 
-Article Claw supports **Kimi AI** (recommended) and **OpenAI** for high-quality Chinese summaries.
+<details>
+<summary><b>🎨 How It Works</b> — Click to expand</summary><br>
 
-### Kimi AI (Recommended for Chinese)
+**Priority Chain:** Kimi AI → OpenAI → Rule-based
 
-Kimi (Moonshot AI) provides better Chinese language understanding.
-
-**Setup:**
+**Kimi AI** (Recommended for Chinese):
 ```bash
-# Add to .env
-MOONSHOT_API_KEY=sk-your-kimi-api-key
+MOONSHOT_API_KEY=sk-your-key
 ```
-
-**Features:**
 - Native Chinese language understanding
 - Better context comprehension
-- Automatic fallback on rate limit
+- Automatic retry on rate limit
 
-### OpenAI
-
+**OpenAI** (Alternative):
 ```bash
-# Add to .env
-OPENAI_API_KEY=sk-your-openai-api-key
+OPENAI_API_KEY=sk-your-key
 ```
 
-### Fallback Strategy
+**Fallback:** Works without API keys using rule-based generation.
 
-The system uses intelligent fallback:
-
-```
-Kimi API → OpenAI API → Rule-based Generation
-```
-
-Even without API keys, the system generates summaries using rule-based methods.
-
----
-
-## 📧 Email Configuration
-
-### SMTP Settings (in `.env`)
-
-| Service | SMTP_HOST | SMTP_PORT | Notes |
-|---------|-----------|-----------|-------|
-| QQ Mail | smtp.qq.com | 465 | Use Authorization Code |
-| 163 Mail | smtp.163.com | 465 | Use Authorization Code |
-| Gmail | smtp.gmail.com | 465 | Use App Password |
-
-### Multiple Recipients
-
-Configure in `config/recipients.json`:
-- Add any number of recipients
-- Enable/disable individually
-- Changes take effect immediately
-
----
-
-## ⚙️ Configuration
-
-### Domain Categories
-
-Edit `config/default.json` to customize paper categories:
-
-```json
-{
-  "sources": {
-    "categories": ["cs.SD", "eess.AS"]
-  },
-  "classification": {
-    "categories": [
-      {
-        "name": "ASR",
-        "label_zh": "Speech Recognition",
-        "keywords": ["asr", "speech recognition"]
-      }
-    ]
-  }
-}
-```
-
----
-
-## 📁 Project Structure
-
-```
-article_claw/
-├── .github/workflows/      # GitHub Actions configuration
-├── assets/                 # Assets (logos, figures)
-├── config/
-│   ├── default.json        # Domain configuration
-│   ├── recipients.json     # Email recipients (private)
-│   └── recipients.example.json  # Recipient template
-├── content/posts/          # Generated digests
-├── data/
-│   ├── raw/               # Raw data
-│   └── processed/         # Processed data
-├── scripts/               # Core scripts
-├── skill/                 # 🤖 Agent Skill interface
-│   ├── SKILL.md           # Skill documentation
-│   ├── tools.json         # Tool definitions
-│   └── example.py         # Usage example
-├── templates/             # Output templates
-├── .env                   # Local secrets (private)
-├── .env.example           # Environment template
-└── examples/              # Example outputs
-```
+</details>
 
 ---
 
 ## 🚀 Deployment
 
-### Option 1: GitHub Actions (Recommended)
+<details>
+<summary><b>☁️ GitHub Actions (Recommended)</b></summary><br>
 
 1. Fork this repository
 2. Add secrets in Settings → Secrets:
@@ -238,116 +175,95 @@ article_claw/
 3. Enable Actions
 4. Runs daily at UTC 01:00 (09:00 Beijing Time)
 
-### Option 2: Local Cron Job
+</details>
 
+<details>
+<summary><b>🖥️ Local Deployment</b></summary><br>
+
+**Linux/Mac Cron:**
 ```bash
-# Edit crontab
-crontab -e
-
-# Run daily at 9:00 AM
-0 1 * * * cd /path/to/article_claw && python scripts/main.py >> /var/log/article_claw.log 2>&1
+0 1 * * * cd /path/to/article_claw && python scripts/main.py
 ```
 
-### Option 3: Windows Task Scheduler
-
+**Windows Task Scheduler:**
 ```powershell
-$Action = New-ScheduledTaskAction -Execute "python.exe" -Argument "D:\article_claw\scripts\main.py"
+$Action = New-ScheduledTaskAction -Execute "python.exe" -Argument "scripts/main.py"
 $Trigger = New-ScheduledTaskTrigger -Daily -At "09:00"
-Register-ScheduledTask -TaskName "ArticleClaw-Daily" -Action $Action -Trigger $Trigger
+Register-ScheduledTask -TaskName "ArticleClaw" -Action $Action -Trigger $Trigger
 ```
 
----
-
-## 📖 Sample Output
-
-Generated digests include:
-
-- 📅 Time window and paper statistics
-- 📊 Distribution across domains
-- 📝 Detailed information for each paper:
-  - English title and full abstract
-  - Author list and affiliations
-  - **AI-generated Chinese summary** (via Kimi/OpenAI)
-  - Readability analysis
-  - arXiv link
-
-[View Full Example →](examples/sample_digest_excerpt.md)
-
----
-
-## 🌍 Language Support
-
-- 🇨🇳 **Chinese** - Full Chinese summaries via Kimi AI or rule-based generation
-- 🇺🇸 **English** - Original English paper metadata
+</details>
 
 ---
 
 ## 🤖 Agent Skill
 
-Article Claw provides a standardized **Skill** interface for AI agents (OpenClaw, Kimi, etc.) to integrate paper digest functionality.
+<details>
+<summary><b>🔧 Skill Interface</b> — Click to expand</summary><br>
 
-### Skill Location
-
-```
-skill/
-├── SKILL.md           # Skill documentation
-├── tools.json         # Tool definitions for agents
-└── example.py         # Usage example
-```
-
-### Available Tools
-
-| Tool | Description |
-|------|-------------|
-| `fetch_papers` | Fetch papers from arXiv for a date/range |
-| `send_digest` | Send email digest to configured recipients |
-| `configure_categories` | Update paper classification categories |
-| `configure_recipients` | Update email recipients |
-| `get_digest_content` | Retrieve generated digest content |
-| `schedule_digest` | Schedule automatic daily runs |
-
-### Quick Integration
+**Location:** `skill/` directory
 
 ```python
-# For agents: use the skill interface
 from skill.example import fetch_papers, get_digest_content
 
 # Fetch papers
 result = fetch_papers(day="2026-03-10")
 
-# Get content
+# Get summary
 content = get_digest_content("2026-03-10", format="summary")
 ```
 
-### Tool Definitions
+**Available Tools:**
 
-See [skill/tools.json](skill/tools.json) for complete tool schema definitions compatible with OpenAI Function Calling and similar agent frameworks.
+| Tool | Description |
+|------|-------------|
+| `fetch_papers` | Fetch arXiv papers |
+| `send_digest` | Send email digest |
+| `configure_categories` | Update categories |
+| `configure_recipients` | Update recipients |
+| `get_digest_content` | Retrieve content |
+| `schedule_digest` | Schedule runs |
 
-### Configuration
+See [skill/SKILL.md](skill/SKILL.md) and [skill/tools.json](skill/tools.json) for details.
 
-All Skill configurations are centralized in `config/`:
-
-- `config/default.json` - Categories and sources
-- `config/recipients.json` - Email recipients
-
-See [skill/SKILL.md](skill/SKILL.md) for detailed agent integration guide.
+</details>
 
 ---
 
-## 🤝 Contributing
+## 📁 Project Structure
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md).
+```
+article_claw/
+├── .github/workflows/      # CI/CD configuration
+├── assets/                 # Logos and figures
+├── config/                 # Configuration files
+├── content/posts/          # Generated digests
+├── data/                   # Raw and processed data
+├── scripts/                # Core scripts
+├── skill/                  # Agent Skill interface
+├── templates/              # Email templates
+├── .env.example            # Environment template
+└── examples/               # Example outputs
+```
+
+---
+
+## 📖 Documentation
+
+- [View Example Output](examples/sample_digest_excerpt.md)
+- [Agent Skill Guide](skill/SKILL.md)
+- [Contributing Guide](CONTRIBUTING.md)
 
 ---
 
 ## 🗺️ Roadmap
 
-- [x] Kimi AI integration for Chinese summaries
-- [x] Multiple recipient management
-- [x] Full-content email delivery
-- [ ] Web UI for configuration
-- [ ] RSS feed output
-- [ ] Multi-language support (Japanese, Korean)
+- [x] Kimi AI integration
+- [x] Multi-recipient support
+- [x] Agent Skill interface
+- [ ] Web UI
+- [ ] RSS feed
+- [ ] Multi-language support
 
 ---
 
