@@ -166,16 +166,19 @@ class LLMClient:
             return None
     
     def _call_deepseek(self, messages: list[dict], temperature: float = 0.3) -> Optional[str]:
-        """Call DeepSeek API."""
+        """Call DeepSeek API with support for custom base URL."""
         api_key = self._get_api_key("deepseek")
         if not api_key:
             return None
         
         config = self.providers_config["deepseek"]
         
+        # Allow custom base URL via environment variable
+        base_url = os.getenv("DEEPSEEK_API_BASE", config['api_base'])
+        
         try:
             response = requests.post(
-                f"{config['api_base']}/chat/completions",
+                f"{base_url}/chat/completions",
                 headers={
                     "Authorization": f"Bearer {api_key}",
                     "Content-Type": "application/json"

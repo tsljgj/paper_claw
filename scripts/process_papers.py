@@ -95,7 +95,7 @@ def build_summary_text(
     
     if language == "zh":
         summary_lines = [
-            f"这篇工作归入"{category_label}"方向，核心任务由题目《{title}》所界定。",
+            f"这篇工作归入「{category_label}」方向，核心任务由题目《{title}》所界定。",
             f"从摘要看，作者主要围绕 {method_cue} 展开方法设计、训练策略或系统建模。",
         ]
         if claim_sentence:
@@ -111,7 +111,7 @@ def build_summary_text(
         summary_lines.append("この要約は、論文の価値を迅速に判断するのに役立ちます。")
     elif language == "ko":
         summary_lines = [
-            f"이 연구는 "{category_label}" 범주로 분류되며, 제목「{title}」에서 제시된 핵심 과제를 다룹니다.",
+            f"이 연구는 「{category_label}」 범주로 분류되며, 제목《{title}》에서 제시된 핵심 과제를 다룹니다.",
             f"요약에 따른 저자는 주로 {method_cue}에 관한 방법 설계, 학습 전략, 또는 시스템 모델링에 중점을 두고 있습니다.",
         ]
         if claim_sentence:
