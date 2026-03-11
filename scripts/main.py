@@ -244,7 +244,7 @@ def main() -> None:
     processed_path, markdown_path = persist_outputs(payload, run_date)
 
     email_html = render_email(TEMPLATE_DIR, payload)
-    subject = f"📰 Article Claw Digest - {run_date}"
+    subject = f"📰 Paper Claw Digest - {run_date}"
     send_html_email(subject, email_html, markdown_path)
 
     update_state(state, window, enriched)

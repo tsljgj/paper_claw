@@ -1,10 +1,10 @@
 {
-  "name": "article_claw",
+  "name": "paper_claw",
   "version": "1.0.0",
   "description": "Fetch, classify, and summarize arXiv papers in speech & audio domains",
   "author": "Article Claw Team",
   "license": "MIT",
-  "homepage": "https://github.com/yourusername/article_claw",
+  "homepage": "https://github.com/yourusername/paper_claw",
   "tools": [
     {
       "name": "fetch_papers",

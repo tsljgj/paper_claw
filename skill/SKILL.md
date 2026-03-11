@@ -1,23 +1,23 @@
 ---
-name: article_claw
+name: paper_claw
 description: Fetch, classify, and summarize arXiv papers in speech & audio domains with AI-powered Chinese summaries and email delivery.
-homepage: https://github.com/yourusername/article_claw
+homepage: https://github.com/yourusername/paper_claw
 metadata: {"clawdbot":{"emoji":"📰","requires":{"bins":["python3"],"env":["SMTP_HOST","SMTP_PORT","SMTP_USER","SMTP_PASS"],"optional_env":["MOONSHOT_API_KEY","OPENAI_API_KEY"]}}}
 ---
 
-# Article Claw Skill
+# Paper Claw Skill
 
 Intelligent arXiv paper digest generator for speech & audio research. Automatically fetch, classify, and summarize papers with AI-powered Chinese translations.
 
 ## Features
 
-- 🤖 **Auto Fetch** — Daily arXiv paper retrieval (cs.SD, eess.AS)
-- 📊 **Smart Classification** — Auto-categorize into 7 domains
-- 📝 **AI Summaries** — Kimi/OpenAI Chinese summaries with fallback
-- 📧 **Email Delivery** — HTML digests to multiple recipients
-- 👥 **Recipient Management** — JSON-based configuration
-- ⚙️ **Config-Driven** — Zero-code customization
-- 🔄 **State Persistence** — Auto-deduplication
+- 🤖 **Auto Fetch** �?Daily arXiv paper retrieval (cs.SD, eess.AS)
+- 📊 **Smart Classification** �?Auto-categorize into 7 domains
+- 📝 **AI Summaries** �?Kimi/OpenAI Chinese summaries with fallback
+- 📧 **Email Delivery** �?HTML digests to multiple recipients
+- 👥 **Recipient Management** �?JSON-based configuration
+- ⚙️ **Config-Driven** �?Zero-code customization
+- 🔄 **State Persistence** �?Auto-deduplication
 
 ## Setup
 
@@ -104,7 +104,7 @@ Already configured in `.github/workflows/daily_digest.yml`
 
 **Linux/Mac Cron:**
 ```bash
-0 1 * * * cd /path/to/article_claw && python scripts/main.py
+0 1 * * * cd /path/to/paper_claw && python scripts/main.py
 ```
 
 **Windows Task Scheduler:**
@@ -119,7 +119,7 @@ Register-ScheduledTask -TaskName "ArticleClaw" -Action $Action -Trigger $Trigger
 The system uses intelligent fallback:
 
 ```
-Kimi API → OpenAI API → Rule-based Generation
+Kimi API �?OpenAI API �?Rule-based Generation
 ```
 
 Even without API keys, Chinese summaries are generated using rule-based methods.
@@ -173,12 +173,12 @@ configure_recipients([
 
 | Category | Description | Chinese |
 |----------|-------------|---------|
-| Speech LLM | Speech Large Language Models | 语音大模型 |
+| Speech LLM | Speech Large Language Models | 语音大模�?|
 | ASR | Automatic Speech Recognition | 语音识别 |
 | TTS | Text-to-Speech / Speech Synthesis | 语音合成 |
 | Enhancement | Speech Enhancement | 语音增强 |
 | SLU | Spoken Language Understanding | 口语理解 |
-| Paralinguistics | Paralinguistics & Affective Computing | 副语言学 |
+| Paralinguistics | Paralinguistics & Affective Computing | 副语言�?|
 | Audio | General Audio Processing | 通用音频 |
 
 ## SMTP Providers
@@ -216,7 +216,7 @@ python scripts/main.py --day 2026-03-10
 
 ## Files
 
-- `skill/tools.json` — Tool definitions for agent frameworks
-- `skill/example.py` — Python usage examples
-- `config/default.json` — Category configuration
-- `config/recipients.example.json` — Recipient template
+- `skill/tools.json` �?Tool definitions for agent frameworks
+- `skill/example.py` �?Python usage examples
+- `config/default.json` �?Category configuration
+- `config/recipients.example.json` �?Recipient template
