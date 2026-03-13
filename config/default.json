@@ -182,11 +182,18 @@
         "api_base": "https://api.moonshot.cn/v1",
         "model": "moonshot-v1-8k",
         "env_key": "MOONSHOT_API_KEY"
+      },
+      "dashscope": {
+        "name": "DashScope (Aliyun)",
+        "api_base": "https://coding.dashscope.aliyuncs.com/v1",
+        "model": "qwen3.5-plus",
+        "env_key": "DASHSCOPE_API_KEY"
       }
     },
     "fallback_chain": [
       "deepseek",
       "kimi",
+      "dashscope",
       "rule_based"
     ]
   }

@@ -14,13 +14,19 @@ import requests
 
 class LLMClient:
     """Unified LLM client supporting multiple providers."""
-    
+
     def __init__(self, config: dict[str, Any]):
         self.config = config
-        self.provider = config.get("default_provider", "kimi")
         self.providers_config = config.get("providers", {})
+        self.default_provider = config.get("default_provider", "deepseek")
         self.fallback_chain = config.get("fallback_chain", ["kimi", "openai", "rule_based"])
-    
+        self.model_name = self._get_model_name(self.default_provider)
+
+    def _get_model_name(self, provider: str) -> str | None:
+        """Get model name for provider."""
+        provider_config = self.providers_config.get(provider, {})
+        return provider_config.get("model")
+
     def _get_api_key(self, provider: str) -> Optional[str]:
         """Get API key for provider from environment."""
         provider_config = self.providers_config.get(provider, {})
@@ -170,12 +176,12 @@ class LLMClient:
         api_key = self._get_api_key("deepseek")
         if not api_key:
             return None
-        
+
         config = self.providers_config["deepseek"]
-        
+
         # Allow custom base URL via environment variable
         base_url = os.getenv("DEEPSEEK_API_BASE", config['api_base'])
-        
+
         try:
             response = requests.post(
                 f"{base_url}/chat/completions",
@@ -196,23 +202,74 @@ class LLMClient:
         except Exception as e:
             logging.warning(f"DeepSeek API error: {e}")
             return None
+
+    def _call_dashscope(self, messages: list[dict], temperature: float = 0.3) -> Optional[str]:
+        """Call DashScope (Aliyun) API."""
+        api_key = self._get_api_key("dashscope")
+        if not api_key:
+            return None
+
+        config = self.providers_config["dashscope"]
+
+        try:
+            response = requests.post(
+                f"{config['api_base']}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": config["model"],
+                    "temperature": temperature,
+                    "messages": messages
+                },
+                timeout=config.get("timeout", 90)
+            )
+            response.raise_for_status()
+            data = response.json()
+            return data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        except Exception as e:
+            logging.warning(f"DashScope API error: {e}")
+            return None
+
+    def _call_provider(self, messages: list[dict], provider: str, temperature: float = 0.3) -> Optional[str]:
+        """Call a specific provider."""
+        if provider == "kimi":
+            return self._call_kimi(messages, temperature)
+        elif provider == "openai":
+            return self._call_openai(messages, temperature)
+        elif provider == "claude":
+            return self._call_claude(messages, temperature)
+        elif provider == "gemini":
+            return self._call_gemini(messages, temperature)
+        elif provider == "deepseek":
+            return self._call_deepseek(messages, temperature)
+        elif provider == "dashscope":
+            return self._call_dashscope(messages, temperature)
+        else:
+            logging.warning(f"Unknown provider: {provider}")
+            return None
+
+    def _update_model_name(self, provider: str) -> None:
+        """Update model name based on provider."""
+        self.model_name = self._get_model_name(provider)
     
     def generate_summaries(
         self,
         papers: list[dict],
         language: str = "zh",
         batch_size: int = 3
-    ) -> list[dict[str, Any]] | None:
+    ) -> tuple[list[dict[str, Any]] | None, str | None]:
         """
         Generate summaries for papers using available LLM providers.
-        
+
         Args:
             papers: List of paper dicts with title, abstract, category
             language: Target language code (zh, en, ja, ko, etc.)
             batch_size: Number of papers per batch
-        
+
         Returns:
-            List of summaries or None if all providers fail
+            Tuple of (list of summaries or None, provider name used or None)
         """
         if not papers:
             return None
@@ -229,7 +286,8 @@ class LLMClient:
         lang_name = language_names.get(language, language)
         
         all_results = []
-        
+        used_provider = None
+
         for i in range(0, len(papers), batch_size):
             batch = papers[i:i + batch_size]
             
@@ -247,32 +305,37 @@ class LLMClient:
                 {"role": "user", "content": user_content}
             ]
             
-            # Try providers in fallback chain
+            # Try default provider first, then fall back to fallback_chain
             content = None
-            for provider in self.fallback_chain:
-                if provider == "rule_based":
-                    continue
-                
-                logging.info(f"Trying {provider} for batch {i//batch_size + 1}...")
-                
-                if provider == "kimi":
-                    content = self._call_kimi(messages)
-                elif provider == "openai":
-                    content = self._call_openai(messages)
-                elif provider == "claude":
-                    content = self._call_claude(messages)
-                elif provider == "gemini":
-                    content = self._call_gemini(messages)
-                elif provider == "deepseek":
-                    content = self._call_deepseek(messages)
-                
-                if content:
-                    logging.info(f"Successfully used {provider}")
-                    break
-                
-                time.sleep(1)  # Brief delay between providers
-            
+
+            # First try the default provider
+            logging.info(f"Trying default provider {self.default_provider} for batch {i//batch_size + 1}...")
+            content = self._call_provider(messages, self.default_provider)
             if content:
+                logging.info(f"Successfully used {self.default_provider}")
+                used_provider = self.default_provider
+                self._update_model_name(self.default_provider)
+            else:
+                # Default provider failed, try fallback chain
+                for provider in self.fallback_chain:
+                    if provider == "rule_based":
+                        continue
+                    if provider == self.default_provider:
+                        continue  # Skip already tried default provider
+
+                    logging.info(f"Trying {provider} for batch {i//batch_size + 1}...")
+                    content = self._call_provider(messages, provider)
+                    if content:
+                        logging.info(f"Successfully used {provider}")
+                        used_provider = provider
+                        self._update_model_name(provider)
+                        break
+
+                    time.sleep(1)  # Brief delay between providers
+
+            if not content:
+                logging.warning(f"All LLM providers failed for batch {i//batch_size + 1}")
+            else:
                 # Parse JSON from content
                 try:
                     # Remove markdown code blocks if present
@@ -284,7 +347,7 @@ class LLMClient:
                     if content.endswith("```"):
                         content = content[:-3]
                     content = content.strip()
-                    
+
                     parsed = json.loads(content)
                     if isinstance(parsed, list):
                         all_results.extend(parsed)
@@ -292,14 +355,12 @@ class LLMClient:
                         logging.warning(f"Unexpected response format from LLM")
                 except json.JSONDecodeError as e:
                     logging.warning(f"Failed to parse LLM response as JSON: {e}")
-            else:
-                logging.warning(f"All LLM providers failed for batch {i//batch_size + 1}")
-            
+
             # Delay between batches
             if i + batch_size < len(papers):
                 time.sleep(2)
         
-        return all_results if all_results else None
+        return (all_results if all_results else None), self.model_name
 
 
 def create_client(config: dict) -> LLMClient:

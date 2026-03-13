@@ -355,7 +355,7 @@
       <h1>📰 {{ project.title }}</h1>
       <div class="header-meta">
         <span class="date">{{ window.end[:10] }}</span>
-        <span class="powered-by">🤖 Powered by DeepSeek v3</span>
+        <span class="powered-by">🤖 Powered by {{ model_name|default('Paper Claw AI', true) }}</span>
       </div>
       <a href="https://github.com/PigeonDan1/paper_claw" class="github-link" target="_blank">
         ⭐ Star us on GitHub
