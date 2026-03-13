@@ -205,6 +205,9 @@ ANTHROPIC_API_KEY=sk-xxx
 
 # Option 5: Gemini
 GOOGLE_API_KEY=xxx
+
+# Option 6: DashScope (Aliyun)
+DASHSCOPE_API_KEY=sk-xxx
 ```
 
 **Auto-fallback chain:** DeepSeek → Kimi → OpenAI → Claude → Gemini → Rule-based
