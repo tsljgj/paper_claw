@@ -45,6 +45,7 @@ Paper Claw serves two types of users:
 
 → [Agent Skill Guide](#-for-ai-agents)
 
+- **One-command preset setup** for any research field
 - Standardized tool interface
 - One-line Python integration
 - JSON schema definitions
@@ -53,6 +54,30 @@ Paper Claw serves two types of users:
 </td>
 </tr>
 </table>
+
+### System Architecture
+
+<div align="center">
+
+<img src="assets/paper_claw.png" width="90%" alt="Paper Claw System Architecture">
+
+*Paper Claw fetches from arXiv, classifies with AI, and delivers personalized digests*
+
+</div>
+
+---
+
+### Example Output
+
+<div align="center">
+
+**Daily Digest in Your Inbox**
+
+<img src="assets/demo2.png" width="85%" alt="Paper Claw Daily Digest Email">
+
+*Categorized papers with AI summaries, ready to read*
+
+</div>
 
 ---
 
@@ -292,6 +317,43 @@ Register-ScheduledTask -TaskName "PaperClaw" -Action $Action -Trigger $Trigger
 
 Paper Claw provides a standardized **Skill interface** for AI agents (OpenClaw, Kimi, etc.)
 
+### 🎯 One-Command Setup with Presets
+
+No manual configuration needed! Agents can instantly configure Paper Claw for any research field:
+
+```python
+from skill.example import list_presets, apply_preset
+
+# Step 1: Browse available presets
+presets = list_presets()
+# → [{"id": "nlp", "name": "NLP & LLM"}, 
+#    {"id": "computer_vision", "name": "Computer Vision"}, ...]
+
+# Step 2: Apply with one line
+apply_preset("nlp")  # Automatically configures arXiv + classification
+```
+
+**Available Presets:**
+
+| Preset | Research Field | ArXiv Categories | Paper Categories |
+|--------|---------------|------------------|------------------|
+| 🎙️ `speech_audio` | Speech & Audio | cs.SD, eess.AS | Speech LLM, ASR, TTS... |
+| 📝 `nlp` | NLP & LLM | cs.CL, cs.LG, cs.AI | LLM, RAG, Agents... |
+| 👁️ `computer_vision` | Computer Vision | cs.CV, cs.MM | Image Gen, Detection... |
+| 🧠 `general_ai` | General AI/ML | cs.AI, cs.LG... | Deep Learning, RL... |
+
+### 📸 Preview
+
+<div align="center">
+
+**Demo: Email Digest Preview**
+
+<img src="assets/demo1.png" width="80%" alt="Paper Claw Email Digest">
+
+*AI-generated summaries with Chinese translation, organized by category*
+
+</div>
+
 ### Quick Integration
 
 ```python
@@ -306,6 +368,9 @@ content = get_digest_content("2026-03-11", format="summary")
 
 | Tool | Purpose | Parameters |
 |------|---------|------------|
+| `list_presets` | List available presets | - |
+| `apply_preset` | Apply preset configuration | `preset_id` |
+| `preview_preset` | Preview preset without applying | `preset_id` |
 | `fetch_papers` | Fetch from configured sources | `day`, `language` |
 | `configure_sources` | Update arXiv categories | `sources` |
 | `configure_categories` | Update classification | `categories` |
@@ -321,7 +386,7 @@ content = get_digest_content("2026-03-11", format="summary")
   "skill": "paper_claw",
   "version": "2.0.0",
   "config": {
-    "sources": ["cs.SD", "eess.AS"],
+    "preset": "nlp",
     "language": "zh",
     "llm": "deepseek"
   }
