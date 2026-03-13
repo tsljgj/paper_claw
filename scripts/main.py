@@ -120,7 +120,7 @@ def filter_already_processed(papers: list[dict], state: dict) -> list[dict]:
     return [paper for paper in papers if paper["arxiv_id"] not in processed_ids]
 
 
-def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdown_path: Path, category_priority: list[str], config: dict) -> dict:
+def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdown_path: Path, category_priority: list[str], config: dict, model_name: str | None = None) -> dict:
     grouped = {
         category: [paper for paper in papers if paper["digest_category"] == category]
         for category in category_priority
@@ -138,6 +138,7 @@ def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdo
         "markdown_path": str(markdown_path.relative_to(ROOT)),
         "papers": papers,
         "grouped": grouped,
+        "model_name": model_name,
     }
 
 
@@ -288,11 +289,11 @@ def main() -> None:
 
     deduped = deduplicate_papers(papers)
     filtered = filter_already_processed(deduped, state)
-    enriched, category_priority = enrich_papers(filtered, config)
+    enriched, category_priority, used_model = enrich_papers(filtered, config)
     summary = build_summary(enriched, category_priority, language)
 
     provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
-    payload = build_payload(window, enriched, summary, provisional_markdown, category_priority, config)
+    payload = build_payload(window, enriched, summary, provisional_markdown, category_priority, config, used_model)
     raw_path = RAW_DIR / f"{run_date}.json"
     save_raw_payload(
         raw_path,

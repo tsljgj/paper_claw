@@ -186,16 +186,16 @@ def build_readability_analysis(abstract: str, keywords: list[str], language: str
 def enrich_papers(
     papers: list[dict[str, Any]],
     config: dict[str, Any]
-) -> tuple[list[dict[str, Any]], list[str]]:
+) -> tuple[list[dict[str, Any]], list[str], str | None]:
     """
     Enrich papers with classification, keywords, and AI-generated summaries.
-    
+
     Args:
         papers: List of paper dictionaries
         config: Configuration dictionary
-    
+
     Returns:
-        Tuple of (enriched_papers, category_priority)
+        Tuple of (enriched_papers, category_priority, used_model)
     """
     category_rules, category_priority, labels = build_classification_assets(config)
     
@@ -217,12 +217,13 @@ def enrich_papers(
     
     # Try LLM generation
     llm_reviews = None
+    used_model = None
     if "llm" in config:
         try:
             client = create_client(config["llm"])
-            llm_reviews = client.generate_summaries(llm_payload, language=language)
+            llm_reviews, used_model = client.generate_summaries(llm_payload, language=language)
             if llm_reviews:
-                logging.info(f"LLM generated {len(llm_reviews)} summaries in {language}")
+                logging.info(f"LLM generated {len(llm_reviews)} summaries in {language} using {used_model}")
         except Exception as e:
             logging.warning(f"LLM generation failed: {e}")
     
@@ -275,7 +276,7 @@ def enrich_papers(
             }
         )
     
-    return enriched, category_priority
+    return enriched, category_priority, used_model
 
 
 def build_summary(papers: list[dict[str, Any]], category_priority: list[str], language: str = "zh") -> dict[str, Any]:
