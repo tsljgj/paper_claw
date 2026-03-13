@@ -89,7 +89,75 @@ See `config/arxiv_categories.json` for all 170+ available categories.
 }
 ```
 
-## Usage
+## Quick Start for Agents
+
+The fastest way to configure Paper Claw is using **Presets**:
+
+```python
+from skill.example import list_presets, preview_preset, apply_preset
+
+# Step 1: See available presets
+presets = list_presets()
+# Returns: [
+#   {"id": "speech_audio", "name": "Speech & Audio", ...},
+#   {"id": "nlp", "name": "NLP & LLM", ...},
+#   {"id": "computer_vision", "name": "Computer Vision", ...},
+#   {"id": "general_ai", "name": "General AI/ML", ...}
+# ]
+
+# Step 2: Preview what will be configured
+preview = preview_preset("nlp")
+# Shows: arXiv categories (cs.CL, cs.LG) and classification categories (LLM, RAG, etc.)
+
+# Step 3: Apply the preset
+apply_preset("nlp")  # Updates config/default.json automatically
+```
+
+## Available Presets
+
+| Preset ID | Research Field | ArXiv Categories | Classification |
+|-----------|---------------|------------------|----------------|
+| `speech_audio` | Speech & Audio | cs.SD, eess.AS | Speech LLM, ASR, TTS, Enhancement, SLU, Paralinguistics, Audio |
+| `nlp` | NLP & LLM | cs.CL, cs.LG, cs.AI | LLM, RAG, Agents, NLP Tasks, Evaluation |
+| `computer_vision` | Computer Vision | cs.CV, cs.MM, cs.LG | Image Generation, Object Detection, Segmentation, Video Understanding, Multimodal, 3D Vision |
+| `general_ai` | General AI/ML | cs.AI, cs.LG, cs.CL, cs.CV, stat.ML | Deep Learning, RL, Generative Models, Optimization, Theory, Applications |
+
+## Detailed Usage
+
+### List Presets
+
+```python
+from skill.example import list_presets
+
+presets = list_presets()
+for p in presets:
+    print(f"{p['id']}: {p['name']}")
+    print(f"  {p['description']}")
+```
+
+### Preview Before Apply
+
+```python
+from skill.example import preview_preset
+
+# See what will be configured
+preview = preview_preset("computer_vision")
+print(f"ArXiv categories: {[c['id'] for c in preview['arxiv_categories']]}")
+print(f"Classifications: {[c['name'] for c in preview['classification_categories']]}")
+```
+
+### Apply Preset
+
+```python
+from skill.example import apply_preset
+
+# Apply NLP configuration
+result = apply_preset("nlp")
+if result["success"]:
+    print(f"Applied: {result['preset_name']}")
+    print(f"ArXiv: {result['arxiv_categories']}")
+    print(f"Categories: {result['classification_categories']}")
+```
 
 ### Fetch Papers
 
@@ -224,19 +292,108 @@ configure_recipients([
 ])
 ```
 
-## Default Categories
+## Preset Details
 
-Categories support multi-language labels:
+### Speech & Audio (Default)
 
-| Category | English | Chinese | Japanese |
-|----------|---------|---------|----------|
-| Speech LLM | Speech LLM | 语音大模型 | 音声大規模言語モデル |
-| ASR | Speech Recognition | 语音识别 | 音声認識 |
-| TTS | Speech Synthesis | 语音合成 | 音声合成 |
-| Enhancement | Enhancement | 语音增强 | 音声強調 |
-| SLU | Spoken Language Understanding | 口语理解 | 音声言語理解 |
-| Paralinguistics | Paralinguistics | 副语言学 | 副言語学 |
-| Audio | General Audio | 通用音频 | 一般音声 |
+Best for: Speech recognition, synthesis, audio processing researchers
+
+**ArXiv Categories:**
+- `cs.SD` - Sound (Audio processing, music computing)
+- `eess.AS` - Audio and Speech Processing
+
+**Classification:**
+| Category | Keywords |
+|----------|----------|
+| Speech LLM | speech llm, audio llm, spoken language model |
+| ASR | asr, speech recognition, speech-to-text, whisper |
+| TTS | tts, text-to-speech, speech synthesis, tacotron |
+| Enhancement | speech enhancement, noise reduction, beamforming |
+| SLU | spoken language understanding, intent recognition |
+| Paralinguistics | emotion recognition, speaker verification |
+| Audio | audio classification, sound event detection |
+
+### NLP & LLM
+
+Best for: Natural language processing, large language model researchers
+
+**ArXiv Categories:**
+- `cs.CL` - Computation and Language
+- `cs.LG` - Machine Learning
+- `cs.AI` - Artificial Intelligence
+
+**Classification:**
+| Category | Keywords |
+|----------|----------|
+| LLM | llm, gpt, transformer, prompt engineering, llama, bert |
+| RAG | rag, retrieval-augmented, knowledge base, embedding |
+| Agents | agent, multi-agent, tool use, function calling |
+| NLP Tasks | ner, sentiment analysis, translation, summarization |
+| Evaluation | benchmark, evaluation metrics, human evaluation |
+
+### Computer Vision
+
+Best for: Computer vision, image processing, multimodal researchers
+
+**ArXiv Categories:**
+- `cs.CV` - Computer Vision
+- `cs.MM` - Multimedia
+- `cs.LG` - Machine Learning
+
+**Classification:**
+| Category | Keywords |
+|----------|----------|
+| Image Generation | diffusion model, gan, stable diffusion, text-to-image |
+| Object Detection | yolo, rcnn, ssd, bounding box |
+| Segmentation | semantic segmentation, mask, sam, u-net |
+| Video Understanding | action recognition, temporal, tracking |
+| Multimodal | vision-language, clip, image-text, vqa |
+| 3D Vision | point cloud, depth estimation, nerf |
+
+### General AI/ML
+
+Best for: Broad AI/ML research covering multiple domains
+
+**ArXiv Categories:**
+- `cs.AI`, `cs.LG`, `cs.CL`, `cs.CV`, `stat.ML`
+
+**Classification:**
+| Category | Keywords |
+|----------|----------|
+| Deep Learning | neural network, optimization, gradient descent |
+| Reinforcement Learning | rl, q-learning, policy gradient, actor-critic |
+| Generative Models | gan, vae, diffusion, flow-based |
+| Optimization | convex optimization, learning rate, adam |
+| Theory | generalization, convergence, bounds, complexity |
+| Applications | healthcare, finance, robotics, real-world |
+
+## Customizing After Preset
+
+After applying a preset, you can further customize:
+
+```python
+from skill.example import configure_sources, configure_categories
+
+# Add more arXiv categories
+configure_sources({
+    "arxiv": {
+        "enabled": True,
+        "categories": [
+            {"id": "cs.IR", "name": "Information Retrieval", 
+             "url": "https://arxiv.org/list/cs.IR/recent"}
+        ]
+    }
+})
+
+# Add custom classification category
+configure_categories([
+    {
+        "name": "Your Custom Category",
+        "labels": {"zh": "自定义分类", "en": "Custom"},
+        "keywords": ["keyword1", "keyword2"]
+    }
+])
+```
 
 ## SMTP Providers
 

@@ -5,7 +5,107 @@
   "author": "Paper Claw Team",
   "license": "MIT",
   "homepage": "https://github.com/PigeonDan1/paper_claw",
+  "presets": {
+    "description": "Configuration presets for different research fields",
+    "list": "presets/index.json",
+    "available": [
+      {
+        "id": "speech_audio",
+        "name": "Speech & Audio",
+        "description": "Speech recognition, synthesis, audio processing"
+      },
+      {
+        "id": "nlp",
+        "name": "NLP & LLM",
+        "description": "Natural Language Processing and Large Language Models"
+      },
+      {
+        "id": "computer_vision",
+        "name": "Computer Vision",
+        "description": "Image processing, video analysis, multimodal learning"
+      },
+      {
+        "id": "general_ai",
+        "name": "General AI/ML",
+        "description": "Broad AI/ML research covering multiple domains"
+      }
+    ]
+  },
   "tools": [
+    {
+      "name": "list_presets",
+      "description": "List all available configuration presets for different research fields",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      },
+      "returns": {
+        "type": "array",
+        "description": "List of available presets with id, name, and description",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {"type": "string"},
+            "name": {"type": "string"},
+            "name_zh": {"type": "string"},
+            "description": {"type": "string"},
+            "description_zh": {"type": "string"}
+          }
+        }
+      }
+    },
+    {
+      "name": "preview_preset",
+      "description": "Preview what a preset will configure without applying it. Shows arXiv categories and classification categories that will be set.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "preset_id": {
+            "type": "string",
+            "description": "Preset identifier (speech_audio, nlp, computer_vision, general_ai)",
+            "enum": ["speech_audio", "nlp", "computer_vision", "general_ai"]
+          }
+        },
+        "required": ["preset_id"]
+      },
+      "returns": {
+        "type": "object",
+        "description": "Preview of preset configuration",
+        "properties": {
+          "success": {"type": "boolean"},
+          "preset_id": {"type": "string"},
+          "name": {"type": "string"},
+          "arxiv_categories": {"type": "array"},
+          "classification_categories": {"type": "array"}
+        }
+      }
+    },
+    {
+      "name": "apply_preset",
+      "description": "Apply a preset configuration to the system. This will update config/default.json with the preset's arXiv categories and classification categories.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "preset_id": {
+            "type": "string",
+            "description": "Preset identifier to apply",
+            "enum": ["speech_audio", "nlp", "computer_vision", "general_ai"]
+          }
+        },
+        "required": ["preset_id"]
+      },
+      "returns": {
+        "type": "object",
+        "properties": {
+          "success": {"type": "boolean"},
+          "preset_id": {"type": "string"},
+          "preset_name": {"type": "string"},
+          "arxiv_categories": {"type": "array"},
+          "classification_categories": {"type": "array"},
+          "config_path": {"type": "string"}
+        }
+      }
+    },
     {
       "name": "fetch_papers",
       "description": "Fetch papers from configured sources for a specific date or date range",
