@@ -357,6 +357,9 @@
         <span class="date">{{ window.end[:10] }}</span>
         <span class="powered-by">🤖 Powered by {{ model_name|default('Paper Claw AI', true) }}</span>
       </div>
+      <div class="greeting" style="margin-top: 15px; padding: 10px 20px; background: rgba(255,255,255,0.7); border-radius: 20px; display: inline-block;">
+        <span style="color: #2d3748; font-size: 14px;">👋 {{ recipient_name|default('朋友', true) }}，你好！这是PJ的论文助手为你整理的每日学术日报～</span>
+      </div>
       <a href="https://github.com/PigeonDan1/paper_claw" class="github-link" target="_blank">
         ⭐ Star us on GitHub
       </a>

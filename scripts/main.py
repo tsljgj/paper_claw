@@ -172,6 +172,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", help="Path to a JSON config file.")
     parser.add_argument("--language", choices=["zh", "en", "ja", "ko", "de", "fr", "es"],
                         help="Output language for summaries.")
+    parser.add_argument("--no-email", action="store_true",
+                        help="Skip sending email, only generate local digest.")
+    parser.add_argument("--preview", action="store_true",
+                        help="Preview email recipients without sending.")
     return parser.parse_args()
 
 
@@ -269,11 +273,23 @@ def main() -> None:
             markdown_path.write_text(markdown_content, encoding="utf-8")
             logging.info("Recreated missing markdown: %s", markdown_path)
         
-        # Send email with existing data
-        email_html = render_email(TEMPLATE_DIR, payload)
-        subject = f"📰 Paper Claw Digest - {run_date}"
-        send_html_email(subject, email_html, markdown_path)
-        logging.info("Email sent using existing digest for %s", run_date)
+        # Send email with existing data (unless --no-email is specified)
+        if args.preview:
+            email_html = render_email(TEMPLATE_DIR, payload)
+            results = send_html_email(f"[Paper Claw] Digest - {run_date}", email_html, [markdown_path], preview_mode=True)
+            print("\n[邮件预览] 将发送给以下收件人：")
+            for r in results:
+                print(f"  - {r['name']} <{r['email']}>")
+            print(f"\n共 {len(results)} 位收件人")
+            return
+        elif not args.no_email:
+            email_html = render_email(TEMPLATE_DIR, payload)
+            subject = f"[Paper Claw] Digest - {run_date}"
+            results = send_html_email(subject, email_html, [markdown_path])
+            success_count = sum(1 for r in results if r["status"] == "sent")
+            logging.info("Email sent to %s/%s recipients for %s", success_count, len(results), run_date)
+        else:
+            logging.info("Skipping email sending (--no-email specified)")
         return
 
     # No existing data, fetch and process normally
@@ -307,9 +323,21 @@ def main() -> None:
     )
     processed_path, markdown_path = persist_outputs(payload, run_date)
 
-    email_html = render_email(TEMPLATE_DIR, payload)
-    subject = f"📰 Paper Claw Digest - {run_date}"
-    send_html_email(subject, email_html, markdown_path)
+    if args.preview:
+        email_html = render_email(TEMPLATE_DIR, payload)
+        results = send_html_email(f"📰 Paper Claw Digest - {run_date}", email_html, markdown_path, preview_mode=True)
+        print("\n[邮件预览] 将发送给以下收件人：")
+        for r in results:
+            print(f"  - {r['name']} <{r['email']}>")
+        print(f"\n共 {len(results)} 位收件人")
+    elif not args.no_email:
+        email_html = render_email(TEMPLATE_DIR, payload)
+        subject = f"📰 Paper Claw Digest - {run_date}"
+        results = send_html_email(subject, email_html, markdown_path)
+        success_count = sum(1 for r in results if r["status"] == "sent")
+        logging.info("Email sent to %s/%s recipients", success_count, len(results))
+    else:
+        logging.info("Skipping email sending (--no-email specified)")
 
     update_state(state, window, enriched)
     logging.info("Processed JSON written to %s", processed_path)

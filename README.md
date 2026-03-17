@@ -185,6 +185,11 @@ Edit `config/recipients.json`:
 }
 ```
 
+**Personalized Greeting:** Each recipient will see a personalized greeting in their email:
+> 👋 *Your Name, hello! This is PJ's paper assistant bringing you today's academic digest～*
+
+The `name` field is used for this greeting and is displayed in the email header.
+
 #### 3. Configure LLM Provider
 
 Edit `.env` with at least one API key:
@@ -285,6 +290,12 @@ python scripts/main.py --day 2026-03-11 --language zh
 
 # Date range
 python scripts/main.py --start-date 2026-03-01 --end-date 2026-03-11
+
+# Generate digest without sending email
+python scripts/main.py --day 2026-03-11 --no-email
+
+# Preview recipients before sending
+python scripts/main.py --day 2026-03-11 --preview
 ```
 
 #### Scheduled (Daily)
@@ -472,6 +483,21 @@ paper_claw/
 │   └── email_template.html.j2    # Email HTML template
 └── content/posts/                # Generated digests
 ```
+
+---
+
+## 📝 Changelog
+
+### v2.1.0 (2026-03-17)
+
+**New Features:**
+- `--no-email` flag: Generate digest locally without sending emails
+- `--preview` flag: Preview recipient list before sending
+- Personalized email greetings using recipient names
+
+**Bug Fixes:**
+- Fixed LLM batch processing return value bug that could cause empty results
+- Improved API error handling and logging
 
 ---
 

@@ -175,12 +175,15 @@ class LLMClient:
         """Call DeepSeek API with support for custom base URL."""
         api_key = self._get_api_key("deepseek")
         if not api_key:
+            logging.warning("DeepSeek API key not found")
             return None
 
         config = self.providers_config["deepseek"]
 
         # Allow custom base URL via environment variable
         base_url = os.getenv("DEEPSEEK_API_BASE", config['api_base'])
+        
+        logging.debug(f"DeepSeek API: base_url={base_url}, model={config.get('model')}")
 
         try:
             response = requests.post(
@@ -196,6 +199,7 @@ class LLMClient:
                 },
                 timeout=config.get("timeout", 90)
             )
+            logging.debug(f"DeepSeek API response: {response.status_code}")
             response.raise_for_status()
             data = response.json()
             return data.get("choices", [{}])[0].get("message", {}).get("content", "")
@@ -272,7 +276,7 @@ class LLMClient:
             Tuple of (list of summaries or None, provider name used or None)
         """
         if not papers:
-            return None
+            return None, None
         
         language_names = {
             "zh": "Chinese",

@@ -57,6 +57,10 @@ cp config/recipients.example.json config/recipients.json
 
 # 3. 运行
 python scripts/main.py --day 2026-03-10
+
+# 其他常用命令
+python scripts/main.py --day 2026-03-10 --no-email  # 只生成本地日报，不发送邮件
+python scripts/main.py --day 2026-03-10 --preview    # 预览收件人列表
 ```
 
 ---
@@ -105,6 +109,11 @@ python scripts/main.py --day 2026-03-10
 ```
 
 可单独启用或禁用每个收件人。
+
+**个性化问候：** 每封邮件将显示个性化问候语：
+> 👋 *教授，你好！这是PJ的论文助手为你整理的每日学术日报～*
+>
+> `name` 字段用于显示问候语，请填写收件人的称呼。
 
 </details>
 
@@ -253,6 +262,21 @@ paper_claw/
 - [查看示例输出](examples/sample_digest_excerpt.md)
 - [Agent Skill 指南](skill/SKILL.md)
 - [贡献指南](CONTRIBUTING.md)
+
+---
+
+## 📝 更新日志
+
+### v2.1.0 (2026-03-17)
+
+**新功能：**
+- `--no-email` 参数：只生成本地日报，不发送邮件
+- `--preview` 参数：发送前预览收件人列表
+- 邮件个性化问候语，使用收件人姓名
+
+**Bug 修复：**
+- 修复了 LLM 批处理返回值错误，可能导致空结果的问题
+- 改进了 API 错误处理和日志记录
 
 ---
 
