@@ -1,0 +1,100 @@
+<div align="center">
+
+# 📰 Paper Claw
+
+**2026-03-21**
+
+</div>
+
+---
+
+## 📊 今日速览
+
+| 指标 | 数值 |
+|:---|:---|
+| ⏰ 时间窗口 | 2026-03-19 11:34:27 CST → 2026-03-21 11:12:57 CST |
+| 📄 论文总数 | **2** 篇 |
+
+### 分类统计
+
+- **Speech LLM**: 0 篇
+- **ASR**: 0 篇
+- **TTS**: 0 篇
+- **Enhancement**: 0 篇
+- **SLU**: 0 篇
+- **Paralinguistics**: 0 篇
+- **Audio**: 2 篇
+
+> 💡 今日共收录 2 篇新论文，主要分布在 Audio 2。
+> 📈 整体上以方法改进、跨模态建模和系统化评测为主，适合按分类快速筛选当天值得细读的论文。
+
+---
+
+## 🏷️ Speech LLM
+
+> 📭 今日该分类暂无新论文。
+
+---
+## 🏷️ ASR
+
+> 📭 今日该分类暂无新论文。
+
+---
+## 🏷️ TTS
+
+> 📭 今日该分类暂无新论文。
+
+---
+## 🏷️ Enhancement
+
+> 📭 今日该分类暂无新论文。
+
+---
+## 🏷️ SLU
+
+> 📭 今日该分类暂无新论文。
+
+---
+## 🏷️ Paralinguistics
+
+> 📭 今日该分类暂无新论文。
+
+---
+## 🏷️ Audio
+
+### 1. Few-shot Acoustic Synthesis with Multimodal Flow Matching
+
+👤 **作者**: Amandine Brunetto
+🔗 **来源**: [https://arxiv.org/abs/2603.19176v1](https://arxiv.org/abs/2603.19176v1)
+
+**摘要**
+> Generating audio that is acoustically consistent with a scene is essential for immersive virtual environments. Recent neural acoustic field methods enable spatially continuous sound rendering but remain scene-specific, requiring dense audio measurements and costly training for each environment. Few-shot approaches improve scalability across rooms but still rely on multiple recordings and, being deterministic, fail to capture the inherent uncertainty of scene acoustics under sparse context. We introduce flow-matching acoustic generation (FLAC), a probabilistic method for few-shot acoustic synthesis that models the distribution of plausible room impulse responses (RIRs) given minimal scene context. FLAC leverages a diffusion transformer trained with a flow-matching objective to generate RIRs at arbitrary positions in novel scenes, conditioned on spatial, geometric, and acoustic cues. FLAC outperforms state-of-the-art eight-shot baselines with one-shot on both the AcousticRooms and Hearing Anything Anywhere datasets. To complement standard perceptual metrics, we further introduce AGREE, a joint acoustic-geometry embedding, enabling geometry-consistent evaluation of generated RIRs through retrieval and distributional metrics. This work is the first to apply generative flow matching to explicit RIR synthesis, establishing a new direction for robust and data-efficient acoustic synthesis.
+
+**综合评价**
+| 项目 | 内容 |
+|:---|:---|
+| 📝 总结 | 这篇工作归入「通用音频」方向，核心任务由题目《Few-shot Acoustic Synthesis with Multimodal Flow Matching》所界定。 从摘要看，作者主要围绕 few-shot、acoustic、synthesis 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Few-shot approaches improve scalability across rooms but still rely on multiple recordings and, being deterministic, fail to capture the inherent uncertainty of scene acoustics under sparse context. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。 |
+| 📖 可读性 | 可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：few-shot, acoustic, synthesis。 |
+
+---
+### 2. How Auditory Knowledge in LLM Backbones Shapes Audio Language Models: A Holistic Evaluation
+
+👤 **作者**: Ke-Han Lu, Szu-Wei Fu, Chao-Han Huck Yang, Zhehuai Chen, Sung-Feng Huang, Chih-Kai Yang, Yi-Cheng Lin, Chi-Yuan Hsiao, Wenze Ren, En-Pei Hu, Yu-Han Huang, An-Yu Cheng, Cheng-Han Chiang, Yu Tsao, Yu-Chiang Frank Wang, Hung-yi Lee
+🔗 **来源**: [https://arxiv.org/abs/2603.19195v1](https://arxiv.org/abs/2603.19195v1)
+
+**摘要**
+> Large language models (LLMs) have been widely used as knowledge backbones of Large Audio Language Models (LALMs), yet how much auditory knowledge they encode through text-only pre-training and how this affects downstream performance remains unclear. We study this gap by comparing different LLMs under two text-only and one audio-grounded setting: (1) direct probing on AKB-2000, a curated benchmark testing the breadth and depth of auditory knowledge; (2) cascade evaluation, where LLMs reason over text descriptions from an audio captioner; and (3) audio-grounded evaluation, where each LLM is fine-tuned into a Large Audio Language Model (LALM) with an audio encoder. Our findings reveal that auditory knowledge varies substantially across families, and text-only results are strongly correlated with audio performance. Our work provides empirical grounding for a comprehensive understanding of LLMs in audio research.
+
+**综合评价**
+| 项目 | 内容 |
+|:---|:---|
+| 📝 总结 | 这篇工作归入「通用音频」方向，核心任务由题目《How Auditory Knowledge in LLM Backbones Shapes Audio Language Models: A Holistic Evaluation》所界定。 从摘要看，作者主要围绕 auditory、knowledge、backbones 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We study this gap by comparing different LLMs under two text-only and one audio-grounded setting: (1) direct probing on AKB-2000, a curated benchmark testing the breadth and depth of auditory knowledge; (2) cascade evaluation, where LLMs reason over text descriptions from an audio captioner; and (3) audio-grounded evaluation, where each LLM is fine-tuned into a Large Audio Language Model (LALM) with an audio encoder. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。 |
+| 📖 可读性 | 可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：auditory, knowledge, backbones。 |
+
+---
+
+<div align="center">
+
+*Generated by [Paper Claw](https://github.com/yourusername/paper_claw)*
+
+</div>
