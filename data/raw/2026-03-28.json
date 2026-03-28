@@ -1,0 +1,77 @@
+{
+  "window": {
+    "start": "2026-03-26T11:41:57.183062+08:00",
+    "end": "2026-03-28T11:29:38.623671+08:00"
+  },
+  "fetched_count": 3,
+  "deduplicated_count": 3,
+  "new_count": 3,
+  "papers": [
+    {
+      "arxiv_id": "2603.25377v1",
+      "title_en": "Joint Learning Global-Local Speaker Classification to Enhance End-to-End Speaker Diarization and Recognition",
+      "abstract_en": "Large Audio-Language Models (LALMs) have demonstrated remarkable performance in end-to-end speaker diarization and recognition. However, their speaker discriminability remains limited due to the scarcity of large-scale conversational data and the absence of explicit speaker representation optimization. To address this, we propose GLSC-SDR, a paradigm that jointly trains speaker classification with diarization and recognition. We further introduce a Global-Local Speaker Classification strategy, which uses clustered speakers as global labels and re-encoded intra-cluster speakers as local labels. This hierarchical design enhances fine-grained speaker discrimination while preserving semantic transcription accuracy. Experiments on AliMeeting, AISHELL-4, and AMI-SDM demonstrate that GLSC-SDR achieves competitive or superior performance compared to simulation-based and multi-encoder approaches, without relying on large-scale real conversational data.",
+      "authors": [
+        "Yuhang Dai",
+        "Haopeng Lin",
+        "Jiale Qian",
+        "Ruiqi Yan",
+        "Hao Meng",
+        "Hanke Xie",
+        "Hanlin Wen",
+        "Shunshun Yin",
+        "Ming Tao",
+        "Xie Chen",
+        "Lei Xie",
+        "Xinsheng Wang"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.25377v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD"
+      ],
+      "published": "2026-03-26T12:28:44Z",
+      "updated": "2026-03-26T12:28:44Z"
+    },
+    {
+      "arxiv_id": "2603.25434v1",
+      "title_en": "CoDeTT: A Context-Aware Decision Benchmark for Turn-Taking Evaluation",
+      "abstract_en": "Turn-taking modeling is fundamental to spoken dialogue systems, yet its evaluation remains fragmented and often limited to binary boundary detection under narrow interaction settings. Such protocols hinder systematic comparison and obscure model weaknesses across conversational conditions. We present CoDeTT, a context-aware decision benchmark for turn-taking evaluation. CoDeTT formulates turn-taking as a structured decision problem and constructs a multi-scenario dataset with fine-grained decision categories and controlled context variations. Under a unified evaluation protocol, we assess representative existing models and observe substantial performance disparities across decision types and interaction scenarios. CoDeTT provides a standardized benchmark for systematic and context-aware evaluation of turn-taking systems. The benchmark dataset and evaluation toolkit are available at https://github.com/YingaoWang-casia/CoDeTT.github.io.",
+      "authors": [
+        "Huan Shen",
+        "Yingao Wang",
+        "Shangkun Huang",
+        "Wei Zou",
+        "Yunzhang Chen"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.25434v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD"
+      ],
+      "published": "2026-03-26T13:26:41Z",
+      "updated": "2026-03-26T13:26:41Z"
+    },
+    {
+      "arxiv_id": "2603.25460v1",
+      "title_en": "CLAR: CIF-Localized Alignment for Retrieval-Augmented Speech LLM-Based Contextual ASR",
+      "abstract_en": "Speech LLM-based ASR often struggles with named entities and long-tail words due to strong internal language-model priors. Retrieval-augmented biasing can help, but its effectiveness depends on accurate hotword localization in full-utterance speech under weak supervision. We propose CLAR, a dual-encoder speech-text retriever that uses Continuous Integrate-and-Fire (CIF) to learn monotonic token-level alignments without timestamps. With length-aware localized matching, CLAR anchors short-entity acoustic cues and reduces representation dilution and attention drift. The retriever is trained with a multi-granularity objective combining global and local segment-level contrastive losses and a CIF quantity constraint. At inference, top-ranked hotwords are injected as contextual prompts for the Speech LLM, improving recognition without shallow fusion. Experiments show that CLAR significantly improves hotword retrieval and reduces both CER and B-WER against strong contextual ASR baselines.",
+      "authors": [
+        "Shangkun Huang",
+        "Huan Shen",
+        "Wei Zou",
+        "Yunzhang Chen"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2603.25460v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD"
+      ],
+      "published": "2026-03-26T13:59:49Z",
+      "updated": "2026-03-26T13:59:49Z"
+    }
+  ]
+}
