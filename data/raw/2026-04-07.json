@@ -1,0 +1,54 @@
+{
+  "window": {
+    "start": "2026-04-06T11:52:16.152418+08:00",
+    "end": "2026-04-07T11:43:35.558655+08:00"
+  },
+  "fetched_count": 3,
+  "deduplicated_count": 2,
+  "new_count": 2,
+  "papers": [
+    {
+      "arxiv_id": "2604.04841v1",
+      "title_en": "Joint Fullband-Subband Modeling for High-Resolution SingFake Detection",
+      "abstract_en": "Rapid advances in singing voice synthesis have increased unauthorized imitation risks, creating an urgent need for better Singing Voice Deepfake (SingFake) Detection, also known as SVDD. Unlike speech, singing contains complex pitch, wide dynamic range, and timbral variations. Conventional 16 kHz-sampled detectors prove inadequate, as they discard vital high-frequency information. This study presents the first systematic analysis of high-resolution (44.1 kHz sampling rate) audio for SVDD. We propose a joint fullband-subband modeling framework: the fullband captures global context, while subband-specific experts isolate fine-grained synthesis artifacts unevenly distributed across the spectrum. Experiments on the WildSVDD dataset demonstrate that high-frequency subbands provide essential complementary cues. Our framework significantly outperforms 16 kHz-sampled models, proving that high-resolution audio and strategic subband integration are critical for robust in-the-wild detection.",
+      "authors": [
+        "Xuanjun Chen",
+        "Chia-Yu Hu",
+        "Sung-Feng Huang",
+        "Haibin Wu",
+        "Hung-yi Lee",
+        "Jyh-Shing Roger Jang"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.04841v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD",
+        "eess.AS",
+        "eess.SP"
+      ],
+      "published": "2026-04-06T16:42:59Z",
+      "updated": "2026-04-06T16:42:59Z"
+    },
+    {
+      "arxiv_id": "2604.04847v1",
+      "title_en": "Full-Duplex-Bench-v3: Benchmarking Tool Use for Full-Duplex Voice Agents Under Real-World Disfluency",
+      "abstract_en": "We introduce Full-Duplex-Bench-v3 (FDB-v3), a benchmark for evaluating spoken language models under naturalistic speech conditions and multi-step tool use. Unlike prior work, our dataset consists entirely of real human audio annotated for five disfluency categories, paired with scenarios requiring chained API calls across four task domains. We evaluate six model configurations -- GPT-Realtime, Gemini Live 2.5, Gemini Live 3.1, Grok, Ultravox v0.7, and a traditional Cascaded pipeline (Whisper$\\rightarrow$GPT-4o$\\rightarrow$TTS) -- across accuracy, latency, and turn-taking dimensions. GPT-Realtime leads on Pass@1 (0.600) and interruption avoidance (13.5\\%); Gemini Live 3.1 achieves the fastest latency (4.25~s) but the lowest turn-take rate (78.0\\%); and the Cascaded baseline, despite a perfect turn-take rate, incurs the highest latency (10.12~s). Across all systems, self-correction handling and multi-step reasoning under hard scenarios remain the most consistent failure modes.",
+      "authors": [
+        "Guan-Ting Lin",
+        "Chen Chen",
+        "Zhehuai Chen",
+        "Hung-yi Lee"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.04847v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "cs.CL",
+        "eess.AS"
+      ],
+      "published": "2026-04-06T16:46:52Z",
+      "updated": "2026-04-06T16:46:52Z"
+    }
+  ]
+}
