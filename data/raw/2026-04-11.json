@@ -1,0 +1,209 @@
+{
+  "window": {
+    "start": "2026-04-09T11:39:58.013735+08:00",
+    "end": "2026-04-11T11:30:52.737004+08:00"
+  },
+  "fetched_count": 11,
+  "deduplicated_count": 9,
+  "new_count": 9,
+  "papers": [
+    {
+      "arxiv_id": "2604.08147v1",
+      "title_en": "Semantic Noise Reduction via Teacher-Guided Dual-Path Audio-Visual Representation Learning",
+      "abstract_en": "Recent advances in audio-visual representation learning have shown the value of combining contrastive alignment with masked reconstruction. However, jointly optimizing these objectives in a single forward pass forces the contrastive branch to rely on randomly visible patches designed for reconstruction rather than cross-modal alignment, introducing semantic noise and optimization interference. We propose TG-DP, a Teacher-Guided Dual-Path framework that decouples reconstruction and alignment into separate optimization paths. By disentangling the masking regimes of the two branches, TG-DP enables the contrastive pathway to use a visibility pattern better suited to cross-modal alignment. A teacher model further provides auxiliary guidance for organizing visible tokens in this branch, helping reduce interference and stabilize cross-modal representation learning. TG-DP achieves state-of-the-art performance in zero-shot retrieval. On AudioSet, it improves R@1 from 35.2\\% to 37.4\\% for video-to-audio retrieval and from 27.9\\% to 37.1\\% for audio-to-video retrieval. The learned representations also remain semantically robust, achieving state-of-the-art linear-probe performance on AS20K and VGGSound. Taken together, our results suggest that decoupling multimodal objectives and introducing teacher-guided structure into the contrastive pathway provide an effective framework for improving large-scale audio-visual pretraining. Code is available at https://github.com/wanglg20/TG-DP.",
+      "authors": [
+        "Linge Wang",
+        "Yingying Chen",
+        "Bingke Zhu",
+        "Lu Zhou",
+        "Jinqiao Wang"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08147v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.CV",
+        "cs.SD"
+      ],
+      "published": "2026-04-09T12:08:40Z",
+      "updated": "2026-04-09T12:08:40Z"
+    },
+    {
+      "arxiv_id": "2604.08184v1",
+      "title_en": "AT-ADD: All-Type Audio Deepfake Detection Challenge Evaluation Plan",
+      "abstract_en": "The rapid advancement of Audio Large Language Models (ALLMs) has enabled cost-effective, high-fidelity generation and manipulation of both speech and non-speech audio, including sound effects, singing voices, and music. While these capabilities foster creativity and content production, they also introduce significant security and trust challenges, as realistic audio deepfakes can now be generated and disseminated at scale. Existing audio deepfake detection (ADD) countermeasures (CMs) and benchmarks, however, remain largely speech-centric, often relying on speech-specific artifacts and exhibiting limited robustness to real-world distortions, as well as restricted generalization to heterogeneous audio types and emerging spoofing techniques. To address these gaps, we propose the All-Type Audio Deepfake Detection (AT-ADD) Grand Challenge for ACM Multimedia 2026, designed to bridge controlled academic evaluation with practical multimedia forensics. AT-ADD comprises two tracks: (1) Robust Speech Deepfake Detection, which evaluates detectors under real-world scenarios and against unseen, state-of-the-art speech generation methods; and (2) All-Type Audio Deepfake Detection, which extends detection beyond speech to diverse, unknown audio types and promotes type-agnostic generalization across speech, sound, singing, and music. By providing standardized datasets, rigorous evaluation protocols, and reproducible baselines, AT-ADD aims to accelerate the development of robust and generalizable audio forensic technologies, supporting secure communication, reliable media verification, and responsible governance in an era of pervasive synthetic audio.",
+      "authors": [
+        "Yuankun Xie",
+        "Haonan Cheng",
+        "Jiayi Zhou",
+        "Xiaoxuan Guo",
+        "Tao Wang",
+        "Jian Liu",
+        "Weiqiang Wang",
+        "Ruibo Fu",
+        "Xiaopeng Wang",
+        "Hengyan Huang",
+        "Xiaoying Huang",
+        "Long Ye",
+        "Guangtao Zhai"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08184v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.SD"
+      ],
+      "published": "2026-04-09T12:38:19Z",
+      "updated": "2026-04-09T12:38:19Z"
+    },
+    {
+      "arxiv_id": "2604.08359v1",
+      "title_en": "Tracking Listener Attention: Gaze-Guided Audio-Visual Speech Enhancement Framework",
+      "abstract_en": "This paper presents a Gaze-Guided Audio-Visual Speech Enhancement (GG-AVSE) framework to address the cocktail party problem. A major challenge in conventional AVSE is identifying the listener's intended speaker in multi-talker environments. GG-AVSE addresses this issue by exploiting gaze direction as a supervisory cue for target-speaker selection. Specifically, we propose the GG-VM module, which combines gaze signals with a YOLO5Face detector to extract the target speaker's facial features and integrates them with the pretrained AVSEMamba model through two strategies: zero-shot merging and partial visual fine-tuning. For evaluation, we introduce the AVSEC2-Gaze dataset. Experimental results show that GG-AVSE achieves substantial performance gains over gaze-free baselines: a 10.08% improvement in PESQ (2.370 to 2.609), a 5.18% improvement in STOI (0.8802 to 0.9258), and a 23.69% improvement in SI-SDR (9.16 to 11.33). These results confirm that gaze provides an effective cue for resolving target-speaker ambiguity and highlight the scalability of GG-AVSE for real-world applications.",
+      "authors": [
+        "Hsiang-Cheng Yang",
+        "You-Jin Li",
+        "Rong Chao",
+        "Yu Tsao",
+        "Borching Su",
+        "Shao-Yi Chien"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08359v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "eess.AS"
+      ],
+      "published": "2026-04-09T15:22:50Z",
+      "updated": "2026-04-09T15:22:50Z"
+    },
+    {
+      "arxiv_id": "2604.08363v1",
+      "title_en": "CapTalk: Unified Voice Design for Single-Utterance and Dialogue Speech Generation",
+      "abstract_en": "Voice design from natural language descriptions is emerging as a new task in text-to-speech multimodal generation, aiming to synthesize speech with target timbre and speaking style without relying on reference audio. However, existing methods mainly focus on single-utterance generation, leaving conversational voice design largely unexplored. In this work, we extend voice design to dialogue, enabling better target speaker modeling and turn-level expressive control in natural conversational settings. We propose CapTalk, a unified caption-conditioned text-audio autoregressive framework for both single-utterance and dialogue voice design. CapTalk uses utterance-level captions for single-utterance voice design and speaker-level captions for dialogue speaker modeling, and further introduces a CoT control sequence in dialogue to explicitly plan turn-level dynamic attributes. To resolve the conflict between stable timbre preservation and context-adaptive expression, we propose a hierarchical variational conditioning module with an utterance-level speaker encoder to better balance stable timbre preservation and context-adaptive expression. This enables timbre reuse while keeping expression adaptive to the current utterance and, in dialogue, the surrounding context. We also build a comprehensive evaluation protocol for both single-utterance and dialogue settings. Experiments show that CapTalk achieves state-of-the-art performance on a single-utterance voice design benchmark and delivers better expression controllability and contextual appropriateness in multi-turn dialogue. Audio samples are available at: https://anonymous.4open.science/api/repo/Captalk-D601/file/index.html.",
+      "authors": [
+        "Xiaosu Su",
+        "Zihan Sun",
+        "Peilei Jia",
+        "Jun Gao"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08363v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD"
+      ],
+      "published": "2026-04-09T15:27:22Z",
+      "updated": "2026-04-09T15:27:22Z"
+    },
+    {
+      "arxiv_id": "2604.08384v1",
+      "title_en": "TASU2: Controllable CTC Simulation for Alignment and Low-Resource Adaptation of Speech LLMs",
+      "abstract_en": "Speech LLM post-training increasingly relies on efficient cross-modal alignment and robust low-resource adaptation, yet collecting large-scale audio-text pairs remains costly. Text-only alignment methods such as TASU reduce this burden by simulating CTC posteriors from transcripts, but they provide limited control over uncertainty and error rate, making curriculum design largely heuristic. We propose \\textbf{TASU2}, a controllable CTC simulation framework that simulates CTC posterior distributions under a specified WER range, producing text-derived supervision that better matches the acoustic decoding interface. This enables principled post-training curricula that smoothly vary supervision difficulty without TTS. Across multiple source-to-target adaptation settings, TASU2 improves in-domain and out-of-domain recognition over TASU, and consistently outperforms strong baselines including text-only fine-tuning and TTS-based augmentation, while mitigating source-domain performance degradation.",
+      "authors": [
+        "Jing Peng",
+        "Chenghao Wang",
+        "Yi Yang",
+        "Lirong Qian",
+        "Junjie Li",
+        "Yu Xi",
+        "Shuai Wang",
+        "Kai Yu"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08384v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "cs.AI",
+        "eess.AS"
+      ],
+      "published": "2026-04-09T15:44:45Z",
+      "updated": "2026-04-09T15:44:45Z"
+    },
+    {
+      "arxiv_id": "2604.08412v1",
+      "title_en": "Selective Attention System (SAS): Device-Addressed Speech Detection for Real-Time On-Device Voice AI",
+      "abstract_en": "We study device-addressed speech detection under pre-ASR edge deployment constraints, where systems must decide whether to forward audio before transcription under strict latency and compute limits. We show that, in multi-speaker environments with temporally ambiguous utterances, this task is more effectively modelled as a sequential routing problem over interaction history than as an utterance-local classification task. We formalize this as Sequential Device-Addressed Routing (SDAR) and present the Selective Attention System (SAS), an on-device implementation that instantiates this formulation. On a held-out 60-hour multi-speaker English test set, the primary audio-only configuration achieves F1=0.86 (precision=0.89, recall=0.83); with an optional camera, audio+video fusion raises F1 to 0.95 (precision=0.97, recall=0.93). Removing causal interaction history (Stage~3) reduced F1 from 0.95 to 0.57+/-0.03 in the audio+video configuration under our evaluation protocol. Among the tested components, this was the largest observed ablation effect, indicating that short-horizon interaction history carries substantial decision-relevant information in the evaluated setting. SAS runs fully on-device on ARM Cortex-A class hardware (<150 ms latency, <20 MB footprint). All results are from internal evaluation on a proprietary dataset evaluated primarily in English; a 5-hour evaluation subset may be shared for independent verification (Section 8.8).",
+      "authors": [
+        "David Joohun Kim",
+        "Daniyal Anjum",
+        "Bonny Banerjee",
+        "Omar Abbasi"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08412v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-04-09T16:11:15Z",
+      "updated": "2026-04-09T16:11:15Z"
+    },
+    {
+      "arxiv_id": "2604.08415v1",
+      "title_en": "Ring Mixing with Auxiliary Signal-to-Consistency-Error Ratio Loss for Unsupervised Denoising in Speech Separation",
+      "abstract_en": "Noisy speech separation systems are typically trained on fully-synthetic mixtures, limiting generalization to real-world scenarios. Though training on mixtures of in-domain (thus often noisy) speech is possible, we show that this leads to undesirable optima where mixture noise is retained in the estimates, due to the inseparability of the background noises and the loss function's symmetry. To address this, we propose ring mixing, a batch strategy of using each source in two mixtures, alongside a new Signal-to-Consistency-Error Ratio (SCER) auxiliary loss penalizing inconsistent estimates of the same source from different mixtures, breaking symmetry and incentivizing denoising. On a WHAM!-based benchmark, our method can reduce residual noise by upwards of half, effectively learning to denoise from only noisy recordings. This opens the door to training more generalizable systems using in-the-wild data, which we demonstrate via systems trained using naturally-noisy speech from VoxCeleb.",
+      "authors": [
+        "Matthew Maciejewski",
+        "Samuele Cornell"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08415v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "eess.AS"
+      ],
+      "published": "2026-04-09T16:13:25Z",
+      "updated": "2026-04-09T16:13:25Z"
+    },
+    {
+      "arxiv_id": "2604.08450v1",
+      "title_en": "DeepFense: A Unified, Modular, and Extensible Framework for Robust Deepfake Audio Detection",
+      "abstract_en": "Speech deepfake detection is a well-established research field with different models, datasets, and training strategies. However, the lack of standardized implementations and evaluation protocols limits reproducibility, benchmarking, and comparison across studies. In this work, we present DeepFense, a comprehensive, open-source PyTorch toolkit integrating the latest architectures, loss functions, and augmentation pipelines, alongside over 100 recipes. Using DeepFense, we conducted a large-scale evaluation of more than 400 models. Our findings reveal that while carefully curated training data improves cross-domain generalization, the choice of pre-trained front-end feature extractor dominates overall performance variance. Crucially, we show severe biases in high-performing models regarding audio quality, speaker gender, and language. DeepFense is expected to facilitate real-world deployment with the necessary tools to address equitable training data selection and front-end fine-tuning.",
+      "authors": [
+        "Yassine El Kheir",
+        "Arnab Das",
+        "Yixuan Xiao",
+        "Xin Wang",
+        "Feidi Kallel",
+        "Enes Erdem Erdogan",
+        "Ngoc Thang Vu",
+        "Tim Polzehl",
+        "Sebastian Moeller"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08450v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-04-09T16:47:18Z",
+      "updated": "2026-04-09T16:47:18Z"
+    },
+    {
+      "arxiv_id": "2604.08497v1",
+      "title_en": "Bridging the Gap between Micro-scale Traffic Simulation and 4D Digital Cityscapes",
+      "abstract_en": "While micro-scale traffic simulations provide essential data for urban planning, they are rarely coupled with the high-fidelity visualization or auralization necessary for effective stakeholder communication. In this work, we present a real-time 4D visualization framework that couples the SUMO traffic with a photorealistic, geospatially accurate VR representation of Zurich in Unreal Engine 5. Our architecture implements a robust C++ data pipeline for synchronized vehicle visualization and features an Open Sound Control (OSC) interface to support external auralization engines. We validate the framework through a user study assessing the correlation between simulated traffic dynamics and human perception. Results demonstrate a high degree of perceptual alignment, where users correctly interpret safety risks from the 4D simulation. Furthermore, our findings indicate that the inclusion of spatialized audio alters the user's sense of safety, showing the importance of multimodality in traffic simulations.",
+      "authors": [
+        "Longxiang Jiao",
+        "Lukas Hofmann",
+        "Yiru Yang",
+        "Zhanyi Wu",
+        "Jonas Egeler"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.08497v1",
+      "primary_category": "cs.HC",
+      "source_categories": [
+        "cs.HC",
+        "cs.SD"
+      ],
+      "published": "2026-04-09T17:40:51Z",
+      "updated": "2026-04-09T17:40:51Z"
+    }
+  ]
+}
