@@ -1,0 +1,97 @@
+{
+  "window": {
+    "start": "2026-04-16T12:00:42.095574+08:00",
+    "end": "2026-04-17T11:57:45.874271+08:00"
+  },
+  "fetched_count": 5,
+  "deduplicated_count": 4,
+  "new_count": 4,
+  "papers": [
+    {
+      "arxiv_id": "2604.15037v1",
+      "title_en": "From Reactive to Proactive: Assessing the Proactivity of Voice Agents via ProVoice-Bench",
+      "abstract_en": "Recent advancements in LLM agents are gradually shifting from reactive, text-based paradigms toward proactive, multimodal interaction. However, existing benchmarks primarily focus on reactive responses, overlooking the complexities of proactive intervention and monitoring. To bridge this gap, we introduce ProVoice-Bench, the first evaluation framework specifically designed for proactive voice agents, featuring four novel tasks. By leveraging a multi-stage data synthesis pipeline, we curate 1,182 high-quality samples for rigorous testing. Our evaluation of state-of-the-art Multimodal LLMs reveals a significant performance gap, particularly regarding over-triggering and reasoning capabilities. These findings highlight the limitations of current models and offer a roadmap for developing more natural, context-aware proactive agents.",
+      "authors": [
+        "Ke Xu",
+        "Yuhao Wang",
+        "Yu Wang"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.15037v1",
+      "primary_category": "cs.AI",
+      "source_categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.SD"
+      ],
+      "published": "2026-04-16T14:06:30Z",
+      "updated": "2026-04-16T14:06:30Z"
+    },
+    {
+      "arxiv_id": "2604.15055v1",
+      "title_en": "Enhancing time-frequency resolution with optimal transport and barycentric fusion of multiple spectrogram",
+      "abstract_en": "Time-frequency representations, such as the short-time Fourier transform (STFT), are fundamental tools for analyzing non-stationary signals. However, their ability to achieve sharp localization in both time and frequency is inherently limited by the Gabor-Heisenberg uncertainty principle. In this paper, we address this limitation by introducing a method to generate super-resolution spectrograms through the fusion of two or more spectrograms with varying resolutions. Specifically, we compute the super-resolution spectrogram as the barycenter of input spectrograms using optimal transport (OT) divergences. Unlike existing fusion approaches, our method does not require the input spectrograms to share the same time-frequency grid. Instead, the input spectrograms can be computed using any STFT parameters, and the resulting super-resolution spectrogram can be defined on an arbitrary user-specified grid. We explore various OT divergences based on different transportation costs. Notably, we introduce a novel transportation cost that preserves time-frequency geometry while significantly reducing computational complexity compared to standard Wasserstein barycenters. We adopt the unbalanced OT framework and derive a new block majorization-minimization algorithm for efficient barycenter computation. We validate the proposed method on controlled synthetic signals and recorded speech using both quantitative and qualitative evaluations. The results show that our approach combines the best localization properties of the input spectrograms and outperforms an unsupervised state-of-the-art fusion method.",
+      "authors": [
+        "David Valdivia",
+        "Elsa Cazelles",
+        "Cédric Févotte"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.15055v1",
+      "primary_category": "eess.SP",
+      "source_categories": [
+        "cs.SD",
+        "eess.SP"
+      ],
+      "published": "2026-04-16T14:23:59Z",
+      "updated": "2026-04-16T14:23:59Z"
+    },
+    {
+      "arxiv_id": "2604.15086v1",
+      "title_en": "ControlFoley: Unified and Controllable Video-to-Audio Generation with Cross-Modal Conflict Handling",
+      "abstract_en": "Recent advances in video-to-audio (V2A) generation enable high-quality audio synthesis from visual content, yet achieving robust and fine-grained controllability remains challenging. Existing methods suffer from weak textual controllability under visual-text conflict and imprecise stylistic control due to entangled temporal and timbre information in reference audio. Moreover, the lack of standardized benchmarks limits systematic evaluation. We propose ControlFoley, a unified multimodal V2A framework that enables precise control over video, text, and reference audio. We introduce a joint visual encoding paradigm that integrates CLIP with a spatio-temporal audio-visual encoder to improve alignment and textual controllability. We further propose temporal-timbre decoupling to suppress redundant temporal cues while preserving discriminative timbre features. In addition, we design a modality-robust training scheme with unified multimodal representation alignment (REPA) and random modality dropout. We also present VGGSound-TVC, a benchmark for evaluating textual controllability under varying degrees of visual-text conflict. Extensive experiments demonstrate state-of-the-art performance across multiple V2A tasks, including text-guided, text-controlled, and audio-controlled generation. ControlFoley achieves superior controllability under cross-modal conflict while maintaining strong synchronization and audio quality, and shows competitive or better performance compared to an industrial V2A system. Code, models, datasets, and demos are available at: https://yjx-research.github.io/ControlFoley/.",
+      "authors": [
+        "Jianxuan Yang",
+        "Xinyue Guo",
+        "Zhi Cheng",
+        "Kai Wang",
+        "Lipan Zhang",
+        "Jinjie Hu",
+        "Qiang Ji",
+        "Yihua Cao",
+        "Yihao Meng",
+        "Zhaoyue Cui",
+        "Mengmei Liu",
+        "Meng Meng",
+        "Jian Luan"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.15086v1",
+      "primary_category": "cs.MM",
+      "source_categories": [
+        "cs.CV",
+        "cs.MM",
+        "cs.SD"
+      ],
+      "published": "2026-04-16T14:47:24Z",
+      "updated": "2026-04-16T14:47:24Z"
+    },
+    {
+      "arxiv_id": "2604.15278v1",
+      "title_en": "A Manual Bar-by-Bar Tempo Measurement Protocol for Polyphonic Chamber Music Recordings: Design, Validation, and Application to Beethoven's Piano and Cello Sonatas",
+      "abstract_en": "Empirical performance analysis depends on the accurate extraction of tempo data from recordings, yet standard computational tools, designed for monophonic audio or modern studio conditions, fail systematically when applied to historical polyphonic chamber music. This paper documents the failure of automated beat-detection software on duo recordings of Beethoven's five piano and cello sonatas (Op.~5 Nos.~1 and~2; Op.~69; Op.~102 Nos.~1 and~2), and presents a formalised manual alternative: a cumulative lap-timer protocol that yields bar-level beats-per-minute data with millisecond resolution. The protocol, developed in cross-disciplinary collaboration with an engineer specialising in VLSI design, rests on a cumulative timestamp architecture that prevents error accumulation, permits internal self-validation, and captures expressive timing phenomena (rubato, fermatas, accelerandi, ritardandi) that automated tools systematically suppress or misread. The mathematical derivation of the BPM formula, the spreadsheet data structure, and the error characterisation are presented in full. Applied to over one hundred movement-level recordings spanning 1930--2012, the protocol generated a dataset subsequently visualised through tempographs, histograms with spline-smoothed probability density functions, ridgeline plots, and combination charts. The paper argues that manual annotation is not a methodological retreat but a principled response to the intrinsic limitations of computational tools when faced with the specific challenges of polyphonic historical recordings. The complete dataset and analysis code are publicly available.",
+      "authors": [
+        "Ignasi Sole"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.15278v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-04-16T17:49:03Z",
+      "updated": "2026-04-16T17:49:03Z"
+    }
+  ]
+}
