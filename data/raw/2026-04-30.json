@@ -1,0 +1,56 @@
+{
+  "window": {
+    "start": "2026-04-29T12:23:11.455526+08:00",
+    "end": "2026-04-30T12:25:43.116802+08:00"
+  },
+  "fetched_count": 2,
+  "deduplicated_count": 2,
+  "new_count": 2,
+  "papers": [
+    {
+      "arxiv_id": "2604.26669v1",
+      "title_en": "Full band denoising of room impulse response in the wavelet domain with dictionary learning",
+      "abstract_en": "Conventional wavelet-domain methods for room impulse response denoising rely on thresholding detail coefficients, which is unsuited for low frequencies. In this work, we introduce a wavelet-based post-processing algorithm that extends denoising to approximation coefficients by means of sparse dictionary learning with a time-varying error tolerance. The proposed method leverages an exponential decay envelope model to adapt reconstruction accuracy according to the local signal-to-noise ratio. This approach significantly improves low-frequency denoising of synthetic and measured room impulse responses compared to the baseline method, leading to more accurate estimation of acoustic parameters such as decay time.",
+      "authors": [
+        "Théophile Dupré",
+        "Romain Couderc",
+        "Miguel Moleron",
+        "Axel Coulon",
+        "Rémy Bruno",
+        "Arnaud Laborie"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.26669v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.SD",
+        "math.OC"
+      ],
+      "published": "2026-04-29T13:38:03Z",
+      "updated": "2026-04-29T13:38:03Z"
+    },
+    {
+      "arxiv_id": "2604.26676v1",
+      "title_en": "A Toolkit for Detecting Spurious Correlations in Speech Datasets",
+      "abstract_en": "We introduce a toolkit for uncovering spurious correlations between recording characteristics and target class in speech datasets. Spurious correlations may arise due to heterogeneous recording conditions, a common scenario for health-related datasets. When present both in the training and test data, these correlations result in an overestimation of the system performance -- a dangerous situation, specially in high-stakes application where systems are required to satisfy minimum performance requirements. Our toolkit implements a diagnostic method based on the detection of the target class using only the non-speech regions in the audio. Better than chance performance at this task indicates that information about the target class can be extracted from the non-speech regions, flagging the presence of spurious correlations. The toolkit is publicly available for research use.",
+      "authors": [
+        "Lara Gauder",
+        "Pablo Riera",
+        "Andrea Slachevsky",
+        "Gonzalo Forno",
+        "Adolfo M. García",
+        "Luciana Ferrer"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2604.26676v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.DB",
+        "cs.SD"
+      ],
+      "published": "2026-04-29T13:47:22Z",
+      "updated": "2026-04-29T13:47:22Z"
+    }
+  ]
+}
