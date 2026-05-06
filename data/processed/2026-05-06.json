@@ -1,0 +1,1384 @@
+{
+  "generated_at": "2026-05-06T12:28:06.674618+08:00",
+  "project": {
+    "name": "paper_claw",
+    "title": "Paper Claw",
+    "description": "Multi-source paper digest generator with AI-powered summaries",
+    "timezone": "Asia/Shanghai",
+    "version": "2.0.0"
+  },
+  "window": {
+    "start": "2026-05-04T12:34:18.201865+08:00",
+    "end": "2026-05-06T12:27:39.913105+08:00",
+    "start_display": "2026-05-04 12:34:18 CST",
+    "end_display": "2026-05-06 12:27:39 CST"
+  },
+  "summary": {
+    "total": 20,
+    "counts": {
+      "Speech LLM": 0,
+      "ASR": 5,
+      "TTS": 0,
+      "Enhancement": 0,
+      "SLU": 0,
+      "Paralinguistics": 0,
+      "Audio": 15
+    },
+    "headline": "今日共收录 20 篇新论文，主要分布在 ASR 5, Audio 15。",
+    "trend": "整体上以方法改进、跨模态建模和系统化评测为主，适合按分类快速筛选当天值得细读的论文。",
+    "language": "zh"
+  },
+  "markdown_path": "content/posts/2026-05-06-arxiv-audio-digest.md",
+  "papers": [
+    {
+      "arxiv_id": "2605.02700v1",
+      "title_en": "Neck-Learn: Attention-Based Multiple Instance Learning and Ensemble Framework for Ecological Momentary Assessment",
+      "abstract_en": "Vocal hyperfunction (VH) is a prevalent voice disorder whose ambulatory detection remains challenging despite extensive daily voice data. Prior approaches capture week-long neck-surface accelerometer recordings but collapse them into fixed-length subject-level feature vectors, discarding within-day temporal dynamics encoding nuanced voicing feature interactions. We introduce a novel hybrid architecture combining gradient-boosted trees on day-level distributional features with a CNN-based multiple instance learning (MIL) framework that preserves and learns from from temporal dynamics throughout each day. On the held-out test set, our model exceeds the challenge baselines (AUC: 0.82 PVH, 0.77 NPVH), achieving AUCs of 0.879 for PVH (Rank 5) and 0.848 for NPVH (Rank 3), while also providing insights into clinically relevant information about both pathologies.",
+      "authors": [
+        "Ahsan Jamal Cheema"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.02700v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "eess.AS"
+      ],
+      "published": "2026-05-04T15:11:25Z",
+      "updated": "2026-05-04T15:11:25Z",
+      "keywords_en": [
+        "neck-learn",
+        "attention-based",
+        "multiple",
+        "instance",
+        "learning",
+        "ensemble"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Neck-Learn: Attention-Based Multiple Instance Learning and Ensemble Framework for Ecological Momentary Assessment》所界定。 从摘要看，作者主要围绕 neck-learn、attention-based、multiple 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：On the held-out test set, our model exceeds the challenge baselines (AUC: 0.82 PVH, 0.77 NPVH), achieving AUCs of 0.879 for PVH (Rank 5) and 0.848 for NPVH (Rank 3), while also providing insights into clinically relevant information about both pathologies. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：neck-learn, attention-based, multiple。"
+      }
+    },
+    {
+      "arxiv_id": "2605.02715v1",
+      "title_en": "Dimensionality-Aware Anomaly Detection in Learned Representations of Self-Supervised Speech Models",
+      "abstract_en": "Self-supervised speech models (S3Ms) achieve strong downstream performance, yet their learned representations remain poorly understood under natural and adversarial perturbations. Prior studies rely on representation similarity or global dimensionality, offering limited visibility into local geometric changes. We ask: how do perturbations deform local geometry, and do these shifts track downstream automatic speech recognition (ASR) degradation? To address this, we present GRIDS, a framework using Local Intrinsic Dimensionality (LID) across layer-wise representations in WavLM and wav2vec 2.0. We find that LID increases for all low signal-to noise ratio (SNR) perturbations and diverges at high SNR: benign noise converges toward the clean profile, while adversarial inputs retain early-layer LID elevation. We show LID elevation co-occurs with increased WER, and that layer-wise LID features enable anomaly detection (AUROC 0.78-1.00), opening the door to transcript-free monitoring in S3Ms.",
+      "authors": [
+        "Sandra Arcos-Holzinger",
+        "Sarah M. Erfani",
+        "James Bailey",
+        "Sanjeev Khudanpur"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.02715v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "cs.CR",
+        "cs.LG",
+        "eess.AS"
+      ],
+      "published": "2026-05-04T15:18:15Z",
+      "updated": "2026-05-04T15:18:15Z",
+      "keywords_en": [
+        "automatic speech recognition",
+        "wav2vec"
+      ],
+      "digest_category": "ASR",
+      "category_label": "语音识别",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「语音识别」方向，核心任务由题目《Dimensionality-Aware Anomaly Detection in Learned Representations of Self-Supervised Speech Models》所界定。 从摘要看，作者主要围绕 automatic speech recognition、wav2vec 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Self-supervised speech models (S3Ms) achieve strong downstream performance, yet their learned representations remain poorly understood under natural and adversarial perturbations. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：automatic speech recognition, wav2vec。"
+      }
+    },
+    {
+      "arxiv_id": "2605.02718v1",
+      "title_en": "Private Speech Classification without Collapse: Stabilized DP Training and Offline Distillation",
+      "abstract_en": "We study example-level private supervised speech classification under a practical release constraint: training may access privileged side information, but the released model must be audio-only. This setting is important because speech systems can often exploit richer side information during development, whereas deployment and release require a lightweight unimodal model with auditable privacy guarantees. Using DP-SGD on the private dataset $D_{\\text{priv}}$, we identify a strong-privacy failure mode ($ε\\le 1$) on imbalanced tasks, where training may collapse to a near single-class predictor, a phenomenon that overall accuracy can obscure. We therefore emphasize Macro-F1, balanced accuracy, and a simple collapse diagnostic. This failure is especially problematic in our release setting because a collapsed private teacher cannot provide useful supervision for the downstream audio-only student. To address this setting under strong privacy, we propose a two-stage protocol: (i) train a (possibly multimodal) DP teacher on $D_{\\text{priv}}$, and (ii) distill an audio-only student on a fixed, recording-disjoint auxiliary dataset $D_{\\text{aux}}$ using one-shot offline teacher probability outputs, releasing only the student. The DP guarantee applies only to $D_{\\text{priv}}$; we make no DP claim for $D_{\\text{aux}}$, and privacy of the released student with respect to $D_{\\text{priv}}$ follows by post-processing. We frame this setting as involving four coupled bottlenecks: speech-induced optimization instability under DP-SGD, minority-class erosion under clipping and noise, teacher over-reliance on privileged modalities unavailable at deployment, and train--deploy modality mismatch. We address them with a DP-stabilizing acoustic front-end (DSAF), minibatch-adaptive bounded loss reweighting (AW-DP), privileged-modality dropout, and offline teacher-to-student distillation.",
+      "authors": [
+        "Yadi Wen",
+        "Tianxin Li",
+        "Enji Liang",
+        "Rong Du",
+        "Yue Fu"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.02718v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.MM",
+        "cs.SD"
+      ],
+      "published": "2026-05-04T15:19:02Z",
+      "updated": "2026-05-04T15:19:02Z",
+      "keywords_en": [
+        "private",
+        "speech",
+        "classification",
+        "without",
+        "collapse",
+        "stabilized"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Private Speech Classification without Collapse: Stabilized DP Training and Offline Distillation》所界定。 从摘要看，作者主要围绕 private、speech、classification 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：This setting is important because speech systems can often exploit richer side information during development, whereas deployment and release require a lightweight unimodal model with auditable privacy guarantees. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：private, speech, classification。"
+      }
+    },
+    {
+      "arxiv_id": "2605.02782v1",
+      "title_en": "When Audio-Language Models Fail to Leverage Multimodal Context for Dysarthric Speech Recognition",
+      "abstract_en": "Automatic speech recognition (ASR) systems remain brittle on dysarthric and other atypical speech. Recent audio-language models raise the possibility of improving performance by conditioning on additional clinical context at inference time, but it is unclear whether these models can make use of such information. We introduce a benchmark built on the Speech Accessibility Project (SAP) dataset that tests whether diagnosis labels, clinician-derived speech ratings, and progressively richer clinical descriptions improve transcription accuracy for dysarthric speech. Across matched comparisons on nine models, we find that current models do not meaningfully use this context: diagnosis-informed and clinically detailed prompts yield negligible improvements and often degrade word error rate. We complement the prompting analysis with context-dependent fine-tuning, showing that LoRA adaptation with a mixture of clinical prompt formats achieves a WER of 0.066, a 52% relative reduction over the frozen baseline, while preserving performance when context is unavailable. Subgroup analyses reveal significant gains for Down syndrome and mild-severity speakers. These results clarify where current models fall short and provide a testbed for measuring progress toward more inclusive ASR.",
+      "authors": [
+        "Pehuén Moure",
+        "Niclas Pokel",
+        "Bilal Bounajma",
+        "Yingqiang Gao",
+        "Roman Boehringer",
+        "Longbiao Cheng",
+        "Shih-Chii Liu"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.02782v1",
+      "primary_category": "cs.AI",
+      "source_categories": [
+        "cs.AI",
+        "cs.CL",
+        "eess.AS"
+      ],
+      "published": "2026-05-04T16:24:06Z",
+      "updated": "2026-05-04T16:24:06Z",
+      "keywords_en": [
+        "audio-language model",
+        "automatic speech recognition"
+      ],
+      "digest_category": "ASR",
+      "category_label": "语音识别",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「语音识别」方向，核心任务由题目《When Audio-Language Models Fail to Leverage Multimodal Context for Dysarthric Speech Recognition》所界定。 从摘要看，作者主要围绕 audio-language model、automatic speech recognition 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Recent audio-language models raise the possibility of improving performance by conditioning on additional clinical context at inference time, but it is unclear whether these models can make use of such information. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：audio-language model, automatic speech recognition。"
+      }
+    },
+    {
+      "arxiv_id": "2605.02804v1",
+      "title_en": "Multi-Axis Speech Similarity via Factor-Partitioned Embeddings",
+      "abstract_en": "Speech encodes multiple simultaneous attributes--linguistic content, speaker identity, dialect, gender--that conventional single-vector embeddings conflate. We present a factor-partitioned embedding framework that maps each utterance into a single vector whose subspaces correspond to distinct axes of variation. A shared acoustic encoder feeds per-axis linear projection heads, each trained via distillation from a specialist teacher or a contrastive objective over shared-label pairs. The resulting embeddings support attribute-conditioned retrieval: similarity is computed as a signed weighted sum over per-axis cosine scores, allowing retrieval that jointly considers what was said and how --or explicitly suppresses one attribute to surface another. We evaluate on cross-corpus retrieval over corpora sharing the Harvard sentence prompts, demonstrating that signed axis weighting can suppress same-speaker bias and surface semantically matched utterances across recording conditions.",
+      "authors": [
+        "Jim O'Regan",
+        "Jens Edlund"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.02804v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "cs.IR",
+        "eess.AS"
+      ],
+      "published": "2026-05-04T16:43:46Z",
+      "updated": "2026-05-04T16:43:46Z",
+      "keywords_en": [
+        "multi-axis",
+        "speech",
+        "similarity",
+        "factor-partitioned",
+        "embeddings"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Multi-Axis Speech Similarity via Factor-Partitioned Embeddings》所界定。 从摘要看，作者主要围绕 multi-axis、speech、similarity 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We evaluate on cross-corpus retrieval over corpora sharing the Harvard sentence prompts, demonstrating that signed axis weighting can suppress same-speaker bias and surface semantically matched utterances across recording conditions. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性高。摘要结构较直白，问题、方法和结果都比较容易定位。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：multi-axis, speech, similarity。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03039v1",
+      "title_en": "Mixed-Precision Information Bottlenecks for On-Device Trait-State Disentanglement in Bipolar Agitation Detection",
+      "abstract_en": "Continuous monitoring of bipolar disorder agitation via voice biomarkers requires disentangling stable speaker traits from volatile affective states on resource-constrained edge devices. We introduce MP-IB, the first framework to treat mixed-precision quantization as an information bottleneck for clinical trait-state separation. The core insight is that numerical precision itself controls capacity: an FP16 trait head (1,024 bits) encodes speaker identity, while an INT4 state head (128 bits) captures agitation, yielding 8x information asymmetry without adversarial training. We augment this with Dynamic Precision Scheduling and Multi-Scale Temporal Fusion. On Bridge2AI-Voice (N=833, 4 sessions/participant, strict speaker-independent CV), MP-IB achieves rho = 0.117 (95\\% CI: [0.089, 0.145], p=0.003 vs. chance), outperforming 94M-parameter WavLM-Adapter with in-domain SSL continuation (rho = -0.042), beta VAE disentanglement (rho = 0.089), and hand-crafted prosody (rho = 0.031) by 2.8--15.9 points absolute. Zero-shot transfer to CREMA-D achieves AUC=0.817. Identity leakage is suppressed to near-random (EER=0.42, MIA-AUC=0.52). End-to-end latency is 23.4 ms with a 617 KB footprint, enabling real-time monitoring on sub 20 dollar devices.",
+      "authors": [
+        "Joydeep Chandra"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03039v1",
+      "primary_category": "cs.LG",
+      "source_categories": [
+        "cs.AI",
+        "cs.HC",
+        "cs.LG",
+        "cs.SD"
+      ],
+      "published": "2026-05-04T18:06:17Z",
+      "updated": "2026-05-04T18:06:17Z",
+      "keywords_en": [
+        "mixed-precision",
+        "information",
+        "bottlenecks",
+        "on-device",
+        "trait-state",
+        "disentanglement"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Mixed-Precision Information Bottlenecks for On-Device Trait-State Disentanglement in Bipolar Agitation Detection》所界定。 从摘要看，作者主要围绕 mixed-precision、information、bottlenecks 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：On Bridge2AI-Voice (N=833, 4 sessions/participant, strict speaker-independent CV), MP-IB achieves rho = 0.117 (95\\% CI: [0.089, 0.145], p=0.003 vs. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：mixed-precision, information, bottlenecks。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03073v1",
+      "title_en": "The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail",
+      "abstract_en": "Niche-domain Indic ASR -- digit strings, currency amounts, addresses, brand names, English/Indic codemix -- is under-served by both open-source SOTA and commercial systems. On a synthesised entity-dense Telugu test set (held-out by synthesis system), vasista22/whisper-telugu-large-v2 (open SOTA) achieves Entity-Hit-Rate (EHR) 0.027 and Deepgram Nova-3 (commercial) 0.16. We close this gap with a self-contained TTS<->STT flywheel: an open-source Indic TTS pipeline synthesises ~22,000 entity-dense Indic-English code-mix utterances at <$50 marginal cost, and a LoRA fine-tune on top of vasista22 achieves EHR 0.473 on the held-out test (17x over open SOTA, 3x over commercial), with read-prose regression bounded to +6.6 pp WER on FLEURS-Te. Cross-language: beta-Hi 0.337 (7x vs vasista22) and beta-Ta 0.543 (22x vs vasista22, 22x vs Deepgram); on Hindi where Deepgram has substantial entity coverage, the flywheel underperforms commercial. All three beta models fall below pre-registered EHR targets (0.75 for Te, 0.65 for Hi/Ta); we report honestly. A native-human-recorded sanity check (n=20 Telugu) confirms transfer to real speech (beta-Te EHR 0.516 on native vs 0.473 on synth). An EDSA-isolation ablation (LoRA on FLEURS-Te alone) yields EHR 0.020 on the same held-out, attributing ~100% of the gain to the EDSA corpus. We additionally report a language-conditional finding: vanilla Whisper-large-v3 has Telugu-specific Script Collapse (SFR 0.46-0.71) that a per-language LoRA corrects (SFR 0.81-0.97), but the recipe is contraindicated on Hindi and Tamil where vanilla SFR >= 0.98. Code, holdouts, predictions, EDSA corpus, and entity dictionaries are released open-source.",
+      "authors": [
+        "Venkata Pushpak Teja Menta"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03073v1",
+      "primary_category": "cs.CL",
+      "source_categories": [
+        "cs.CL",
+        "cs.SD"
+      ],
+      "published": "2026-05-04T18:43:30Z",
+      "updated": "2026-05-04T18:43:30Z",
+      "keywords_en": [
+        "whisper"
+      ],
+      "digest_category": "ASR",
+      "category_label": "语音识别",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「语音识别」方向，核心任务由题目《The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail》所界定。 从摘要看，作者主要围绕 whisper 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：On a synthesised entity-dense Telugu test set (held-out by synthesis system), vasista22/whisper-telugu-large-v2 (open SOTA) achieves Entity-Hit-Rate (EHR) 0.027 and Deepgram Nova-3 (commercial) 0.16. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：whisper。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03079v1",
+      "title_en": "Phoneme-Level Deepfake Detection Across Emotional Conditions Using Self-Supervised Embeddings",
+      "abstract_en": "Recent advances in emotional voice conversion (EVC) have enabled the generation of expressive synthetic speech, raising new concerns in audio deepfake detection. Existing approaches treat speech as a homogeneous signal and largely overlook its internal phonetic structure, limiting their interpretability in emotionally conditioned settings. In this work, we propose a phoneme-level framework to analyze emotionally manipulated synthetic speech using real and EVC-generated speech under matched emotional conditions with shared transcripts, phoneme-aligned TextGrids, and WavLM-based embeddings. Our results show that phoneme behavior varies across categories, with complex vowels and fricatives exhibiting higher divergence while simpler phonemes remain more stable. Phonemes with larger distributional differences are also found to be more easily detected, consistently across multiple emotions and synthesis systems. These findings demonstrate that phoneme-level analysis is an effective and interpretable approach for detecting emotionally manipulated synthetic speech.",
+      "authors": [
+        "Vamshi Nallaguntla",
+        "Shruti Kshirsagar",
+        "Anderson R. Avila"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03079v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.LG",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-05-04T18:49:29Z",
+      "updated": "2026-05-04T18:49:29Z",
+      "keywords_en": [
+        "phoneme-level",
+        "deepfake",
+        "detection",
+        "across",
+        "emotional",
+        "conditions"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Phoneme-Level Deepfake Detection Across Emotional Conditions Using Self-Supervised Embeddings》所界定。 从摘要看，作者主要围绕 phoneme-level、deepfake、detection 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Our results show that phoneme behavior varies across categories, with complex vowels and fricatives exhibiting higher divergence while simpler phonemes remain more stable. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：phoneme-level, deepfake, detection。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03297v1",
+      "title_en": "Contrastive Regularization for Accent-Robust ASR",
+      "abstract_en": "ASR systems based on self-supervised acoustic pretraining and CTC fine-tuning achieve strong performance on native speech but remain sensitive to accent variability. We investigate supervised contrastive learning (SupCon) as a lightweight, accent-invariant auxiliary objective for CTC fine-tuning. An utterance-level contrastive loss regularizes encoder representations without architectural modification or explicit accent supervision. Experiments on the L2-ARCTIC benchmark show consistent WER reductions across multiple pretrained encoders, with up to 25 -- 29\\% relative reduction under unseen-accent evaluation. Analysis using within-transcript cosine dispersion indicates that SupCon promotes more compact and stable representation geometry under accent variability. Overall, SupCon provides an effective and model-agnostic regularization strategy for improving accent robustness.",
+      "authors": [
+        "Van-Phat Thai",
+        "Aradhya Dhruv",
+        "Duc-Thinh Pham",
+        "Sameer Alam"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03297v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.LG",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T02:35:44Z",
+      "updated": "2026-05-05T02:35:44Z",
+      "keywords_en": [
+        "asr system"
+      ],
+      "digest_category": "ASR",
+      "category_label": "语音识别",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「语音识别」方向，核心任务由题目《Contrastive Regularization for Accent-Robust ASR》所界定。 从摘要看，作者主要围绕 asr system 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：ASR systems based on self-supervised acoustic pretraining and CTC fine-tuning achieve strong performance on native speech but remain sensitive to accent variability. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：asr system。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03384v1",
+      "title_en": "DECKER: Domain-invariant Embedding for Cross-Keyboard Extraction and Recognition",
+      "abstract_en": "Acoustic side-channel attacks (ASCA) on keyboards pose a significant security risk, as keystrokes can be inferred from typing acoustics, revealing sensitive information. Prior ASCA studies are limited by small-scale datasets with restricted diversity in users, keyboards, and environments, constraining analysis across devices, microphones, and noise conditions. We introduce HEAR, a dataset designed to study ASCA along three axes: keyboard generalization, noise adaptation, and user bias. HEAR contains recordings from 53 participants using 37 laptop keyboards, collected in three realistic settings: (1) external microphone capture, (2) device microphone capture without network noise, and (3) VoIP-based streaming capture. This enables controlled evaluation across users, keyboards, and environments. On HEAR, we establish an ASCA benchmark spanning conventional features and pre-trained representations from raw audio and spectrograms in unimodal and multimodal settings. We propose DECKER, a domain-invariant keystroke inference framework with four stages: (1) Keyboard Signature Normalization to reduce device coloration, (2) domain-adversarial disentanglement to suppress keyboard identity, (3) supervised cross-keyboard contrastive alignment to enforce key consistency, and (4) Acoustic Style Randomization to synthesize unseen keyboard responses. We further explore sentence-level inference using an LLM-based post-processing layer to refine keystroke sequences via linguistic context. Results on HEAR show DECKER improves keystroke identification over strong baselines, particularly in cross-keyboard and cross-user settings, with further gains from language-model rectification. These findings highlight that ASCA remains effective across diverse users, devices, and noisy environments, underscoring its practical security risk.",
+      "authors": [
+        "Bikrant Bikram Pratap Maurya",
+        "Nitin Choudhury",
+        "Daksh Agarwal",
+        "Arun Balaji Buduru"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03384v1",
+      "primary_category": "cs.CR",
+      "source_categories": [
+        "cs.CR",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T05:43:24Z",
+      "updated": "2026-05-05T05:43:24Z",
+      "keywords_en": [
+        "decker",
+        "domain-invariant",
+        "embedding",
+        "cross-keyboard",
+        "extraction",
+        "recognition"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《DECKER: Domain-invariant Embedding for Cross-Keyboard Extraction and Recognition》所界定。 从摘要看，作者主要围绕 decker、domain-invariant、embedding 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Results on HEAR show DECKER improves keystroke identification over strong baselines, particularly in cross-keyboard and cross-user settings, with further gains from language-model rectification. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：decker, domain-invariant, embedding。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03395v1",
+      "title_en": "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music",
+      "abstract_en": "Music popularity prediction has attracted growing research interest, with relevance to artists, platforms, and recommendation systems. However, the explosive rise of AI-generated music platforms has created an entirely new and largely unexplored landscape, where a surge of songs is produced and consumed daily without the traditional markers of artist reputation or label backing. Key, yet unexplored in this pursuit is aesthetic quality. We propose APEX, the first large-scale multi-task learning framework for AI-generated music, trained on over 211k songs (10k hours of audio) from Suno and Udio, that jointly predicts engagement-based popularity signals - streams and likes scores - alongside five perceptual aesthetic quality dimensions from frozen audio embeddings extracted from MERT, a self-supervised music understanding model. Aesthetic quality and popularity capture complementary aspects of music that together prove valuable: in an out-of-distribution evaluation on the Music Arena dataset, comprising pairwise human preference battles across eleven generative music systems unseen during training, including aesthetic features consistently improves preference prediction, demonstrating strong generalisation of the learned representations across generative architectures.",
+      "authors": [
+        "Jaavid Aktar Husain",
+        "Dorien Herremans"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03395v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.MM",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T06:11:51Z",
+      "updated": "2026-05-05T06:11:51Z",
+      "keywords_en": [
+        "apex",
+        "large-scale",
+        "multi-task",
+        "aesthetic-informed",
+        "popularity",
+        "prediction"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music》所界定。 从摘要看，作者主要围绕 apex、large-scale、multi-task 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Aesthetic quality and popularity capture complementary aspects of music that together prove valuable: in an out-of-distribution evaluation on the Music Arena dataset, comprising pairwise human preference battles across eleven generative music systems unseen during training, including aesthetic features consistently improves preference prediction, demonstrating strong generalisation of the learned representations across generative architectures. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：apex, large-scale, multi-task。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03412v1",
+      "title_en": "Smart Passive Acoustic Monitoring: Embedding a Classifier on AudioMoth Microcontroller",
+      "abstract_en": "Passive Acoustic Monitoring (PAM) is an efficient and non-invasive method for surveying ecosystems at a reduced cost. Typically, autonomous recorders allow the acquisition of vast bioacoustic datasets which are then analyzed. However, power consumption and data storage are both scarce and limit the duration of acquisition campaigns. To address this issue, we propose a smart PAM system which allows the in-situ analysis of the soundscape by embedding a classifier directly onto an AudioMoth microcontroller. Specifically, we propose an optimized yet simple 1D Convolutional Neural Network (1D-CNN) to classify the raw audio. The model focuses on the specific call of Scopoli Shearwater seabirds (endangered species) and is trained on a real-world dataset with a classification accuracy of 91\\% (balanced accuracy of 89\\%). We also propose a process to optimize the model to fit the severe resource constraints of the AudioMoth, achieving a \\~10kB RAM memory footprint and 20ms inference time. Finally, we present an open-source tutorial of our model optimization and export strategy which can be used for embedding models beyond the scope of our study. Our modified version of the AudioMoth firmware adds two functions: (F1) which selectively records data when the target species has been detected and (F2) which logs the continuous classification results in real time. This work intends to facilitate the conception of intelligent sensors, enhancing the efficiency and scalability of bioacoustic monitoring campaigns.",
+      "authors": [
+        "Louis Lerbourg",
+        "Paul Peyret",
+        "Juliette Linossier",
+        "Marielle Malfante"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03412v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T06:37:35Z",
+      "updated": "2026-05-05T06:37:35Z",
+      "keywords_en": [
+        "smart",
+        "passive",
+        "acoustic",
+        "monitoring",
+        "embedding",
+        "classifier"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Smart Passive Acoustic Monitoring: Embedding a Classifier on AudioMoth Microcontroller》所界定。 从摘要看，作者主要围绕 smart、passive、acoustic 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We also propose a process to optimize the model to fit the severe resource constraints of the AudioMoth, achieving a \\~10kB RAM memory footprint and 20ms inference time. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：smart, passive, acoustic。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03420v1",
+      "title_en": "Deepfake Audio Detection Using Self-supervised Fusion Representations",
+      "abstract_en": "This paper describes a submission to the Environment-Aware Speech and Sound Deepfake Detection Challenge (ESDD2) 2026, which addresses component-level deepfake detection using the CompSpoofV2 dataset, where speech and environmental sounds may be independently manipulated. To address this challenge, a dual-branch deepfake detection framework is proposed to jointly model speech and environmental contextual representations from input audio. Two pretrained models, XLS-R for speech and BEATs for environmental sound, are used to extract complementary contextual representations. A Matching Head is introduced to model representation differences through statistical normalization and representation interaction, enabling estimation of the original class. In parallel, multi-head cross-attention enables effective information exchange between speech and environmental components. The refined representations are processed with residual connections and layer normalization, and passed to an AASIST classifier to predict speech-based and environment-based spoofing probabilities. The model outputs original, speech, and environment predictions. On the test set, the proposed system achieves an F1-score of 70.20% and an environmental EER of 16.54%, outperforming the baseline system.",
+      "authors": [
+        "Khalid Zaman",
+        "Qixuan Huang",
+        "Muhammad Uzair",
+        "Masashi Unoki"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03420v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T06:51:41Z",
+      "updated": "2026-05-05T06:51:41Z",
+      "keywords_en": [
+        "deepfake",
+        "audio",
+        "detection",
+        "using",
+        "self-supervised",
+        "fusion"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Deepfake Audio Detection Using Self-supervised Fusion Representations》所界定。 从摘要看，作者主要围绕 deepfake、audio、detection 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：On the test set, the proposed system achieves an F1-score of 70.20% and an environmental EER of 16.54%, outperforming the baseline system. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：deepfake, audio, detection。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03541v1",
+      "title_en": "Cosmodoit: A Python Package for Adaptive, Efficient Pipelining of Feature Extraction from Performed Music",
+      "abstract_en": "Computational analysis of performed music is a key component of music information research, as performance shapes much of the music we hear. Music performance analysis studies the acoustic variations introduced by performers and how these variations reflect musical interpretation and structure. Although many algorithms and tools exist for tasks such as performance-to-score alignment and symbolic or audio feature extraction, they are spread across different programming languages and data formats, making them difficult to combine efficiently. To address this problem, we present Cosmodoit, a novel Python package designed to streamline feature extraction from performed music. Cosmodoit integrates performance-to-score alignment with symbolic and audio feature extraction in a modular, flexible pipeline that supports selective processing, dependency-aware computation, and incremental updates. Its extensible design reduces duplicated work, minimizes errors, and enables efficient large-scale processing. By accommodating algorithms implemented in multiple languages and allowing parameter tuning for consistent feature extraction, Cosmodoit provides a versatile and practical tool for both research and development in music performance analysis.",
+      "authors": [
+        "Corentin Guichaoua",
+        "Daniel Bedoya",
+        "Elaine Chew"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03541v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.IR",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T09:14:23Z",
+      "updated": "2026-05-05T09:14:23Z",
+      "keywords_en": [
+        "cosmodoit",
+        "python",
+        "package",
+        "adaptive",
+        "efficient",
+        "pipelining"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Cosmodoit: A Python Package for Adaptive, Efficient Pipelining of Feature Extraction from Performed Music》所界定。 从摘要看，作者主要围绕 cosmodoit、python、package 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Music performance analysis studies the acoustic variations introduced by performers and how these variations reflect musical interpretation and structure. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：cosmodoit, python, package。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03590v1",
+      "title_en": "AfriVox-v2: A Domain-Verticalized Benchmark for In-the-Wild African Speech Recognition",
+      "abstract_en": "Recent large language models (LLMs) show strong speech recognition and translation capabilities for high-resource languages. However, African languages remain dramatically underrepresented in benchmarks, limiting their practical use in low-resource settings. While early benchmarks tested African languages and accents, they lacked exhaustive real-world noise and granular domain evaluations. We present AfriVox-v2, a comprehensive benchmark designed to test speech models under realistic African deployment conditions. AfriVox-v2 introduces \"in the wild\" unscripted audio for all supported languages. We also introduce strict domain verticalization, evaluating model accuracy across ten sectors including government, finance, health, and agriculture and conducting targeted tests on numbers and named entities. Finally, we benchmark a new generation of speech models, including Sahara-v2, Gemini 3 Flash, and the Omnilingual CTC models. Our results expose the true generalization gap of modern speech models in specialized, noisy African contexts and provide a reliable blueprint for developers building localized voice AI.",
+      "authors": [
+        "Busayo Awobade",
+        "Gabrial Zencha Ashungafac",
+        "Tobi Olatunji"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03590v1",
+      "primary_category": "cs.CL",
+      "source_categories": [
+        "cs.CL",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T10:04:09Z",
+      "updated": "2026-05-05T10:04:09Z",
+      "keywords_en": [
+        "afrivox-v",
+        "domain-verticalized",
+        "benchmark",
+        "in-the-wild",
+        "african",
+        "speech"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《AfriVox-v2: A Domain-Verticalized Benchmark for In-the-Wild African Speech Recognition》所界定。 从摘要看，作者主要围绕 afrivox-v、domain-verticalized、benchmark 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Recent large language models (LLMs) show strong speech recognition and translation capabilities for high-resource languages. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：afrivox-v, domain-verticalized, benchmark。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03776v1",
+      "title_en": "Assessing the Impact of Noise and Speech Enhancement on the Intelligibility of Speech Codecs",
+      "abstract_en": "Preserving speech intelligibility is a minimum requirement for speech codecs in communication. Recently, very low-bitrate neural codecs have gained interest for replacing classical codecs, reinforcing the need to evaluate whether intelligibility is preserved in realistic scenarios. In this paper, we evaluate the intelligibility and listening effort of classical and neural speech codecs in clean and noisy conditions. Further, we assess the impact of speech enhancement (SE) before coding, simulating a possible audio processing pipeline. The results show that classical codecs are more noise robust than neural codecs. Further, SE can lead to significant intelligibility and listening effort improvements for codecs otherwise negatively affected by noise. Listening effort reveals nuanced differences when intelligibility is saturated. Lastly, objective intelligibility based on automatic speech recognition is highly correlated with subjective intelligibility scores averaged per condition.",
+      "authors": [
+        "Lyonel Behringer",
+        "Anna Leschanowsky",
+        "Anjana Rajasekhar",
+        "Emily Kratsch",
+        "Guillaume Fuchs"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03776v1",
+      "primary_category": "eess.AS",
+      "source_categories": [
+        "eess.AS"
+      ],
+      "published": "2026-05-05T14:06:03Z",
+      "updated": "2026-05-05T14:06:03Z",
+      "keywords_en": [
+        "automatic speech recognition",
+        "speech enhancement"
+      ],
+      "digest_category": "ASR",
+      "category_label": "语音识别",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「语音识别」方向，核心任务由题目《Assessing the Impact of Noise and Speech Enhancement on the Intelligibility of Speech Codecs》所界定。 从摘要看，作者主要围绕 automatic speech recognition、speech enhancement 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：The results show that classical codecs are more noise robust than neural codecs. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性高。摘要结构较直白，问题、方法和结果都比较容易定位。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：automatic speech recognition, speech enhancement。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03914v1",
+      "title_en": "Ecologically-Constrained Task Arithmetic for Multi-Taxa Bioacoustic Classifiers Without Shared Data",
+      "abstract_en": "Training data for bioacoustics is scattered across taxa, regions, and institutions. Centralizing it all is often infeasible. We show that independently fine-tuned BEATs encoders can be composed into a unified 661-species classifier via task vector arithmetic without sharing data. We find that bioacoustic task vectors are near-orthogonal (cosine 0.01-0.09). Their separation aligns closely with spectral distribution distance, a gradient consistent with the acoustic niche hypothesis. This geometry makes simple averaging optimal while sign-conflict methods reduce accuracy by one to six percentage points. Composition also creates an asymmetric gap: species-rich groups lose accuracy relative to joint training while underrepresented taxa gain, a redistribution useful for equitable biodiversity monitoring. We verify linear mode connectivity across all taxonomic pairs, demonstrate zero-shot transfer to new regions, and identify domain negation as a boundary condition where composition fails. These results enable a collaborative paradigm for bioacoustics where institutions share only task vectors to assemble multi-taxa classifiers, preserving data privacy.",
+      "authors": [
+        "Ragib Amin Nihal",
+        "Benjamin Yen",
+        "Runwu Shi",
+        "Takeshi Ashizawa",
+        "Kazuhiro Nakadai"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03914v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.LG",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T16:10:02Z",
+      "updated": "2026-05-05T16:10:02Z",
+      "keywords_en": [
+        "ecologically-constrained",
+        "task",
+        "arithmetic",
+        "multi-taxa",
+        "bioacoustic",
+        "classifiers"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Ecologically-Constrained Task Arithmetic for Multi-Taxa Bioacoustic Classifiers Without Shared Data》所界定。 从摘要看，作者主要围绕 ecologically-constrained、task、arithmetic 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We show that independently fine-tuned BEATs encoders can be composed into a unified 661-species classifier via task vector arithmetic without sharing data. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：ecologically-constrained, task, arithmetic。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03929v1",
+      "title_en": "PHALAR: Phasors for Learned Musical Audio Representations",
+      "abstract_en": "Stem retrieval, the task of matching missing stems to a given audio submix, is a key challenge currently limited by models that discard temporal information. We introduce PHALAR, a contrastive framework achieving a relative accuracy increase of up to $\\approx 70\\%$ over the state-of-the-art while requiring $<50\\%$ of the parameters and a 7$\\times$ training speedup. By utilizing a Learned Spectral Pooling layer and a complex-valued head, PHALAR enforces pitch-equivariant and phase-equivariant biases. PHALAR establishes new retrieval state-of-the-art across MoisesDB, Slakh, and ChocoChorales, correlating significantly higher with human coherence judgment than semantic baselines. Finally, zero-shot beat tracking and linear chord probing confirm that PHALAR captures robust musical structures beyond the retrieval task.",
+      "authors": [
+        "Davide Marincione",
+        "Michele Mancusi",
+        "Giorgio Strano",
+        "Luca Cerovaz",
+        "Donato Crisostomi",
+        "Roberto Ribuoli",
+        "Emanuele Rodolà"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03929v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.SD",
+        "eess.SP"
+      ],
+      "published": "2026-05-05T16:19:58Z",
+      "updated": "2026-05-05T16:19:58Z",
+      "keywords_en": [
+        "phalar",
+        "phasors",
+        "learned",
+        "musical",
+        "audio",
+        "representations"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《PHALAR: Phasors for Learned Musical Audio Representations》所界定。 从摘要看，作者主要围绕 phalar、phasors、learned 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We introduce PHALAR, a contrastive framework achieving a relative accuracy increase of up to $\\approx 70\\%$ over the state-of-the-art while requiring $<50\\%$ of the parameters and a 7$\\times$ training speedup. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性高。摘要结构较直白，问题、方法和结果都比较容易定位。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：phalar, phasors, learned。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03934v1",
+      "title_en": "Towards Open World Sound Event Detection",
+      "abstract_en": "Sound Event Detection (SED) plays a vital role in audio understanding, with applications in surveillance, smart cities, healthcare, and multimedia indexing. However, conventional SED systems operate under a closed-world assumption, limiting their effectiveness in real-world environments where novel acoustic events frequently emerge. Inspired by the success of open-world learning in computer vision, we introduce the Open-World Sound Event Detection (OW-SED) paradigm, where models must detect known events, identify unseen ones, and incrementally learn from them. To tackle the unique challenges of OW-SED, such as overlapping and ambiguous events, we propose a 1D Deformable architecture that leverages deformable attention to adaptively focus on salient temporal regions. Furthermore, we design a novel Open-World Deformable Sound Event Detection Transformer (WOOT) framework incorporating feature disentanglement to separate class-specific and class-agnostic representations, together with a one-to-many matching strategy and a diversity loss to enhance representation diversity. Experimental results demonstrate that our method achieves marginally superior performance compared to existing leading techniques in closed-world settings and significantly improves over existing baselines in open-world scenarios.",
+      "authors": [
+        "P. H. Hai",
+        "L. T. Minh",
+        "L. H. Son"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03934v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.SD"
+      ],
+      "published": "2026-05-05T16:23:06Z",
+      "updated": "2026-05-05T16:23:06Z",
+      "keywords_en": [
+        "sound event detection"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Towards Open World Sound Event Detection》所界定。 从摘要看，作者主要围绕 sound event detection 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Experimental results demonstrate that our method achieves marginally superior performance compared to existing leading techniques in closed-world settings and significantly improves over existing baselines in open-world scenarios. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：sound event detection。"
+      }
+    },
+    {
+      "arxiv_id": "2605.03937v1",
+      "title_en": "MiniMind-O Technical Report: An Open Small-Scale Speech-Native Omni Model",
+      "abstract_en": "MiniMind-O is an open 0.1B-scale omni model built on the MiniMind language model. It accepts text, speech, and image inputs, and returns both text and streaming speech. The release includes model code, checkpoints, and the main Parquet training datasets for text-to-audio, image-to-text, and audio-to-audio training, making the complete interaction loop directly inspectable. The model uses a full MiniMind backbone as the Thinker and an independent four-layer Talker made from MiniMind blocks. Frozen SenseVoice-Small and SigLIP2 encoders provide speech and image features, which are mapped by lightweight MLP projectors and injected at modality-placeholder positions. The Talker reads a middle-layer Thinker state together with an autoregressive eight-layer Mimi-code buffer. Speaker control is handled by a dedicated speaker token, right-aligned reference codec prompts, and precomputed CAM++ speaker embeddings, so voice conditioning remains part of the audio-code context rather than a separate TTS module. With a 768-dimensional Talker, the dense and MoE variants reach average CERs of 0.0897 and 0.0900 in Thinker--Talker consistency evaluation, with overall voice-cloning similarities of 0.5995 and 0.5937. Beyond reporting a working system, the paper identifies three scale-critical design choices for small omni models: middle-layer semantic bridging, a released multimodal sequence format, and a parameter-efficient eight-codebook interface.",
+      "authors": [
+        "Jingyao Gong"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.03937v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.MM",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-05-05T16:27:33Z",
+      "updated": "2026-05-05T16:27:33Z",
+      "keywords_en": [
+        "minimind-o",
+        "technical",
+        "report",
+        "open",
+        "small-scale",
+        "speech-native"
+      ],
+      "digest_category": "Audio",
+      "category_label": "通用音频",
+      "language": "zh",
+      "review": {
+        "summary": "这篇工作归入「通用音频」方向，核心任务由题目《MiniMind-O Technical Report: An Open Small-Scale Speech-Native Omni Model》所界定。 从摘要看，作者主要围绕 minimind-o、technical、report 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：It accepts text, speech, and image inputs, and returns both text and streaming speech. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+        "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：minimind-o, technical, report。"
+      }
+    }
+  ],
+  "grouped": {
+    "Speech LLM": [],
+    "ASR": [
+      {
+        "arxiv_id": "2605.02715v1",
+        "title_en": "Dimensionality-Aware Anomaly Detection in Learned Representations of Self-Supervised Speech Models",
+        "abstract_en": "Self-supervised speech models (S3Ms) achieve strong downstream performance, yet their learned representations remain poorly understood under natural and adversarial perturbations. Prior studies rely on representation similarity or global dimensionality, offering limited visibility into local geometric changes. We ask: how do perturbations deform local geometry, and do these shifts track downstream automatic speech recognition (ASR) degradation? To address this, we present GRIDS, a framework using Local Intrinsic Dimensionality (LID) across layer-wise representations in WavLM and wav2vec 2.0. We find that LID increases for all low signal-to noise ratio (SNR) perturbations and diverges at high SNR: benign noise converges toward the clean profile, while adversarial inputs retain early-layer LID elevation. We show LID elevation co-occurs with increased WER, and that layer-wise LID features enable anomaly detection (AUROC 0.78-1.00), opening the door to transcript-free monitoring in S3Ms.",
+        "authors": [
+          "Sandra Arcos-Holzinger",
+          "Sarah M. Erfani",
+          "James Bailey",
+          "Sanjeev Khudanpur"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.02715v1",
+        "primary_category": "eess.AS",
+        "source_categories": [
+          "cs.CR",
+          "cs.LG",
+          "eess.AS"
+        ],
+        "published": "2026-05-04T15:18:15Z",
+        "updated": "2026-05-04T15:18:15Z",
+        "keywords_en": [
+          "automatic speech recognition",
+          "wav2vec"
+        ],
+        "digest_category": "ASR",
+        "category_label": "语音识别",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「语音识别」方向，核心任务由题目《Dimensionality-Aware Anomaly Detection in Learned Representations of Self-Supervised Speech Models》所界定。 从摘要看，作者主要围绕 automatic speech recognition、wav2vec 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Self-supervised speech models (S3Ms) achieve strong downstream performance, yet their learned representations remain poorly understood under natural and adversarial perturbations. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：automatic speech recognition, wav2vec。"
+        }
+      },
+      {
+        "arxiv_id": "2605.02782v1",
+        "title_en": "When Audio-Language Models Fail to Leverage Multimodal Context for Dysarthric Speech Recognition",
+        "abstract_en": "Automatic speech recognition (ASR) systems remain brittle on dysarthric and other atypical speech. Recent audio-language models raise the possibility of improving performance by conditioning on additional clinical context at inference time, but it is unclear whether these models can make use of such information. We introduce a benchmark built on the Speech Accessibility Project (SAP) dataset that tests whether diagnosis labels, clinician-derived speech ratings, and progressively richer clinical descriptions improve transcription accuracy for dysarthric speech. Across matched comparisons on nine models, we find that current models do not meaningfully use this context: diagnosis-informed and clinically detailed prompts yield negligible improvements and often degrade word error rate. We complement the prompting analysis with context-dependent fine-tuning, showing that LoRA adaptation with a mixture of clinical prompt formats achieves a WER of 0.066, a 52% relative reduction over the frozen baseline, while preserving performance when context is unavailable. Subgroup analyses reveal significant gains for Down syndrome and mild-severity speakers. These results clarify where current models fall short and provide a testbed for measuring progress toward more inclusive ASR.",
+        "authors": [
+          "Pehuén Moure",
+          "Niclas Pokel",
+          "Bilal Bounajma",
+          "Yingqiang Gao",
+          "Roman Boehringer",
+          "Longbiao Cheng",
+          "Shih-Chii Liu"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.02782v1",
+        "primary_category": "cs.AI",
+        "source_categories": [
+          "cs.AI",
+          "cs.CL",
+          "eess.AS"
+        ],
+        "published": "2026-05-04T16:24:06Z",
+        "updated": "2026-05-04T16:24:06Z",
+        "keywords_en": [
+          "audio-language model",
+          "automatic speech recognition"
+        ],
+        "digest_category": "ASR",
+        "category_label": "语音识别",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「语音识别」方向，核心任务由题目《When Audio-Language Models Fail to Leverage Multimodal Context for Dysarthric Speech Recognition》所界定。 从摘要看，作者主要围绕 audio-language model、automatic speech recognition 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Recent audio-language models raise the possibility of improving performance by conditioning on additional clinical context at inference time, but it is unclear whether these models can make use of such information. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：audio-language model, automatic speech recognition。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03073v1",
+        "title_en": "The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail",
+        "abstract_en": "Niche-domain Indic ASR -- digit strings, currency amounts, addresses, brand names, English/Indic codemix -- is under-served by both open-source SOTA and commercial systems. On a synthesised entity-dense Telugu test set (held-out by synthesis system), vasista22/whisper-telugu-large-v2 (open SOTA) achieves Entity-Hit-Rate (EHR) 0.027 and Deepgram Nova-3 (commercial) 0.16. We close this gap with a self-contained TTS<->STT flywheel: an open-source Indic TTS pipeline synthesises ~22,000 entity-dense Indic-English code-mix utterances at <$50 marginal cost, and a LoRA fine-tune on top of vasista22 achieves EHR 0.473 on the held-out test (17x over open SOTA, 3x over commercial), with read-prose regression bounded to +6.6 pp WER on FLEURS-Te. Cross-language: beta-Hi 0.337 (7x vs vasista22) and beta-Ta 0.543 (22x vs vasista22, 22x vs Deepgram); on Hindi where Deepgram has substantial entity coverage, the flywheel underperforms commercial. All three beta models fall below pre-registered EHR targets (0.75 for Te, 0.65 for Hi/Ta); we report honestly. A native-human-recorded sanity check (n=20 Telugu) confirms transfer to real speech (beta-Te EHR 0.516 on native vs 0.473 on synth). An EDSA-isolation ablation (LoRA on FLEURS-Te alone) yields EHR 0.020 on the same held-out, attributing ~100% of the gain to the EDSA corpus. We additionally report a language-conditional finding: vanilla Whisper-large-v3 has Telugu-specific Script Collapse (SFR 0.46-0.71) that a per-language LoRA corrects (SFR 0.81-0.97), but the recipe is contraindicated on Hindi and Tamil where vanilla SFR >= 0.98. Code, holdouts, predictions, EDSA corpus, and entity dictionaries are released open-source.",
+        "authors": [
+          "Venkata Pushpak Teja Menta"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03073v1",
+        "primary_category": "cs.CL",
+        "source_categories": [
+          "cs.CL",
+          "cs.SD"
+        ],
+        "published": "2026-05-04T18:43:30Z",
+        "updated": "2026-05-04T18:43:30Z",
+        "keywords_en": [
+          "whisper"
+        ],
+        "digest_category": "ASR",
+        "category_label": "语音识别",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「语音识别」方向，核心任务由题目《The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail》所界定。 从摘要看，作者主要围绕 whisper 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：On a synthesised entity-dense Telugu test set (held-out by synthesis system), vasista22/whisper-telugu-large-v2 (open SOTA) achieves Entity-Hit-Rate (EHR) 0.027 and Deepgram Nova-3 (commercial) 0.16. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：whisper。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03297v1",
+        "title_en": "Contrastive Regularization for Accent-Robust ASR",
+        "abstract_en": "ASR systems based on self-supervised acoustic pretraining and CTC fine-tuning achieve strong performance on native speech but remain sensitive to accent variability. We investigate supervised contrastive learning (SupCon) as a lightweight, accent-invariant auxiliary objective for CTC fine-tuning. An utterance-level contrastive loss regularizes encoder representations without architectural modification or explicit accent supervision. Experiments on the L2-ARCTIC benchmark show consistent WER reductions across multiple pretrained encoders, with up to 25 -- 29\\% relative reduction under unseen-accent evaluation. Analysis using within-transcript cosine dispersion indicates that SupCon promotes more compact and stable representation geometry under accent variability. Overall, SupCon provides an effective and model-agnostic regularization strategy for improving accent robustness.",
+        "authors": [
+          "Van-Phat Thai",
+          "Aradhya Dhruv",
+          "Duc-Thinh Pham",
+          "Sameer Alam"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03297v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.LG",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T02:35:44Z",
+        "updated": "2026-05-05T02:35:44Z",
+        "keywords_en": [
+          "asr system"
+        ],
+        "digest_category": "ASR",
+        "category_label": "语音识别",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「语音识别」方向，核心任务由题目《Contrastive Regularization for Accent-Robust ASR》所界定。 从摘要看，作者主要围绕 asr system 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：ASR systems based on self-supervised acoustic pretraining and CTC fine-tuning achieve strong performance on native speech but remain sensitive to accent variability. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：asr system。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03776v1",
+        "title_en": "Assessing the Impact of Noise and Speech Enhancement on the Intelligibility of Speech Codecs",
+        "abstract_en": "Preserving speech intelligibility is a minimum requirement for speech codecs in communication. Recently, very low-bitrate neural codecs have gained interest for replacing classical codecs, reinforcing the need to evaluate whether intelligibility is preserved in realistic scenarios. In this paper, we evaluate the intelligibility and listening effort of classical and neural speech codecs in clean and noisy conditions. Further, we assess the impact of speech enhancement (SE) before coding, simulating a possible audio processing pipeline. The results show that classical codecs are more noise robust than neural codecs. Further, SE can lead to significant intelligibility and listening effort improvements for codecs otherwise negatively affected by noise. Listening effort reveals nuanced differences when intelligibility is saturated. Lastly, objective intelligibility based on automatic speech recognition is highly correlated with subjective intelligibility scores averaged per condition.",
+        "authors": [
+          "Lyonel Behringer",
+          "Anna Leschanowsky",
+          "Anjana Rajasekhar",
+          "Emily Kratsch",
+          "Guillaume Fuchs"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03776v1",
+        "primary_category": "eess.AS",
+        "source_categories": [
+          "eess.AS"
+        ],
+        "published": "2026-05-05T14:06:03Z",
+        "updated": "2026-05-05T14:06:03Z",
+        "keywords_en": [
+          "automatic speech recognition",
+          "speech enhancement"
+        ],
+        "digest_category": "ASR",
+        "category_label": "语音识别",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「语音识别」方向，核心任务由题目《Assessing the Impact of Noise and Speech Enhancement on the Intelligibility of Speech Codecs》所界定。 从摘要看，作者主要围绕 automatic speech recognition、speech enhancement 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：The results show that classical codecs are more noise robust than neural codecs. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性高。摘要结构较直白，问题、方法和结果都比较容易定位。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：automatic speech recognition, speech enhancement。"
+        }
+      }
+    ],
+    "TTS": [],
+    "Enhancement": [],
+    "SLU": [],
+    "Paralinguistics": [],
+    "Audio": [
+      {
+        "arxiv_id": "2605.02700v1",
+        "title_en": "Neck-Learn: Attention-Based Multiple Instance Learning and Ensemble Framework for Ecological Momentary Assessment",
+        "abstract_en": "Vocal hyperfunction (VH) is a prevalent voice disorder whose ambulatory detection remains challenging despite extensive daily voice data. Prior approaches capture week-long neck-surface accelerometer recordings but collapse them into fixed-length subject-level feature vectors, discarding within-day temporal dynamics encoding nuanced voicing feature interactions. We introduce a novel hybrid architecture combining gradient-boosted trees on day-level distributional features with a CNN-based multiple instance learning (MIL) framework that preserves and learns from from temporal dynamics throughout each day. On the held-out test set, our model exceeds the challenge baselines (AUC: 0.82 PVH, 0.77 NPVH), achieving AUCs of 0.879 for PVH (Rank 5) and 0.848 for NPVH (Rank 3), while also providing insights into clinically relevant information about both pathologies.",
+        "authors": [
+          "Ahsan Jamal Cheema"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.02700v1",
+        "primary_category": "eess.AS",
+        "source_categories": [
+          "eess.AS"
+        ],
+        "published": "2026-05-04T15:11:25Z",
+        "updated": "2026-05-04T15:11:25Z",
+        "keywords_en": [
+          "neck-learn",
+          "attention-based",
+          "multiple",
+          "instance",
+          "learning",
+          "ensemble"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Neck-Learn: Attention-Based Multiple Instance Learning and Ensemble Framework for Ecological Momentary Assessment》所界定。 从摘要看，作者主要围绕 neck-learn、attention-based、multiple 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：On the held-out test set, our model exceeds the challenge baselines (AUC: 0.82 PVH, 0.77 NPVH), achieving AUCs of 0.879 for PVH (Rank 5) and 0.848 for NPVH (Rank 3), while also providing insights into clinically relevant information about both pathologies. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：neck-learn, attention-based, multiple。"
+        }
+      },
+      {
+        "arxiv_id": "2605.02718v1",
+        "title_en": "Private Speech Classification without Collapse: Stabilized DP Training and Offline Distillation",
+        "abstract_en": "We study example-level private supervised speech classification under a practical release constraint: training may access privileged side information, but the released model must be audio-only. This setting is important because speech systems can often exploit richer side information during development, whereas deployment and release require a lightweight unimodal model with auditable privacy guarantees. Using DP-SGD on the private dataset $D_{\\text{priv}}$, we identify a strong-privacy failure mode ($ε\\le 1$) on imbalanced tasks, where training may collapse to a near single-class predictor, a phenomenon that overall accuracy can obscure. We therefore emphasize Macro-F1, balanced accuracy, and a simple collapse diagnostic. This failure is especially problematic in our release setting because a collapsed private teacher cannot provide useful supervision for the downstream audio-only student. To address this setting under strong privacy, we propose a two-stage protocol: (i) train a (possibly multimodal) DP teacher on $D_{\\text{priv}}$, and (ii) distill an audio-only student on a fixed, recording-disjoint auxiliary dataset $D_{\\text{aux}}$ using one-shot offline teacher probability outputs, releasing only the student. The DP guarantee applies only to $D_{\\text{priv}}$; we make no DP claim for $D_{\\text{aux}}$, and privacy of the released student with respect to $D_{\\text{priv}}$ follows by post-processing. We frame this setting as involving four coupled bottlenecks: speech-induced optimization instability under DP-SGD, minority-class erosion under clipping and noise, teacher over-reliance on privileged modalities unavailable at deployment, and train--deploy modality mismatch. We address them with a DP-stabilizing acoustic front-end (DSAF), minibatch-adaptive bounded loss reweighting (AW-DP), privileged-modality dropout, and offline teacher-to-student distillation.",
+        "authors": [
+          "Yadi Wen",
+          "Tianxin Li",
+          "Enji Liang",
+          "Rong Du",
+          "Yue Fu"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.02718v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.MM",
+          "cs.SD"
+        ],
+        "published": "2026-05-04T15:19:02Z",
+        "updated": "2026-05-04T15:19:02Z",
+        "keywords_en": [
+          "private",
+          "speech",
+          "classification",
+          "without",
+          "collapse",
+          "stabilized"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Private Speech Classification without Collapse: Stabilized DP Training and Offline Distillation》所界定。 从摘要看，作者主要围绕 private、speech、classification 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：This setting is important because speech systems can often exploit richer side information during development, whereas deployment and release require a lightweight unimodal model with auditable privacy guarantees. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：private, speech, classification。"
+        }
+      },
+      {
+        "arxiv_id": "2605.02804v1",
+        "title_en": "Multi-Axis Speech Similarity via Factor-Partitioned Embeddings",
+        "abstract_en": "Speech encodes multiple simultaneous attributes--linguistic content, speaker identity, dialect, gender--that conventional single-vector embeddings conflate. We present a factor-partitioned embedding framework that maps each utterance into a single vector whose subspaces correspond to distinct axes of variation. A shared acoustic encoder feeds per-axis linear projection heads, each trained via distillation from a specialist teacher or a contrastive objective over shared-label pairs. The resulting embeddings support attribute-conditioned retrieval: similarity is computed as a signed weighted sum over per-axis cosine scores, allowing retrieval that jointly considers what was said and how --or explicitly suppresses one attribute to surface another. We evaluate on cross-corpus retrieval over corpora sharing the Harvard sentence prompts, demonstrating that signed axis weighting can suppress same-speaker bias and surface semantically matched utterances across recording conditions.",
+        "authors": [
+          "Jim O'Regan",
+          "Jens Edlund"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.02804v1",
+        "primary_category": "eess.AS",
+        "source_categories": [
+          "cs.IR",
+          "eess.AS"
+        ],
+        "published": "2026-05-04T16:43:46Z",
+        "updated": "2026-05-04T16:43:46Z",
+        "keywords_en": [
+          "multi-axis",
+          "speech",
+          "similarity",
+          "factor-partitioned",
+          "embeddings"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Multi-Axis Speech Similarity via Factor-Partitioned Embeddings》所界定。 从摘要看，作者主要围绕 multi-axis、speech、similarity 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We evaluate on cross-corpus retrieval over corpora sharing the Harvard sentence prompts, demonstrating that signed axis weighting can suppress same-speaker bias and surface semantically matched utterances across recording conditions. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性高。摘要结构较直白，问题、方法和结果都比较容易定位。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：multi-axis, speech, similarity。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03039v1",
+        "title_en": "Mixed-Precision Information Bottlenecks for On-Device Trait-State Disentanglement in Bipolar Agitation Detection",
+        "abstract_en": "Continuous monitoring of bipolar disorder agitation via voice biomarkers requires disentangling stable speaker traits from volatile affective states on resource-constrained edge devices. We introduce MP-IB, the first framework to treat mixed-precision quantization as an information bottleneck for clinical trait-state separation. The core insight is that numerical precision itself controls capacity: an FP16 trait head (1,024 bits) encodes speaker identity, while an INT4 state head (128 bits) captures agitation, yielding 8x information asymmetry without adversarial training. We augment this with Dynamic Precision Scheduling and Multi-Scale Temporal Fusion. On Bridge2AI-Voice (N=833, 4 sessions/participant, strict speaker-independent CV), MP-IB achieves rho = 0.117 (95\\% CI: [0.089, 0.145], p=0.003 vs. chance), outperforming 94M-parameter WavLM-Adapter with in-domain SSL continuation (rho = -0.042), beta VAE disentanglement (rho = 0.089), and hand-crafted prosody (rho = 0.031) by 2.8--15.9 points absolute. Zero-shot transfer to CREMA-D achieves AUC=0.817. Identity leakage is suppressed to near-random (EER=0.42, MIA-AUC=0.52). End-to-end latency is 23.4 ms with a 617 KB footprint, enabling real-time monitoring on sub 20 dollar devices.",
+        "authors": [
+          "Joydeep Chandra"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03039v1",
+        "primary_category": "cs.LG",
+        "source_categories": [
+          "cs.AI",
+          "cs.HC",
+          "cs.LG",
+          "cs.SD"
+        ],
+        "published": "2026-05-04T18:06:17Z",
+        "updated": "2026-05-04T18:06:17Z",
+        "keywords_en": [
+          "mixed-precision",
+          "information",
+          "bottlenecks",
+          "on-device",
+          "trait-state",
+          "disentanglement"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Mixed-Precision Information Bottlenecks for On-Device Trait-State Disentanglement in Bipolar Agitation Detection》所界定。 从摘要看，作者主要围绕 mixed-precision、information、bottlenecks 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：On Bridge2AI-Voice (N=833, 4 sessions/participant, strict speaker-independent CV), MP-IB achieves rho = 0.117 (95\\% CI: [0.089, 0.145], p=0.003 vs. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：mixed-precision, information, bottlenecks。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03079v1",
+        "title_en": "Phoneme-Level Deepfake Detection Across Emotional Conditions Using Self-Supervised Embeddings",
+        "abstract_en": "Recent advances in emotional voice conversion (EVC) have enabled the generation of expressive synthetic speech, raising new concerns in audio deepfake detection. Existing approaches treat speech as a homogeneous signal and largely overlook its internal phonetic structure, limiting their interpretability in emotionally conditioned settings. In this work, we propose a phoneme-level framework to analyze emotionally manipulated synthetic speech using real and EVC-generated speech under matched emotional conditions with shared transcripts, phoneme-aligned TextGrids, and WavLM-based embeddings. Our results show that phoneme behavior varies across categories, with complex vowels and fricatives exhibiting higher divergence while simpler phonemes remain more stable. Phonemes with larger distributional differences are also found to be more easily detected, consistently across multiple emotions and synthesis systems. These findings demonstrate that phoneme-level analysis is an effective and interpretable approach for detecting emotionally manipulated synthetic speech.",
+        "authors": [
+          "Vamshi Nallaguntla",
+          "Shruti Kshirsagar",
+          "Anderson R. Avila"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03079v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.LG",
+          "cs.SD",
+          "eess.AS"
+        ],
+        "published": "2026-05-04T18:49:29Z",
+        "updated": "2026-05-04T18:49:29Z",
+        "keywords_en": [
+          "phoneme-level",
+          "deepfake",
+          "detection",
+          "across",
+          "emotional",
+          "conditions"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Phoneme-Level Deepfake Detection Across Emotional Conditions Using Self-Supervised Embeddings》所界定。 从摘要看，作者主要围绕 phoneme-level、deepfake、detection 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Our results show that phoneme behavior varies across categories, with complex vowels and fricatives exhibiting higher divergence while simpler phonemes remain more stable. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：phoneme-level, deepfake, detection。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03384v1",
+        "title_en": "DECKER: Domain-invariant Embedding for Cross-Keyboard Extraction and Recognition",
+        "abstract_en": "Acoustic side-channel attacks (ASCA) on keyboards pose a significant security risk, as keystrokes can be inferred from typing acoustics, revealing sensitive information. Prior ASCA studies are limited by small-scale datasets with restricted diversity in users, keyboards, and environments, constraining analysis across devices, microphones, and noise conditions. We introduce HEAR, a dataset designed to study ASCA along three axes: keyboard generalization, noise adaptation, and user bias. HEAR contains recordings from 53 participants using 37 laptop keyboards, collected in three realistic settings: (1) external microphone capture, (2) device microphone capture without network noise, and (3) VoIP-based streaming capture. This enables controlled evaluation across users, keyboards, and environments. On HEAR, we establish an ASCA benchmark spanning conventional features and pre-trained representations from raw audio and spectrograms in unimodal and multimodal settings. We propose DECKER, a domain-invariant keystroke inference framework with four stages: (1) Keyboard Signature Normalization to reduce device coloration, (2) domain-adversarial disentanglement to suppress keyboard identity, (3) supervised cross-keyboard contrastive alignment to enforce key consistency, and (4) Acoustic Style Randomization to synthesize unseen keyboard responses. We further explore sentence-level inference using an LLM-based post-processing layer to refine keystroke sequences via linguistic context. Results on HEAR show DECKER improves keystroke identification over strong baselines, particularly in cross-keyboard and cross-user settings, with further gains from language-model rectification. These findings highlight that ASCA remains effective across diverse users, devices, and noisy environments, underscoring its practical security risk.",
+        "authors": [
+          "Bikrant Bikram Pratap Maurya",
+          "Nitin Choudhury",
+          "Daksh Agarwal",
+          "Arun Balaji Buduru"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03384v1",
+        "primary_category": "cs.CR",
+        "source_categories": [
+          "cs.CR",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T05:43:24Z",
+        "updated": "2026-05-05T05:43:24Z",
+        "keywords_en": [
+          "decker",
+          "domain-invariant",
+          "embedding",
+          "cross-keyboard",
+          "extraction",
+          "recognition"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《DECKER: Domain-invariant Embedding for Cross-Keyboard Extraction and Recognition》所界定。 从摘要看，作者主要围绕 decker、domain-invariant、embedding 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Results on HEAR show DECKER improves keystroke identification over strong baselines, particularly in cross-keyboard and cross-user settings, with further gains from language-model rectification. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：decker, domain-invariant, embedding。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03395v1",
+        "title_en": "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music",
+        "abstract_en": "Music popularity prediction has attracted growing research interest, with relevance to artists, platforms, and recommendation systems. However, the explosive rise of AI-generated music platforms has created an entirely new and largely unexplored landscape, where a surge of songs is produced and consumed daily without the traditional markers of artist reputation or label backing. Key, yet unexplored in this pursuit is aesthetic quality. We propose APEX, the first large-scale multi-task learning framework for AI-generated music, trained on over 211k songs (10k hours of audio) from Suno and Udio, that jointly predicts engagement-based popularity signals - streams and likes scores - alongside five perceptual aesthetic quality dimensions from frozen audio embeddings extracted from MERT, a self-supervised music understanding model. Aesthetic quality and popularity capture complementary aspects of music that together prove valuable: in an out-of-distribution evaluation on the Music Arena dataset, comprising pairwise human preference battles across eleven generative music systems unseen during training, including aesthetic features consistently improves preference prediction, demonstrating strong generalisation of the learned representations across generative architectures.",
+        "authors": [
+          "Jaavid Aktar Husain",
+          "Dorien Herremans"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03395v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.AI",
+          "cs.LG",
+          "cs.MM",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T06:11:51Z",
+        "updated": "2026-05-05T06:11:51Z",
+        "keywords_en": [
+          "apex",
+          "large-scale",
+          "multi-task",
+          "aesthetic-informed",
+          "popularity",
+          "prediction"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music》所界定。 从摘要看，作者主要围绕 apex、large-scale、multi-task 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Aesthetic quality and popularity capture complementary aspects of music that together prove valuable: in an out-of-distribution evaluation on the Music Arena dataset, comprising pairwise human preference battles across eleven generative music systems unseen during training, including aesthetic features consistently improves preference prediction, demonstrating strong generalisation of the learned representations across generative architectures. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：apex, large-scale, multi-task。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03412v1",
+        "title_en": "Smart Passive Acoustic Monitoring: Embedding a Classifier on AudioMoth Microcontroller",
+        "abstract_en": "Passive Acoustic Monitoring (PAM) is an efficient and non-invasive method for surveying ecosystems at a reduced cost. Typically, autonomous recorders allow the acquisition of vast bioacoustic datasets which are then analyzed. However, power consumption and data storage are both scarce and limit the duration of acquisition campaigns. To address this issue, we propose a smart PAM system which allows the in-situ analysis of the soundscape by embedding a classifier directly onto an AudioMoth microcontroller. Specifically, we propose an optimized yet simple 1D Convolutional Neural Network (1D-CNN) to classify the raw audio. The model focuses on the specific call of Scopoli Shearwater seabirds (endangered species) and is trained on a real-world dataset with a classification accuracy of 91\\% (balanced accuracy of 89\\%). We also propose a process to optimize the model to fit the severe resource constraints of the AudioMoth, achieving a \\~10kB RAM memory footprint and 20ms inference time. Finally, we present an open-source tutorial of our model optimization and export strategy which can be used for embedding models beyond the scope of our study. Our modified version of the AudioMoth firmware adds two functions: (F1) which selectively records data when the target species has been detected and (F2) which logs the continuous classification results in real time. This work intends to facilitate the conception of intelligent sensors, enhancing the efficiency and scalability of bioacoustic monitoring campaigns.",
+        "authors": [
+          "Louis Lerbourg",
+          "Paul Peyret",
+          "Juliette Linossier",
+          "Marielle Malfante"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03412v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.AI",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T06:37:35Z",
+        "updated": "2026-05-05T06:37:35Z",
+        "keywords_en": [
+          "smart",
+          "passive",
+          "acoustic",
+          "monitoring",
+          "embedding",
+          "classifier"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Smart Passive Acoustic Monitoring: Embedding a Classifier on AudioMoth Microcontroller》所界定。 从摘要看，作者主要围绕 smart、passive、acoustic 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We also propose a process to optimize the model to fit the severe resource constraints of the AudioMoth, achieving a \\~10kB RAM memory footprint and 20ms inference time. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：smart, passive, acoustic。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03420v1",
+        "title_en": "Deepfake Audio Detection Using Self-supervised Fusion Representations",
+        "abstract_en": "This paper describes a submission to the Environment-Aware Speech and Sound Deepfake Detection Challenge (ESDD2) 2026, which addresses component-level deepfake detection using the CompSpoofV2 dataset, where speech and environmental sounds may be independently manipulated. To address this challenge, a dual-branch deepfake detection framework is proposed to jointly model speech and environmental contextual representations from input audio. Two pretrained models, XLS-R for speech and BEATs for environmental sound, are used to extract complementary contextual representations. A Matching Head is introduced to model representation differences through statistical normalization and representation interaction, enabling estimation of the original class. In parallel, multi-head cross-attention enables effective information exchange between speech and environmental components. The refined representations are processed with residual connections and layer normalization, and passed to an AASIST classifier to predict speech-based and environment-based spoofing probabilities. The model outputs original, speech, and environment predictions. On the test set, the proposed system achieves an F1-score of 70.20% and an environmental EER of 16.54%, outperforming the baseline system.",
+        "authors": [
+          "Khalid Zaman",
+          "Qixuan Huang",
+          "Muhammad Uzair",
+          "Masashi Unoki"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03420v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.AI",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T06:51:41Z",
+        "updated": "2026-05-05T06:51:41Z",
+        "keywords_en": [
+          "deepfake",
+          "audio",
+          "detection",
+          "using",
+          "self-supervised",
+          "fusion"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Deepfake Audio Detection Using Self-supervised Fusion Representations》所界定。 从摘要看，作者主要围绕 deepfake、audio、detection 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：On the test set, the proposed system achieves an F1-score of 70.20% and an environmental EER of 16.54%, outperforming the baseline system. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要中给出了明确指标，适合快速判断效果。 优先看这些信号词：deepfake, audio, detection。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03541v1",
+        "title_en": "Cosmodoit: A Python Package for Adaptive, Efficient Pipelining of Feature Extraction from Performed Music",
+        "abstract_en": "Computational analysis of performed music is a key component of music information research, as performance shapes much of the music we hear. Music performance analysis studies the acoustic variations introduced by performers and how these variations reflect musical interpretation and structure. Although many algorithms and tools exist for tasks such as performance-to-score alignment and symbolic or audio feature extraction, they are spread across different programming languages and data formats, making them difficult to combine efficiently. To address this problem, we present Cosmodoit, a novel Python package designed to streamline feature extraction from performed music. Cosmodoit integrates performance-to-score alignment with symbolic and audio feature extraction in a modular, flexible pipeline that supports selective processing, dependency-aware computation, and incremental updates. Its extensible design reduces duplicated work, minimizes errors, and enables efficient large-scale processing. By accommodating algorithms implemented in multiple languages and allowing parameter tuning for consistent feature extraction, Cosmodoit provides a versatile and practical tool for both research and development in music performance analysis.",
+        "authors": [
+          "Corentin Guichaoua",
+          "Daniel Bedoya",
+          "Elaine Chew"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03541v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.IR",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T09:14:23Z",
+        "updated": "2026-05-05T09:14:23Z",
+        "keywords_en": [
+          "cosmodoit",
+          "python",
+          "package",
+          "adaptive",
+          "efficient",
+          "pipelining"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Cosmodoit: A Python Package for Adaptive, Efficient Pipelining of Feature Extraction from Performed Music》所界定。 从摘要看，作者主要围绕 cosmodoit、python、package 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Music performance analysis studies the acoustic variations introduced by performers and how these variations reflect musical interpretation and structure. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：cosmodoit, python, package。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03590v1",
+        "title_en": "AfriVox-v2: A Domain-Verticalized Benchmark for In-the-Wild African Speech Recognition",
+        "abstract_en": "Recent large language models (LLMs) show strong speech recognition and translation capabilities for high-resource languages. However, African languages remain dramatically underrepresented in benchmarks, limiting their practical use in low-resource settings. While early benchmarks tested African languages and accents, they lacked exhaustive real-world noise and granular domain evaluations. We present AfriVox-v2, a comprehensive benchmark designed to test speech models under realistic African deployment conditions. AfriVox-v2 introduces \"in the wild\" unscripted audio for all supported languages. We also introduce strict domain verticalization, evaluating model accuracy across ten sectors including government, finance, health, and agriculture and conducting targeted tests on numbers and named entities. Finally, we benchmark a new generation of speech models, including Sahara-v2, Gemini 3 Flash, and the Omnilingual CTC models. Our results expose the true generalization gap of modern speech models in specialized, noisy African contexts and provide a reliable blueprint for developers building localized voice AI.",
+        "authors": [
+          "Busayo Awobade",
+          "Gabrial Zencha Ashungafac",
+          "Tobi Olatunji"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03590v1",
+        "primary_category": "cs.CL",
+        "source_categories": [
+          "cs.CL",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T10:04:09Z",
+        "updated": "2026-05-05T10:04:09Z",
+        "keywords_en": [
+          "afrivox-v",
+          "domain-verticalized",
+          "benchmark",
+          "in-the-wild",
+          "african",
+          "speech"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《AfriVox-v2: A Domain-Verticalized Benchmark for In-the-Wild African Speech Recognition》所界定。 从摘要看，作者主要围绕 afrivox-v、domain-verticalized、benchmark 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Recent large language models (LLMs) show strong speech recognition and translation capabilities for high-resource languages. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：afrivox-v, domain-verticalized, benchmark。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03914v1",
+        "title_en": "Ecologically-Constrained Task Arithmetic for Multi-Taxa Bioacoustic Classifiers Without Shared Data",
+        "abstract_en": "Training data for bioacoustics is scattered across taxa, regions, and institutions. Centralizing it all is often infeasible. We show that independently fine-tuned BEATs encoders can be composed into a unified 661-species classifier via task vector arithmetic without sharing data. We find that bioacoustic task vectors are near-orthogonal (cosine 0.01-0.09). Their separation aligns closely with spectral distribution distance, a gradient consistent with the acoustic niche hypothesis. This geometry makes simple averaging optimal while sign-conflict methods reduce accuracy by one to six percentage points. Composition also creates an asymmetric gap: species-rich groups lose accuracy relative to joint training while underrepresented taxa gain, a redistribution useful for equitable biodiversity monitoring. We verify linear mode connectivity across all taxonomic pairs, demonstrate zero-shot transfer to new regions, and identify domain negation as a boundary condition where composition fails. These results enable a collaborative paradigm for bioacoustics where institutions share only task vectors to assemble multi-taxa classifiers, preserving data privacy.",
+        "authors": [
+          "Ragib Amin Nihal",
+          "Benjamin Yen",
+          "Runwu Shi",
+          "Takeshi Ashizawa",
+          "Kazuhiro Nakadai"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03914v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.LG",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T16:10:02Z",
+        "updated": "2026-05-05T16:10:02Z",
+        "keywords_en": [
+          "ecologically-constrained",
+          "task",
+          "arithmetic",
+          "multi-taxa",
+          "bioacoustic",
+          "classifiers"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Ecologically-Constrained Task Arithmetic for Multi-Taxa Bioacoustic Classifiers Without Shared Data》所界定。 从摘要看，作者主要围绕 ecologically-constrained、task、arithmetic 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We show that independently fine-tuned BEATs encoders can be composed into a unified 661-species classifier via task vector arithmetic without sharing data. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：ecologically-constrained, task, arithmetic。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03929v1",
+        "title_en": "PHALAR: Phasors for Learned Musical Audio Representations",
+        "abstract_en": "Stem retrieval, the task of matching missing stems to a given audio submix, is a key challenge currently limited by models that discard temporal information. We introduce PHALAR, a contrastive framework achieving a relative accuracy increase of up to $\\approx 70\\%$ over the state-of-the-art while requiring $<50\\%$ of the parameters and a 7$\\times$ training speedup. By utilizing a Learned Spectral Pooling layer and a complex-valued head, PHALAR enforces pitch-equivariant and phase-equivariant biases. PHALAR establishes new retrieval state-of-the-art across MoisesDB, Slakh, and ChocoChorales, correlating significantly higher with human coherence judgment than semantic baselines. Finally, zero-shot beat tracking and linear chord probing confirm that PHALAR captures robust musical structures beyond the retrieval task.",
+        "authors": [
+          "Davide Marincione",
+          "Michele Mancusi",
+          "Giorgio Strano",
+          "Luca Cerovaz",
+          "Donato Crisostomi",
+          "Roberto Ribuoli",
+          "Emanuele Rodolà"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03929v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.AI",
+          "cs.LG",
+          "cs.SD",
+          "eess.SP"
+        ],
+        "published": "2026-05-05T16:19:58Z",
+        "updated": "2026-05-05T16:19:58Z",
+        "keywords_en": [
+          "phalar",
+          "phasors",
+          "learned",
+          "musical",
+          "audio",
+          "representations"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《PHALAR: Phasors for Learned Musical Audio Representations》所界定。 从摘要看，作者主要围绕 phalar、phasors、learned 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：We introduce PHALAR, a contrastive framework achieving a relative accuracy increase of up to $\\approx 70\\%$ over the state-of-the-art while requiring $<50\\%$ of the parameters and a 7$\\times$ training speedup. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性高。摘要结构较直白，问题、方法和结果都比较容易定位。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：phalar, phasors, learned。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03934v1",
+        "title_en": "Towards Open World Sound Event Detection",
+        "abstract_en": "Sound Event Detection (SED) plays a vital role in audio understanding, with applications in surveillance, smart cities, healthcare, and multimedia indexing. However, conventional SED systems operate under a closed-world assumption, limiting their effectiveness in real-world environments where novel acoustic events frequently emerge. Inspired by the success of open-world learning in computer vision, we introduce the Open-World Sound Event Detection (OW-SED) paradigm, where models must detect known events, identify unseen ones, and incrementally learn from them. To tackle the unique challenges of OW-SED, such as overlapping and ambiguous events, we propose a 1D Deformable architecture that leverages deformable attention to adaptively focus on salient temporal regions. Furthermore, we design a novel Open-World Deformable Sound Event Detection Transformer (WOOT) framework incorporating feature disentanglement to separate class-specific and class-agnostic representations, together with a one-to-many matching strategy and a diversity loss to enhance representation diversity. Experimental results demonstrate that our method achieves marginally superior performance compared to existing leading techniques in closed-world settings and significantly improves over existing baselines in open-world scenarios.",
+        "authors": [
+          "P. H. Hai",
+          "L. T. Minh",
+          "L. H. Son"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03934v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.AI",
+          "cs.SD"
+        ],
+        "published": "2026-05-05T16:23:06Z",
+        "updated": "2026-05-05T16:23:06Z",
+        "keywords_en": [
+          "sound event detection"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《Towards Open World Sound Event Detection》所界定。 从摘要看，作者主要围绕 sound event detection 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：Experimental results demonstrate that our method achieves marginally superior performance compared to existing leading techniques in closed-world settings and significantly improves over existing baselines in open-world scenarios. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性中。需要一定领域背景，但主线仍然清楚。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：sound event detection。"
+        }
+      },
+      {
+        "arxiv_id": "2605.03937v1",
+        "title_en": "MiniMind-O Technical Report: An Open Small-Scale Speech-Native Omni Model",
+        "abstract_en": "MiniMind-O is an open 0.1B-scale omni model built on the MiniMind language model. It accepts text, speech, and image inputs, and returns both text and streaming speech. The release includes model code, checkpoints, and the main Parquet training datasets for text-to-audio, image-to-text, and audio-to-audio training, making the complete interaction loop directly inspectable. The model uses a full MiniMind backbone as the Thinker and an independent four-layer Talker made from MiniMind blocks. Frozen SenseVoice-Small and SigLIP2 encoders provide speech and image features, which are mapped by lightweight MLP projectors and injected at modality-placeholder positions. The Talker reads a middle-layer Thinker state together with an autoregressive eight-layer Mimi-code buffer. Speaker control is handled by a dedicated speaker token, right-aligned reference codec prompts, and precomputed CAM++ speaker embeddings, so voice conditioning remains part of the audio-code context rather than a separate TTS module. With a 768-dimensional Talker, the dense and MoE variants reach average CERs of 0.0897 and 0.0900 in Thinker--Talker consistency evaluation, with overall voice-cloning similarities of 0.5995 and 0.5937. Beyond reporting a working system, the paper identifies three scale-critical design choices for small omni models: middle-layer semantic bridging, a released multimodal sequence format, and a parameter-efficient eight-codebook interface.",
+        "authors": [
+          "Jingyao Gong"
+        ],
+        "affiliations": [],
+        "arxiv_url": "https://arxiv.org/abs/2605.03937v1",
+        "primary_category": "cs.SD",
+        "source_categories": [
+          "cs.MM",
+          "cs.SD",
+          "eess.AS"
+        ],
+        "published": "2026-05-05T16:27:33Z",
+        "updated": "2026-05-05T16:27:33Z",
+        "keywords_en": [
+          "minimind-o",
+          "technical",
+          "report",
+          "open",
+          "small-scale",
+          "speech-native"
+        ],
+        "digest_category": "Audio",
+        "category_label": "通用音频",
+        "language": "zh",
+        "review": {
+          "summary": "这篇工作归入「通用音频」方向，核心任务由题目《MiniMind-O Technical Report: An Open Small-Scale Speech-Native Omni Model》所界定。 从摘要看，作者主要围绕 minimind-o、technical、report 展开方法设计、训练策略或系统建模。 结果部分最值得注意的是：It accepts text, speech, and image inputs, and returns both text and streaming speech. 如果你想快速判断这篇论文是否值得细读，这份摘要已经能帮助你抓住问题、方法和结果主线。",
+          "readability": "可读性偏低。缩写、设定或实验细节较多，首次浏览成本偏高。 摘要更偏方法描述，建议点开原文确认实验细节。 优先看这些信号词：minimind-o, technical, report。"
+        }
+      }
+    ]
+  },
+  "model_name": "deepseek-v3"
+}
