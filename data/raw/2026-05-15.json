@@ -1,0 +1,79 @@
+{
+  "window": {
+    "start": "2026-05-14T12:35:01.870162+08:00",
+    "end": "2026-05-15T12:41:09.504758+08:00"
+  },
+  "fetched_count": 4,
+  "deduplicated_count": 3,
+  "new_count": 3,
+  "papers": [
+    {
+      "arxiv_id": "2605.14888v1",
+      "title_en": "PROCESS-2: A Benchmark Speech Corpus for Early Cognitive Impairment Detection",
+      "abstract_en": "Speech-based analysis offers a scalable and non-invasive approach for detecting cognitive decline, yet progress has been constrained by the limited availability of clinically validated datasets collected under realistic conditions. We introduce PROCESS-2, a large-scale speech dataset designed to support research on automatic assessment of cognitive impairment from spontaneous and task-oriented speech. The dataset comprises recordings from 200 healthy controls, 150 mild cognitive impairment, and 50 dementia diagnoses collected using the CognoMemory digital assessment platform. Each participant completed a single assessment session, including picture description and verbal fluency tasks, accompanied by manually verified transcripts and participant-level metadata. PROCESS-2 contains approximately 21 hours of speech audio with predefined train/test partitions. Comprehensive technical validation evaluated demographic balance, clinical consistency, recording stability, embedding-space structure, and reproducible baseline modelling performance, demonstrating clinically meaningful group separation and stable performance across modelling approaches while preserving real-world conversational variability. PROCESS-2 is released under controlled access via Hugging Face to enable responsible reuse while protecting participant privacy, providing a reproducible benchmark resource for speech-based cognitive assessment research.",
+      "authors": [
+        "Madhurananda Pahar",
+        "Caitlin H. Illingworth",
+        "Bahman Mirheidari",
+        "Hend Elghazaly",
+        "Fritz Peters",
+        "Sophie Young",
+        "Wing-Zin Leung",
+        "Labhpreet Kaur",
+        "Daniel Blackburn",
+        "Heidi Christensen"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.14888v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.LG",
+        "cs.SD"
+      ],
+      "published": "2026-05-14T14:33:43Z",
+      "updated": "2026-05-14T14:33:43Z"
+    },
+    {
+      "arxiv_id": "2605.14896v1",
+      "title_en": "Text-Dependent Speaker Verification (TdSV) Challenge 2024: Team Naive System Report",
+      "abstract_en": "This paper presents a system for the 2024 Text-Dependent Speaker Verification (TdSV) Challenge. The system achieved a Minimum Detection Cost Function (MinDCF) of 0.0461 and an Equal Error Rate (EER) of 1.3\\%. Our approach focused on adapting existing state-of-the-art neural networks, ResNet-TDNN and NeXt-TDNN, originally trained on the VoxCeleb dataset. This strategy was chosen because of the limited challenge duration and the available resources at the time. In addition, we designed a lightweight and resource-efficient model, EfficientNet-A0, trained specifically on the challenge dataset to improve adaptation and strengthen the ensemble approach. Our system combines advanced neural architectures, extensive data augmentation, and optimised hyperparameters. These components helped achieve strong performance in text-dependent speaker verification. The results also demonstrate the effectiveness of multi-model ensemble learning for both speaker and phrase verification.",
+      "authors": [
+        "Amir Mohammad Rostami",
+        "Pourya Jafarzadeh"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.14896v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.LG",
+        "cs.SD"
+      ],
+      "published": "2026-05-14T14:38:11Z",
+      "updated": "2026-05-14T14:38:11Z"
+    },
+    {
+      "arxiv_id": "2605.15044v1",
+      "title_en": "SpeakerLLM: A Speaker-Specialized Audio-LLM for Speaker Understanding and Verification Reasoning",
+      "abstract_en": "As audio-first agents become increasingly common in physical AI, conversational robots, and screenless wearables, audio large language models (audio-LLMs) must integrate speaker-specific understanding to support user authorization, personalization, and context-aware interaction. This requires modeling who is speaking, how the voice sounds, and how recording conditions affect speaker cues. Conventional speaker verification systems provide strong scalar scores but little linguistic evidence, while current audio-LLMs and speaker-aware language models have limited ability to organize speaker information beyond binary labels or descriptive profiles. We present SpeakerLLM, a speaker-specialized audio-LLM framework that unifies single-utterance speaker profiling, recording-condition understanding, utterance-pair speaker comparison, and evidence-organized verification reasoning within a natural-language interface. We construct verification-reasoning targets and a decision-composition policy that separate profile-level evidence from the final same-or-different decision and organize recording condition, profile evidence, and the decision into a structured trace. At its core, SpeakerLLM uses a hierarchical speaker tokenizer designed to capture multiple granularities of speaker evidence. Utterance-level speaker embeddings summarize identity and profile-level cues, whereas frame-level speaker features preserve fine-grained acoustic descriptors. Experiments show that SpeakerLLM-Base improves speaker-profile and recording-condition understanding over general audio-LLMs, while SpeakerLLM-VR preserves strong generated-verdict accuracy and produces decision traces grounded in the supervised verification reasoning schema. We will release the metadata-enriched supervision dataset and target-construction code for reproducibility.",
+      "authors": [
+        "KiHyun Nam",
+        "Jungwoo Heo",
+        "Siu Bae",
+        "Ha-Jin Yu",
+        "Joon Son Chung"
+      ],
+      "affiliations": [],
+      "arxiv_url": "https://arxiv.org/abs/2605.15044v1",
+      "primary_category": "cs.SD",
+      "source_categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.MM",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-05-14T16:36:57Z",
+      "updated": "2026-05-14T16:36:57Z"
+    }
+  ]
+}
