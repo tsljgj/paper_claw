@@ -345,7 +345,7 @@ def main() -> None:
 
     if args.preview:
         email_html = render_email(TEMPLATE_DIR, payload)
-        results = send_html_email(f"📰 Paper Claw Digest - {run_date}", email_html, markdown_path, preview_mode=True)
+        results = send_html_email(f"📰 Paper Claw Digest - {run_date}", email_html, [markdown_path], preview_mode=True)
         print("\n[邮件预览] 将发送给以下收件人：")
         for r in results:
             print(f"  - {r['name']} <{r['email']}>")
@@ -353,7 +353,7 @@ def main() -> None:
     elif not args.no_email:
         email_html = render_email(TEMPLATE_DIR, payload)
         subject = f"📰 Paper Claw Digest - {run_date}"
-        results = send_html_email(subject, email_html, markdown_path)
+        results = send_html_email(subject, email_html, [markdown_path])
         success_count = sum(1 for r in results if r["status"] == "sent")
         logging.info("Email sent to %s/%s recipients", success_count, len(results))
     else:

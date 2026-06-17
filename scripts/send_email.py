@@ -72,8 +72,10 @@ def send_single_email(host: str, port: int, user: str, password: str,
     html_part.attach(MIMEText(personalized_html, "html", "utf-8"))
     message.attach(html_part)
     
-    # Add attachments if provided
+    # Add attachments if provided. Accept either a single path or a list.
     if attachment_paths:
+        if isinstance(attachment_paths, (str, Path)):
+            attachment_paths = [attachment_paths]
         for attachment_path in attachment_paths:
             if attachment_path and attachment_path.exists():
                 try:
