@@ -29,12 +29,16 @@ Your laptop does not need to be on.
    |---|---|
    | `SMTP_HOST` | `smtp.gmail.com` |
    | `SMTP_PORT` | `465` |
-   | `SMTP_USER` | your Gmail address |
+   | `SMTP_USER` | your Gmail address (the send-from account) |
    | `SMTP_PASS` | your Gmail **app password** |
    | `OPENAI_API_KEY` | your OpenAI key |
+   | `EMAIL_TO` | recipient address, e.g. `zhihaoyu@andrew.cmu.edu` |
 
-   The recipient is read from `config/recipients.json` (committed), which takes
-   priority over any `EMAIL_TO` secret — so no `EMAIL_TO` needed.
+   Note: `config/recipients.json` is **gitignored** (it holds a personal address),
+   so it is NOT on GitHub — the runner has no recipients file and falls back to the
+   `EMAIL_TO` secret. That is why `EMAIL_TO` is required for the GitHub Actions run.
+   For multiple recipients, comma-separate them in `EMAIL_TO`. Locally,
+   `config/recipients.json` still works and takes priority when present.
 3. **Enable Actions**: Actions tab → "I understand my workflows, enable them".
 4. **Test it**: Actions → *📰 Daily arXiv Digest* → *Run workflow*. Watch the log,
    check your inbox + Spam.
