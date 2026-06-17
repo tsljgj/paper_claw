@@ -1,456 +1,179 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ project.title }} - {{ window.end[:10] }}</title>
+  <title>arXiv Digest — {{ window.end[:10] }}</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: #f5f7fa;
-      padding: 20px;
-      line-height: 1.6;
-      color: #333;
+      background: #f4f5f7;
+      color: #1a1a1a;
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 28px 14px;
     }
     .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      overflow: hidden;
+      max-width: 760px; margin: 0 auto;
+      background: #ffffff; border-radius: 14px;
+      padding: 36px 40px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
-    /* Header - 使用浅色背景确保文字清晰 */
-    .header {
-      background: #edf2f7;
-      border-bottom: 3px solid #4a5568;
-      padding: 25px 30px;
-      text-align: center;
+    .header { border-bottom: 2px solid #ececef; padding-bottom: 22px; margin-bottom: 18px; }
+    .header h1 { font-size: 30px; font-weight: 700; color: #111; letter-spacing: -0.01em; }
+    .header .meta { font-size: 16px; color: #888; margin-top: 8px; }
+
+    .toc { font-size: 15px; color: #444; margin: 22px 0 8px; }
+    .toc .chip {
+      display: inline-block; background: #f0f2f5; color: #333;
+      padding: 5px 12px; border-radius: 14px; margin: 0 6px 8px 0; font-weight: 500;
     }
-    .header img {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    /* Category headings */
+    .category { margin-top: 40px; }
+    .category h2 {
+      font-size: 20px; font-weight: 700; color: #111;
+      border-bottom: 3px solid #2563eb; padding-bottom: 8px; margin-bottom: 6px;
     }
-    .header h1 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #1a202c;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+
+    /* Paper blocks */
+    .paper { padding: 24px 0; border-bottom: 1px solid #eee; }
+    .paper:last-child { border-bottom: none; }
+    .paper-title { font-size: 20px; font-weight: 700; color: #111; line-height: 1.45; }
+    .paper-title .num { color: #bbb; font-weight: 700; margin-right: 8px; }
+    .deep-badge {
+      display: inline-block; font-size: 12px; font-weight: 700; color: #6d28d9;
+      background: #f3edff; padding: 3px 9px; border-radius: 10px; margin-left: 8px;
+      vertical-align: middle;
     }
-    .header-meta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 8px;
+    .why {
+      font-size: 15px; color: #444; margin-top: 12px;
+      padding: 11px 16px; background: #eff4ff; border-left: 4px solid #2563eb; border-radius: 4px;
     }
-    .header .date {
-      font-size: 14px;
-      color: #4a5568;
-      background: #fff;
-      padding: 4px 12px;
-      border-radius: 16px;
-      border: 1px solid #e2e8f0;
+    .why .score { font-weight: 700; color: #2563eb; }
+    .summary-zh { font-size: 16px; color: #2a2a2a; margin-top: 14px; line-height: 1.8; }
+    .take {
+      font-size: 15px; line-height: 1.75; margin-top: 12px;
+      padding: 10px 14px; border-radius: 6px;
     }
-    .powered-by {
-      font-size: 12px;
-      color: #fff;
-      background: #2d3748;
-      padding: 4px 12px;
-      border-radius: 16px;
-      font-weight: 600;
-      font-family: Arial, sans-serif;
+    .take .tag { font-weight: 700; margin-right: 6px; }
+    .take.done { background: #f0faf3; border-left: 4px solid #1f9d57; color: #1f5135; }
+    .take.done .tag { color: #1f9d57; }
+    .take.gap  { background: #fff6f0; border-left: 4px solid #e07b39; color: #6b3a16; }
+    .take.gap .tag { color: #c75a12; }
+    .abstract { font-size: 14px; color: #999; margin-top: 14px; line-height: 1.65; }
+    .paper-meta { font-size: 14px; color: #aaa; margin-top: 12px; }
+    .paper-link { margin-top: 14px; }
+    .paper-link a {
+      display: inline-block; font-size: 14px; font-weight: 600;
+      color: #2563eb; text-decoration: none;
+      padding: 7px 16px; border: 1px solid #2563eb; border-radius: 8px;
     }
-    .github-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 12px;
-      padding: 8px 16px;
-      background: #1a202c;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
+
+    /* Watched-author section — visually prominent */
+    .watched {
+      margin: 8px 0 12px; padding: 24px 26px;
+      background: #fffbeb; border: 2px solid #f5c451; border-radius: 12px;
     }
-    /* Notice boxes */
-    .notice-box {
-      background: #e6f3ff;
-      border-left: 4px solid #4a90e2;
-      padding: 15px 20px;
-      margin: 20px 30px;
-      border-radius: 0 8px 8px 0;
+    .watched h2 {
+      font-size: 21px; font-weight: 800; color: #92590b;
+      border: none; padding: 0; margin-bottom: 6px;
     }
-    .notice-box p {
-      color: #2c5282;
-      font-size: 14px;
-      margin: 0;
+    .watched .sub { font-size: 14px; color: #a9760a; margin-bottom: 4px; }
+    .watched .paper { border-bottom-color: #f0e0a8; }
+    .watched-by {
+      display: inline-block; font-size: 14px; font-weight: 700; color: #92590b;
+      background: #fde9a8; padding: 4px 12px; border-radius: 12px; margin-top: 10px;
     }
-    .notice-box a {
-      color: #2b6cb0;
-      text-decoration: underline;
-    }
-    /* Summary */
-    .summary {
-      padding: 25px 30px;
-      background: #f8fafc;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .summary h2 {
-      color: #2d3748;
-      font-size: 18px;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 12px;
-      margin-bottom: 15px;
-    }
-    .stat-card {
-      background: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      border: 1px solid #e2e8f0;
-    }
-    .stat-card .number {
-      font-size: 28px;
-      font-weight: 700;
-      color: #2d3748;
-    }
-    .stat-card .label {
-      color: #718096;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-    .category-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .category-tag {
-      background: #4a5568;
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 16px;
-      font-size: 12px;
-      font-weight: 500;
-      font-family: Arial, sans-serif;
-    }
-    /* Content */
-    .content {
-      padding: 25px 30px;
-    }
-    .toc {
-      background: #f8fafc;
-      padding: 15px 20px;
-      border-radius: 10px;
-      margin-bottom: 25px;
-      border: 1px solid #e2e8f0;
-    }
-    .toc h3 {
-      color: #2d3748;
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
-    .toc-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 8px;
-    }
-    .toc-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-      background: #fff;
-      border-radius: 6px;
-      border: 1px solid #e2e8f0;
-    }
-    .toc-link {
-      color: #4a5568;
-      font-size: 13px;
-    }
-    .toc-count {
-      background: #4a5568;
-      color: #fff;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 600;
-      font-family: Arial, sans-serif;
-    }
-    /* Category Section */
-    .category-section {
-      margin-bottom: 30px;
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .category-header {
-      background: #4a5568;
-      color: #fff;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: Arial, sans-serif;
-    }
-    .category-title {
-      font-size: 16px;
-      font-weight: 600;
-      flex: 1;
-    }
-    .paper-count {
-      background: rgba(255,255,255,0.2);
-      padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-    }
-    .category-body {
-      padding: 20px;
-    }
-    /* Paper Card */
-    .paper-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 18px;
-      margin-bottom: 15px;
-    }
-    .paper-card:last-child {
-      margin-bottom: 0;
-    }
-    .paper-header {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .paper-index {
-      width: 24px;
-      height: 24px;
-      background: #4a5568;
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      flex-shrink: 0;
-      font-family: Arial, sans-serif;
-    }
-    .paper-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1a202c;
-      line-height: 1.4;
-      flex: 1;
-    }
-    .paper-meta {
-      color: #718096;
-      font-size: 12px;
-      margin-bottom: 12px;
-      padding-left: 34px;
-    }
-    .paper-section {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 10px;
-    }
-    .paper-section:last-child {
-      margin-bottom: 0;
-    }
-    .section-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #2d3748;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-family: Arial, sans-serif;
-    }
-    .section-content {
-      font-size: 13px;
-      color: #4a5568;
-      line-height: 1.7;
-    }
-    .arxiv-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 10px;
-      padding: 8px 14px;
-      background: #1a202c;
-      color: #fff;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 500;
-      border-radius: 6px;
-    }
-    .empty-notice {
-      text-align: center;
-      padding: 30px;
-      color: #718096;
-      font-size: 14px;
-    }
-    .more-papers {
-      text-align: center;
-      padding: 12px;
-      background: #f8fafc;
-      border-radius: 8px;
-      color: #718096;
-      font-size: 13px;
-    }
-    /* Footer */
-    .footer {
-      background: #f8fafc;
-      padding: 20px 30px;
-      text-align: center;
-      border-top: 1px solid #e2e8f0;
-    }
-    .footer p {
-      color: #718096;
-      font-size: 13px;
-    }
-    .footer a {
-      color: #667eea;
-      text-decoration: none;
-    }
-    /* Mobile */
+
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 14px; color: #aaa; }
     @media (max-width: 600px) {
-      body { padding: 10px; }
-      .header { padding: 20px; }
-      .header img { width: 40px; height: 40px; }
-      .summary, .content { padding: 20px; }
-      .paper-header { flex-direction: column; }
-      .paper-meta { padding-left: 0; }
+      body { padding: 14px 8px; }
+      .container { padding: 24px 20px; border-radius: 10px; }
+      .header h1 { font-size: 25px; }
+      .paper-title { font-size: 18px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
     <div class="header">
-      <img src="https://raw.githubusercontent.com/PigeonDan1/paper_claw/main/assets/logo_icon.png" alt="Paper Claw Logo">
-      <h1>📰 {{ project.title }}</h1>
-      <div class="header-meta">
-        <span class="date">{{ window.end[:10] }}</span>
-        <span class="powered-by">🤖 Powered by {{ model_name|default('Paper Claw AI', true) }}</span>
-      </div>
-      <div class="greeting" style="margin-top: 15px; padding: 10px 20px; background: rgba(255,255,255,0.7); border-radius: 20px; display: inline-block;">
-        <span style="color: #2d3748; font-size: 14px;">👋 {{ recipient_name|default('朋友', true) }}，你好！这是PJ的论文助手为你整理的每日学术日报～</span>
-      </div>
-      <a href="https://github.com/PigeonDan1/paper_claw" class="github-link" target="_blank">
-        ⭐ Star us on GitHub
-      </a>
+      <h1>arXiv Daily Digest</h1>
+      <div class="meta">{{ window.end[:10] }} · {{ summary.total }} selected papers</div>
     </div>
 
-    <!-- Notice -->
-    <div class="notice-box">
-      <p>💡 <strong>提示：</strong>邮件中显示前 3 篇论文预览，完整日报请查看附件 Markdown 文件。</p>
-    </div>
-
-    <!-- Summary -->
-    <div class="summary">
-      <h2>📊 今日速览</h2>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="number">{{ summary.total }}</div>
-          <div class="label">论文总数</div>
-        </div>
-        <div class="stat-card">
-          <div class="number">{{ summary.counts | length }}</div>
-          <div class="label">分类数量</div>
-        </div>
-      </div>
-      <div class="category-list">
-        {% for category, count in summary.counts.items() %}
-        <span class="category-tag">{{ category }}: {{ count }}</span>
-        {% endfor %}
-      </div>
-      {% if summary.headline %}
-      <p style="margin-top: 15px; color: #4a5568; font-size: 13px;">💡 {{ summary.headline }}</p>
-      {% endif %}
-    </div>
-
-    <!-- Content -->
-    <div class="content">
-      <!-- TOC -->
-      <div class="toc">
-        <h3>📑 分类导航</h3>
-        <ul class="toc-list">
-          {% for category, items in grouped.items() %}
-          <li class="toc-item">
-            <span class="toc-link">{{ category }}</span>
-            <span class="toc-count">{{ items | length }} 篇</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <!-- Papers by Category -->
-      {% for category, items in grouped.items() %}
-      <div class="category-section">
-        <div class="category-header">
-          <span class="category-title">🏷️ {{ category }}</span>
-          <span class="paper-count">{{ items | length }} 篇</span>
-        </div>
-        <div class="category-body">
-          {% if items %}
-            {% for paper in items[:3] %}
-            <div class="paper-card">
-              <div class="paper-header">
-                <span class="paper-index">{{ loop.index }}</span>
-                <div class="paper-title">{{ paper.title_en }}</div>
-              </div>
-              <div class="paper-meta">
-                {% if paper.authors %}👤 {{ paper.authors | join(", ") }}{% endif %}
-              </div>
-              <div class="paper-section">
-                <div class="section-label">📝 Abstract</div>
-                <div class="section-content">{{ paper.abstract_en }}</div>
-              </div>
-              <div class="paper-section">
-                <div class="section-label">🇨🇳 中文总结</div>
-                <div class="section-content">{{ paper.review.summary }}</div>
-              </div>
-              <a href="{{ paper.arxiv_url }}" class="arxiv-link">🔗 查看原文 →</a>
-            </div>
-            {% endfor %}
-            {% if items | length > 3 %}
-            <div class="more-papers">📎 还有 {{ items | length - 3 }} 篇论文，请查看邮件附件</div>
-            {% endif %}
-          {% else %}
-            <div class="empty-notice">📭 今日该分类暂无新论文</div>
-          {% endif %}
-        </div>
+    {% if watched %}
+    <div class="watched">
+      <h2>⭐ Authors You Follow</h2>
+      <div class="sub">Papers from researchers you track</div>
+      {% for paper in watched %}
+      <div class="paper">
+        <div class="paper-title"><span class="num">{{ loop.index }}.</span>{{ paper.title_en }}</div>
+        <div class="watched-by">👤 {{ paper.watched_authors | join(", ") }}</div>
+        {% if paper.review.summary %}
+        <div class="summary-zh">{{ paper.review.summary }}</div>
+        {% endif %}
+        {% if paper.review.achieved %}
+        <div class="take done"><span class="tag">{% if paper.language == 'en' %}✓ Achieved:{% else %}✓ 做到了：{% endif %}</span>{{ paper.review.achieved }}</div>
+        {% endif %}
+        {% if paper.review.limitations %}
+        <div class="take gap"><span class="tag">{% if paper.language == 'en' %}△ Gaps / not done:{% else %}△ 还能做但没做：{% endif %}</span>{{ paper.review.limitations }}</div>
+        {% endif %}
+        {% if paper.abstract_en %}
+        <div class="abstract">{{ paper.abstract_en[:320] }}{% if paper.abstract_en | length > 320 %}…{% endif %}</div>
+        {% endif %}
+        {% if paper.authors %}
+        <div class="paper-meta">{{ paper.authors[:5] | join(", ") }}{% if paper.authors | length > 5 %} et al.{% endif %}</div>
+        {% endif %}
+        <div class="paper-link"><a href="{{ paper.arxiv_url }}">Read on arXiv →</a></div>
       </div>
       {% endfor %}
     </div>
+    {% endif %}
 
-    <!-- Footer -->
+    {% if grouped %}
+    <div class="toc">
+      {% for category, items in grouped.items() %}
+      <span class="chip">{{ items[0].category_label | default(category, true) }} · {{ items | length }}</span>
+      {% endfor %}
+    </div>
+
+    {% for category, items in grouped.items() %}
+    <div class="category">
+      <h2>{{ items[0].category_label | default(category, true) }}</h2>
+      {% for paper in items %}
+      <div class="paper">
+        <div class="paper-title"><span class="num">{{ loop.index }}.</span>{{ paper.title_en }}{% if paper.deep_read %}<span class="deep-badge">🔍 {% if paper.language == 'en' %}Deep read{% else %}深读{% endif %}</span>{% endif %}</div>
+        {% if paper.relevance_reason %}
+        <div class="why">{% if paper.relevance_score is not none %}<span class="score">{{ paper.relevance_score }}/10</span> — {% endif %}{{ paper.relevance_reason }}</div>
+        {% endif %}
+        {% if paper.review.summary %}
+        <div class="summary-zh">{{ paper.review.summary }}</div>
+        {% endif %}
+        {% if paper.review.achieved %}
+        <div class="take done"><span class="tag">{% if paper.language == 'en' %}✓ Achieved:{% else %}✓ 做到了：{% endif %}</span>{{ paper.review.achieved }}</div>
+        {% endif %}
+        {% if paper.review.limitations %}
+        <div class="take gap"><span class="tag">{% if paper.language == 'en' %}△ Gaps / not done:{% else %}△ 还能做但没做：{% endif %}</span>{{ paper.review.limitations }}</div>
+        {% endif %}
+        {% if paper.abstract_en %}
+        <div class="abstract">{{ paper.abstract_en[:320] }}{% if paper.abstract_en | length > 320 %}…{% endif %}</div>
+        {% endif %}
+        {% if paper.authors %}
+        <div class="paper-meta">{{ paper.authors[:5] | join(", ") }}{% if paper.authors | length > 5 %} et al.{% endif %}</div>
+        {% endif %}
+        <div class="paper-link"><a href="{{ paper.arxiv_url }}">Read on arXiv →</a></div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    {% elif not watched %}
+    <p style="color:#888;font-size:16px;">No relevant papers found in today's window.</p>
+    {% endif %}
+
     <div class="footer">
-      <p>Generated by <a href="https://github.com/PigeonDan1/paper_claw" target="_blank">Paper Claw</a> · {{ window.end[:10] }}</p>
+      Full list attached as Markdown. Generated by paper_claw{% if model_name %} · {{ model_name }}{% endif %}.
     </div>
   </div>
 </body>

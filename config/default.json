@@ -1,22 +1,14 @@
 {
   "project": {
     "name": "paper_claw",
-    "title": "Paper Claw",
-    "description": "Multi-source paper digest generator with AI-powered summaries",
-    "timezone": "Asia/Shanghai",
+    "title": "Paper Claw - CUA Benchmark Edition",
+    "description": "Daily arXiv digest for Computer Use Agent benchmarks",
+    "timezone": "America/New_York",
     "version": "2.0.0"
   },
   "language": {
     "default": "zh",
-    "supported": [
-      "zh",
-      "en",
-      "ja",
-      "ko",
-      "de",
-      "fr",
-      "es"
-    ]
+    "supported": ["zh", "en"]
   },
   "sources": {
     "arxiv": {
@@ -24,177 +16,133 @@
       "name": "arXiv",
       "url": "https://arxiv.org",
       "categories": [
-        {
-          "id": "cs.SD",
-          "name": "Sound",
-          "url": "https://arxiv.org/list/cs.SD/recent"
-        },
-        {
-          "id": "eess.AS",
-          "name": "Audio and Speech Processing",
-          "url": "https://arxiv.org/list/eess.AS/recent"
-        }
+        {"id": "cs.AI", "name": "Artificial Intelligence", "url": "https://arxiv.org/list/cs.AI/recent"},
+        {"id": "cs.CL", "name": "Computation and Language", "url": "https://arxiv.org/list/cs.CL/recent"},
+        {"id": "cs.HC", "name": "Human-Computer Interaction", "url": "https://arxiv.org/list/cs.HC/recent"},
+        {"id": "cs.LG", "name": "Machine Learning", "url": "https://arxiv.org/list/cs.LG/recent"}
       ]
     }
   },
   "classification": {
     "categories": [
       {
-        "name": "Speech LLM",
+        "name": "CUA-Benchmark",
         "labels": {
-          "zh": "语音大模型",
-          "en": "Speech LLM",
-          "ja": "音声大規模言語モデル"
+          "zh": "CUA 评测基准",
+          "en": "CUA Benchmark & Evaluation"
         },
         "keywords": [
-          "speech llm",
-          "audio llm",
-          "spoken language model",
-          "speech language model",
-          "voice llm",
-          "audio-language model",
-          "speech understanding",
-          "spoken dialogue"
+          "osworld", "webarena", "visualwebarena",
+          "agentbench", "mind2web", "screenspot",
+          "androidworld", "windowsagentarena",
+          "browsergym", "workarena",
+          "agent benchmark", "gui benchmark",
+          "web navigation benchmark", "agent evaluation",
+          "agent leaderboard", "evaluation framework for agents"
         ]
       },
       {
-        "name": "ASR",
+        "name": "CUA-Methods",
         "labels": {
-          "zh": "语音识别",
-          "en": "Speech Recognition",
-          "ja": "音声認識"
+          "zh": "CUA 方法",
+          "en": "CUA / GUI Agent Methods"
         },
         "keywords": [
-          "automatic speech recognition",
-          "asr system",
-          "speech-to-text",
-          "speech transcription",
-          "end-to-end asr",
-          "conformer",
-          "wav2vec",
-          "hubert",
-          "whisper"
+          "computer use agent", "computer-use agent",
+          "gui agent", "web agent", "browser agent",
+          "os agent", "desktop agent", "screen agent",
+          "gui grounding", "visual grounding for agent",
+          "ui understanding", "screenshot agent",
+          "device control agent", "mobile gui agent"
         ]
       },
       {
-        "name": "TTS",
+        "name": "Agent-Learning",
         "labels": {
-          "zh": "语音合成",
-          "en": "Speech Synthesis",
-          "ja": "音声合成"
+          "zh": "智能体学习",
+          "en": "Agent Learning & Architecture"
         },
         "keywords": [
-          "text-to-speech",
-          "tts system",
-          "speech synthesis",
-          "voice synthesis",
-          "neural vocoder",
-          "acoustic model",
-          "tacotron",
-          "fastspeech",
-          "mel-spectrogram generation"
+          "agent reinforcement learning", "rl for agents",
+          "agent fine-tuning", "agent training",
+          "multi-agent system", "multi-agent collaboration",
+          "agent architecture", "agentic framework",
+          "tool use", "tool learning", "function calling",
+          "agent planning", "language agent"
         ]
       },
       {
-        "name": "Enhancement",
+        "name": "Agent-Memory",
         "labels": {
-          "zh": "语音增强",
-          "en": "Enhancement",
-          "ja": "音声強調"
+          "zh": "智能体记忆",
+          "en": "Agent Memory"
         },
         "keywords": [
-          "speech enhancement",
-          "noise reduction",
-          "speech denoising",
-          "audio enhancement",
-          "dereverberation",
-          "source separation",
-          "beamforming",
-          "speech separation"
+          "agent memory", "long-term memory for agents",
+          "memory module", "episodic memory",
+          "memory-augmented agent", "retrieval-augmented agent",
+          "experience replay for agents", "self-evolving agent"
         ]
       },
       {
-        "name": "SLU",
+        "name": "Human-Agent",
         "labels": {
-          "zh": "口语理解",
-          "en": "Spoken Language Understanding",
-          "ja": "音声言語理解"
+          "zh": "人机协作",
+          "en": "Human-Agent Interaction"
         },
         "keywords": [
-          "spoken language understanding",
-          "intent recognition",
-          "slot filling",
-          "spoken nlu",
-          "semantic parsing",
-          "dialogue system",
-          "spoken command"
+          "human-agent interaction", "human-in-the-loop agent",
+          "agent supervision", "human-agent collaboration",
+          "interactive agent", "agent oversight",
+          "trust in agents", "agent steerability"
         ]
       },
       {
-        "name": "Paralinguistics",
+        "name": "Agent-Other",
         "labels": {
-          "zh": "副语言学",
-          "en": "Paralinguistics",
-          "ja": "副言語学"
+          "zh": "其他智能体",
+          "en": "Other Notable Agent Work"
         },
-        "keywords": [
-          "emotion recognition",
-          "speaker verification",
-          "speaker identification",
-          "speaker recognition",
-          "age estimation",
-          "gender recognition",
-          "stress detection"
-        ]
-      },
-      {
-        "name": "Audio",
-        "labels": {
-          "zh": "通用音频",
-          "en": "General Audio",
-          "ja": "一般音声"
-        },
-        "keywords": [
-          "audio classification",
-          "sound event detection",
-          "audio tagging",
-          "acoustic scene",
-          "music information retrieval",
-          "audio generation",
-          "sound synthesis"
-        ]
+        "keywords": []
       }
     ]
   },
+  "watched_authors": {
+    "enabled": true,
+    "_comment": "Papers by any of these people are ALWAYS included, pinned in a 'Authors you follow' section at the top, regardless of topic score. Each entry has a canonical 'name' (shown in the email) and 'aliases' (every name string to match against arXiv author lists, case-insensitive). Use the form the author uses on Google Scholar as the canonical name. Edit this list freely.",
+    "authors": [
+      {"name": "Graham Neubig", "aliases": ["Graham Neubig"]},
+      {"name": "Yu Su", "aliases": ["Yu Su", "Su Yu"]},
+      {"name": "Zhou Yu", "aliases": ["Zhou Yu"]},
+      {"name": "Dawn Song", "aliases": ["Dawn Song"]},
+      {"name": "Diyi Yang", "aliases": ["Diyi Yang"]}
+    ]
+  },
+  "relevance": {
+    "enabled": true,
+    "min_score": 6,
+    "max_papers": 18,
+    "score_batch_size": 20,
+    "profile": "I am a researcher at CMU focused on autonomous AI agents, with a primary interest in Computer Use Agents (CUA): agents that operate computers, GUIs, web browsers, desktops, and mobile devices by perceiving screens and taking UI actions. My specific interests, in rough priority order: (1) CUA / GUI agent BENCHMARKS and EVALUATION — new environments, tasks, eval protocols, and methodology for measuring agent capability (e.g. OSWorld, WebArena, Mind2Web style work); (2) CUA / GUI agent METHODS — GUI grounding, screen/UI understanding, web/desktop/OS/browser/mobile agents, action planning and policy for controlling interfaces; (3) AGENT LEARNING & ARCHITECTURE — reinforcement learning for agents, agent training/fine-tuning, multi-agent systems, tool use, planning, and novel agent architectures; (4) AGENT MEMORY — long-term/episodic memory, memory-augmented and self-evolving agents; (5) HUMAN-AGENT INTERACTION — how people supervise, collaborate with, or interface with autonomous agents; (6) OTHER genuinely novel or surprising agent research that an agents researcher would find exciting. I am NOT interested in: papers with no connection to autonomous agents, pure vision/speech/NLP work that doesn't involve agents, generic LLM training or theory unrelated to agency, or papers that merely mention 'agent' in passing without agents being central."
+  },
   "llm": {
-    "default_provider": "deepseek",
+    "default_provider": "openai",
     "providers": {
-      "deepseek": {
-        "name": "DeepSeek (SJTU)",
-        "api_base": "https://models.sjtu.edu.cn/api/v1",
-        "model": "deepseek-v3",
-        "env_key": "DEEPSEEK_API_KEY",
+      "openai": {
+        "name": "OpenAI",
+        "api_base": "https://api.openai.com/v1",
+        "model": "gpt-4o-mini",
+        "deep_read_model": "gpt-4o",
+        "env_key": "OPENAI_API_KEY",
         "max_retries": 3,
-        "timeout": 90
-      },
-      "kimi": {
-        "name": "Kimi AI (Moonshot)",
-        "api_base": "https://api.moonshot.cn/v1",
-        "model": "moonshot-v1-8k",
-        "env_key": "MOONSHOT_API_KEY"
-      },
-      "dashscope": {
-        "name": "DashScope (Aliyun)",
-        "api_base": "https://coding.dashscope.aliyuncs.com/v1",
-        "model": "qwen3.5-plus",
-        "env_key": "DASHSCOPE_API_KEY"
+        "timeout": 120
       }
     },
-    "fallback_chain": [
-      "deepseek",
-      "kimi",
-      "dashscope",
-      "rule_based"
-    ]
+    "fallback_chain": ["openai", "rule_based"]
+  },
+  "deep_read": {
+    "enabled": true,
+    "_comment": "The top-scoring papers each get a separate, deeper LLM pass (deep_read_model) that reads the abstract closely and writes a fuller analysis. The rest get the concise batched summary.",
+    "top_n": 5
   }
 }

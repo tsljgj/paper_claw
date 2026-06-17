@@ -29,11 +29,34 @@
 
 ---
 
+{% if watched %}
+## ⭐ Authors You Follow
+
+{% for paper in watched %}
+### {{ loop.index }}. {{ paper.title_en }}
+
+👀 **Followed**: {{ paper.watched_authors | join(", ") }}
+{% if paper.authors %}👤 **{{ labels.authors }}**: {{ paper.authors | join(", ") }}{% endif %}
+
+🔗 **{{ labels.source }}**: [{{ paper.arxiv_url }}]({{ paper.arxiv_url }})
+
+**{{ labels.abstract }}**
+> {{ paper.abstract_en }}
+
+**{{ labels.summary }}**: {{ paper.review.summary }}
+
+---
+{% endfor %}
+{% endif %}
+
 {% for category, items in grouped.items() %}
 ## 🏷️ {{ category }}
 
 {% if items %}{% for paper in items %}
 ### {{ loop.index }}. {{ paper.title_en }}
+
+{% if paper.relevance_score is not none %}⭐ **Relevance**: {{ paper.relevance_score }}/10{% if paper.relevance_reason %} — {{ paper.relevance_reason }}{% endif %}
+{% endif %}
 
 {% if paper.authors %}👤 **{{ labels.authors }}**: {{ paper.authors | join(", ") }}{% endif %}
 {% if paper.affiliations %}
@@ -45,10 +68,13 @@
 > {{ paper.abstract_en }}
 
 **{{ labels.assessment }}**
-| {{ labels.item }} | {{ labels.content }} |
-|:---|:---|
-| 📝 {{ labels.summary }} | {{ paper.review.summary }} |
-| 📖 {{ labels.readability }} | {{ paper.review.readability }} |
+
+📝 {% if paper.language == 'en' %}**Summary**{% else %}**主旨**{% endif %}: {{ paper.review.summary }}
+
+{% if paper.review.achieved %}✓ {% if paper.language == 'en' %}**Achieved**{% else %}**做到了**{% endif %}: {{ paper.review.achieved }}
+{% endif %}
+{% if paper.review.limitations %}△ {% if paper.language == 'en' %}**Gaps / not done**{% else %}**还能做但没做**{% endif %}: {{ paper.review.limitations }}
+{% endif %}
 
 ---
 {% endfor %}{% else %}

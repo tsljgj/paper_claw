@@ -28,7 +28,17 @@ from process_papers import build_summary, enrich_papers
 from send_email import send_html_email
 
 
-ASIA_SHANGHAI = ZoneInfo("Asia/Shanghai")
+def _resolve_local_tz() -> ZoneInfo:
+    """Read the project timezone from config, defaulting to America/New_York."""
+    try:
+        cfg = json.loads((ROOT / "config" / "default.json").read_text(encoding="utf-8"))
+        tz_name = cfg.get("project", {}).get("timezone", "America/New_York")
+        return ZoneInfo(tz_name)
+    except Exception:
+        return ZoneInfo("America/New_York")
+
+
+LOCAL_TZ = _resolve_local_tz()
 STATE_PATH = ROOT / "data" / "state.json"
 RAW_DIR = ROOT / "data" / "raw"
 PROCESSED_DIR = ROOT / "data" / "processed"
@@ -55,7 +65,7 @@ def save_state(state: dict) -> None:
 
 def default_window(now: datetime, state: dict) -> FetchWindow:
     if state.get("last_successful_run"):
-        return FetchWindow(start=isoparse(state["last_successful_run"]).astimezone(ASIA_SHANGHAI), end=now)
+        return FetchWindow(start=isoparse(state["last_successful_run"]).astimezone(LOCAL_TZ), end=now)
 
     anchor = now.replace(hour=9, minute=0, second=0, microsecond=0)
     if now < anchor:
@@ -65,12 +75,12 @@ def default_window(now: datetime, state: dict) -> FetchWindow:
 
 def ensure_timezone(dt: datetime) -> datetime:
     if dt.tzinfo is None:
-        return dt.replace(tzinfo=ASIA_SHANGHAI)
-    return dt.astimezone(ASIA_SHANGHAI)
+        return dt.replace(tzinfo=LOCAL_TZ)
+    return dt.astimezone(LOCAL_TZ)
 
 
 def format_datetime(dt: datetime) -> str:
-    return dt.astimezone(ASIA_SHANGHAI).strftime("%Y-%m-%d %H:%M:%S %Z")
+    return dt.astimezone(LOCAL_TZ).strftime("%Y-%m-%d %H:%M:%S %Z")
 
 
 def parse_date_only(value: str) -> date:
@@ -78,7 +88,7 @@ def parse_date_only(value: str) -> date:
 
 
 def at_beijing_nine(day_value: date) -> datetime:
-    return datetime(day_value.year, day_value.month, day_value.day, 9, 0, 0, tzinfo=ASIA_SHANGHAI)
+    return datetime(day_value.year, day_value.month, day_value.day, 9, 0, 0, tzinfo=LOCAL_TZ)
 
 
 def resolve_window(args: argparse.Namespace, state: dict, now: datetime) -> FetchWindow:
@@ -121,12 +131,21 @@ def filter_already_processed(papers: list[dict], state: dict) -> list[dict]:
 
 
 def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdown_path: Path, category_priority: list[str], config: dict, model_name: str | None = None) -> dict:
+    # Papers by a followed author are pinned at the top and excluded from the
+    # regular category groups so they are not shown twice.
+    watched = [p for p in papers if p.get("watched_authors")]
+    rest = [p for p in papers if not p.get("watched_authors")]
+
+    # Keep categories in the user's configured interest priority (CUA-Benchmark
+    # first, Agent-Other last), dropping any that are empty. Papers within each
+    # category remain in relevance order.
     grouped = {
-        category: [paper for paper in papers if paper["digest_category"] == category]
+        category: [paper for paper in rest if paper["digest_category"] == category]
         for category in category_priority
     }
+    grouped = {category: items for category, items in grouped.items() if items}
     return {
-        "generated_at": datetime.now(tz=ASIA_SHANGHAI).isoformat(),
+        "generated_at": datetime.now(tz=LOCAL_TZ).isoformat(),
         "project": config["project"],
         "window": {
             "start": window.start.isoformat(),
@@ -137,6 +156,7 @@ def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdo
         "summary": summary,
         "markdown_path": str(markdown_path.relative_to(ROOT)),
         "papers": papers,
+        "watched": watched,
         "grouped": grouped,
         "model_name": model_name,
     }
@@ -144,7 +164,7 @@ def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdo
 
 def persist_outputs(payload: dict, run_date: str) -> tuple[Path, Path]:
     processed_path = PROCESSED_DIR / f"{run_date}.json"
-    markdown_path = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
+    markdown_path = POSTS_DIR / f"{run_date}-arxiv-digest.md"
     save_raw_payload(processed_path, payload)
 
     markdown = render_markdown(TEMPLATE_DIR, payload)
@@ -217,7 +237,7 @@ def main() -> None:
     configure_logging()
     args = parse_args()
     config = load_config(args.config)
-    now = ensure_timezone(isoparse(args.now)) if args.now else datetime.now(tz=ASIA_SHANGHAI)
+    now = ensure_timezone(isoparse(args.now)) if args.now else datetime.now(tz=LOCAL_TZ)
     
     # Get language from args or config
     language = args.language or config.get("language", {}).get("default", "zh")
@@ -254,7 +274,7 @@ def main() -> None:
         
         window = FetchWindow(start=window_start, end=window_end)
         
-        provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
+        provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-digest.md"
         payload = build_payload(
             window,
             existing_data.get("papers", []),
@@ -265,7 +285,7 @@ def main() -> None:
         )
         
         # Check if markdown exists
-        markdown_path = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
+        markdown_path = POSTS_DIR / f"{run_date}-arxiv-digest.md"
         if not markdown_path.exists():
             # Save markdown if missing
             markdown_content = render_markdown(TEMPLATE_DIR, payload)
@@ -308,7 +328,7 @@ def main() -> None:
     enriched, category_priority, used_model = enrich_papers(filtered, config)
     summary = build_summary(enriched, category_priority, language)
 
-    provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-audio-digest.md"
+    provisional_markdown = POSTS_DIR / f"{run_date}-arxiv-digest.md"
     payload = build_payload(window, enriched, summary, provisional_markdown, category_priority, config, used_model)
     raw_path = RAW_DIR / f"{run_date}.json"
     save_raw_payload(

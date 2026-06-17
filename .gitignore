@@ -61,3 +61,13 @@ htmlcov/
 tmp/
 temp/
 *.tmp
+
+# Local backups (not tracked)
+_backup/
+*.bak
+
+# Pipeline run artifacts (regenerated each run, not source)
+data/raw/*.json
+data/processed/*.json
+data/preview_email.html
+data/state.json

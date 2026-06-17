@@ -183,6 +183,40 @@ def build_readability_analysis(abstract: str, keywords: list[str], language: str
         return f"Readability is {level}. {reason} {metrics_hint} {keyword_hint}"
 
 
+def build_watched_author_index(config: dict[str, Any]) -> dict[str, str]:
+    """
+    Build a lookup from normalized author alias -> canonical display name.
+
+    Returns an empty dict when the feature is disabled or unconfigured.
+    """
+    cfg = config.get("watched_authors", {})
+    if not cfg.get("enabled"):
+        return {}
+    index: dict[str, str] = {}
+    for entry in cfg.get("authors", []):
+        canonical = (entry.get("name") or "").strip()
+        if not canonical:
+            continue
+        aliases = entry.get("aliases") or [canonical]
+        for alias in aliases:
+            norm = _normalize_text(alias)
+            if norm:
+                index[norm] = canonical
+    return index
+
+
+def match_watched_authors(authors: list[str], index: dict[str, str]) -> list[str]:
+    """Return the canonical names of any watched authors on this paper."""
+    if not index or not authors:
+        return []
+    hits: list[str] = []
+    for author in authors:
+        canonical = index.get(_normalize_text(author))
+        if canonical and canonical not in hits:
+            hits.append(canonical)
+    return hits
+
+
 def enrich_papers(
     papers: list[dict[str, Any]],
     config: dict[str, Any]
@@ -198,17 +232,100 @@ def enrich_papers(
         Tuple of (enriched_papers, category_priority, used_model)
     """
     category_rules, category_priority, labels = build_classification_assets(config)
-    
+
     # Get language setting
     language = config.get("language", {}).get("default", "zh")
-    
+
+    # --- Watched authors -----------------------------------------------------
+    # Pre-compute, for every fetched paper, which followed authors appear on it.
+    # These papers are force-kept regardless of topic score.
+    author_index = build_watched_author_index(config)
+    watched_by_id: dict[int, list[str]] = {}
+    if author_index:
+        for idx, paper in enumerate(papers):
+            hits = match_watched_authors(paper.get("authors", []), author_index)
+            if hits:
+                watched_by_id[idx] = hits
+        if watched_by_id:
+            logging.info("Watched authors matched on %s paper(s).", len(watched_by_id))
+
+    # --- Relevance filtering -------------------------------------------------
+    # Score every fetched paper against the user's interest profile, then keep
+    # only the most relevant ones. This dramatically narrows the digest and
+    # avoids spending summary calls on papers the user does not care about.
+    relevance_cfg = config.get("relevance", {})
+    relevance_by_id: dict[int, dict[str, Any]] = {}
+    if relevance_cfg.get("enabled") and papers and "llm" in config:
+        profile = relevance_cfg.get("profile", "").strip()
+        if profile:
+            try:
+                scorer = create_client(config["llm"])
+                score_payload = [
+                    {"title": p["title_en"], "abstract": p["abstract_en"]} for p in papers
+                ]
+                scores = scorer.score_relevance(
+                    score_payload,
+                    profile,
+                    batch_size=int(relevance_cfg.get("score_batch_size", 20)),
+                )
+            except Exception as e:  # network / parse / config errors
+                logging.warning(f"Relevance scoring failed, keeping all papers: {e}")
+                scores = None
+
+            if scores:
+                for idx, sc in enumerate(scores):
+                    relevance_by_id[idx] = sc
+                min_score = int(relevance_cfg.get("min_score", 6))
+                max_papers = int(relevance_cfg.get("max_papers", 18))
+
+                ranked = sorted(
+                    range(len(papers)),
+                    key=lambda k: relevance_by_id.get(k, {}).get("score", 0),
+                    reverse=True,
+                )
+                kept_idx = [k for k in ranked if relevance_by_id.get(k, {}).get("score", 0) >= min_score]
+                kept_idx = kept_idx[:max_papers]
+
+                # Force-keep every watched-author paper, even below threshold or
+                # past the cap, appending any that the score filter missed.
+                extra_watched = [k for k in watched_by_id if k not in set(kept_idx)]
+                kept_idx = kept_idx + extra_watched
+
+                logging.info(
+                    "Relevance filter: %s scored >= %s + %s watched-author = %s kept of %s.",
+                    len(kept_idx) - len(extra_watched), min_score,
+                    len(extra_watched), len(kept_idx), len(papers),
+                )
+
+                if kept_idx:
+                    # Preserve relevance order so the digest leads with best matches.
+                    filtered_papers = [papers[k] for k in kept_idx]
+                    relevance_by_id = {
+                        new_i: relevance_by_id.get(old_i, {})
+                        for new_i, old_i in enumerate(kept_idx)
+                    }
+                    watched_by_id = {
+                        new_i: watched_by_id[old_i]
+                        for new_i, old_i in enumerate(kept_idx)
+                        if old_i in watched_by_id
+                    }
+                    papers = filtered_papers
+                else:
+                    logging.warning("No papers cleared the relevance threshold; keeping none.")
+                    papers = []
+            else:
+                logging.warning("Relevance scoring returned nothing; keeping all papers.")
+
+    if not papers:
+        return [], category_priority, None
+
     # Extract keywords and classify
     keywords_en = [extract_keywords(paper["title_en"], paper["abstract_en"], category_rules) for paper in papers]
     categories = [
         classify_paper(paper["title_en"], paper["abstract_en"], extracted, category_rules, category_priority)
         for paper, extracted in zip(papers, keywords_en)
     ]
-    
+
     # Prepare LLM payload
     llm_payload = [
         {"title": paper["title_en"], "abstract": paper["abstract_en"], "category": category}
@@ -218,12 +335,31 @@ def enrich_papers(
     # Try LLM generation
     llm_reviews = None
     used_model = None
+    deep_read_idx: set[int] = set()
     if "llm" in config:
         try:
             client = create_client(config["llm"])
             llm_reviews, used_model = client.generate_summaries(llm_payload, language=language)
             if llm_reviews:
                 logging.info(f"LLM generated {len(llm_reviews)} summaries in {language} using {used_model}")
+
+            # Deep-read the highest-scoring papers with the stronger model and
+            # overwrite their batched summary with a fuller, length-adaptive one.
+            deep_cfg = config.get("deep_read", {})
+            if deep_cfg.get("enabled") and llm_reviews:
+                top_n = int(deep_cfg.get("top_n", 5))
+                ranked_for_deep = sorted(
+                    range(len(papers)),
+                    key=lambda k: relevance_by_id.get(k, {}).get("score", 0),
+                    reverse=True,
+                )[:top_n]
+                for k in ranked_for_deep:
+                    deep = client.deep_read_paper(llm_payload[k], language=language)
+                    if deep and deep.get("summary"):
+                        llm_reviews[k] = deep
+                        deep_read_idx.add(k)
+                if deep_read_idx:
+                    logging.info("Deep-read %s top paper(s) with stronger model.", len(deep_read_idx))
         except Exception as e:
             logging.warning(f"LLM generation failed: {e}")
     
@@ -241,11 +377,15 @@ def enrich_papers(
         # Get LLM-generated or fallback summary
         if isinstance(llm_review, dict):
             summary_text = str(llm_review.get("summary", "")).strip()
+            achieved_text = str(llm_review.get("achieved", "")).strip()
+            limitations_text = str(llm_review.get("limitations", "")).strip()
             readability_text = str(llm_review.get("readability", "")).strip()
         else:
             summary_text = ""
+            achieved_text = ""
+            limitations_text = ""
             readability_text = ""
-        
+
         # Fallback to rule-based if LLM fails
         if not summary_text:
             summary_text = build_summary_text(
@@ -261,7 +401,9 @@ def enrich_papers(
                 paper_keywords_en,
                 language
             )
-        
+
+        relevance = relevance_by_id.get(index, {})
+        watched_hits = watched_by_id.get(index, [])
         enriched.append(
             {
                 **paper,
@@ -269,8 +411,14 @@ def enrich_papers(
                 "digest_category": paper_category,
                 "category_label": category_label,
                 "language": language,
+                "relevance_score": relevance.get("score"),
+                "relevance_reason": relevance.get("reason", ""),
+                "watched_authors": watched_hits,
+                "deep_read": index in deep_read_idx,
                 "review": {
                     "summary": summary_text,
+                    "achieved": achieved_text,
+                    "limitations": limitations_text,
                     "readability": readability_text,
                 },
             }

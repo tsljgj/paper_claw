@@ -64,14 +64,14 @@ class LLMClient:
             logging.warning(f"Kimi API error: {e}")
             return None
     
-    def _call_openai(self, messages: list[dict], temperature: float = 0.3) -> Optional[str]:
-        """Call OpenAI API."""
+    def _call_openai(self, messages: list[dict], temperature: float = 0.3, model: str | None = None) -> Optional[str]:
+        """Call OpenAI API. Pass `model` to override the configured default."""
         api_key = self._get_api_key("openai")
         if not api_key:
             return None
-        
+
         config = self.providers_config["openai"]
-        
+
         try:
             response = requests.post(
                 f"{config['api_base']}/chat/completions",
@@ -80,7 +80,7 @@ class LLMClient:
                     "Content-Type": "application/json"
                 },
                 json={
-                    "model": config["model"],
+                    "model": model or config["model"],
                     "temperature": temperature,
                     "messages": messages
                 },
@@ -258,6 +258,180 @@ class LLMClient:
         """Update model name based on provider."""
         self.model_name = self._get_model_name(provider)
     
+    def _parse_json_block(self, content: str) -> Any:
+        """Strip markdown fences and parse a JSON payload from an LLM response."""
+        content = content.strip()
+        if content.startswith("```json"):
+            content = content[7:]
+        if content.startswith("```"):
+            content = content[3:]
+        if content.endswith("```"):
+            content = content[:-3]
+        return json.loads(content.strip())
+
+    def score_relevance(
+        self,
+        papers: list[dict],
+        profile: str,
+        batch_size: int = 20,
+    ) -> list[dict[str, Any]] | None:
+        """
+        Score each paper 0-10 for relevance against a user interest profile.
+
+        Args:
+            papers: List of dicts with at least 'title' and 'abstract'.
+            profile: Natural-language description of the user's research interests.
+            batch_size: Number of papers scored per LLM call.
+
+        Returns:
+            List aligned with `papers`, each item {'score': int, 'reason': str},
+            or None if every batch failed.
+        """
+        if not papers:
+            return []
+
+        results: list[dict[str, Any]] = []
+        any_success = False
+
+        for i in range(0, len(papers), batch_size):
+            batch = papers[i:i + batch_size]
+            batch_num = i // batch_size + 1
+
+            system_prompt = (
+                "You are a strict research-paper filter for a single researcher. "
+                "Given that researcher's interest profile and a list of papers "
+                "(each with an 'index', title, and abstract), rate how relevant each paper is "
+                "to THEM on an integer scale from 0 (irrelevant) to 10 (must-read). Be "
+                "discriminating: most papers on arXiv are NOT relevant to any one person, so "
+                "the majority should score low. Only give 6+ to papers that clearly match the "
+                "stated interests. Return ONLY a JSON array with exactly one object per input "
+                "paper. Each object MUST include the same 'index' it was given, plus 'score' "
+                "(integer 0-10) and 'reason' (a concise <=15-word phrase, in English, "
+                "explaining the score). Do not reorder, merge, or omit any paper."
+            )
+            numbered = [
+                {"index": j, "title": p.get("title", ""), "abstract": p.get("abstract", "")}
+                for j, p in enumerate(batch)
+            ]
+            user_content = (
+                "RESEARCHER INTEREST PROFILE:\n"
+                f"{profile}\n\n"
+                "PAPERS TO SCORE (JSON):\n"
+                f"{json.dumps(numbered, ensure_ascii=False)}"
+            )
+            messages = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_content},
+            ]
+
+            logging.info(f"Scoring relevance for batch {batch_num} ({len(batch)} papers)...")
+            content = self._call_provider(messages, self.default_provider)
+            if not content:
+                for provider in self.fallback_chain:
+                    if provider in ("rule_based", self.default_provider):
+                        continue
+                    content = self._call_provider(messages, provider)
+                    if content:
+                        break
+                    time.sleep(1)
+
+            batch_scores: list[dict[str, Any]] | None = None
+            if content:
+                try:
+                    parsed = self._parse_json_block(content)
+                    if isinstance(parsed, list):
+                        batch_scores = parsed
+                        any_success = True
+                except json.JSONDecodeError as e:
+                    logging.warning(f"Failed to parse relevance JSON for batch {batch_num}: {e}")
+
+            # Align scores back to each paper by its 'index'. Falling back to
+            # positional order only if the model omitted indices entirely keeps
+            # the title and its reason from drifting apart.
+            by_index: dict[int, dict[str, Any]] = {}
+            if batch_scores:
+                for pos, item in enumerate(batch_scores):
+                    if not isinstance(item, dict):
+                        continue
+                    raw_idx = item.get("index", pos)
+                    try:
+                        idx = int(raw_idx)
+                    except (TypeError, ValueError):
+                        idx = pos
+                    by_index[idx] = item
+
+            for j in range(len(batch)):
+                item = by_index.get(j, {})
+                try:
+                    score = int(round(float(item.get("score", 0))))
+                except (TypeError, ValueError):
+                    score = 0
+                score = max(0, min(10, score))
+                results.append({"score": score, "reason": str(item.get("reason", "")).strip()})
+
+            if i + batch_size < len(papers):
+                time.sleep(1)
+
+        return results if any_success else None
+
+    def deep_read_paper(self, paper: dict, language: str = "zh") -> dict[str, Any] | None:
+        """
+        Deeply read a single high-priority paper with the stronger model and
+        return a fuller, length-adaptive analysis.
+
+        Returns a dict with the same keys as generate_summaries items
+        ('summary', 'achieved', 'limitations'), or None on failure.
+        """
+        lang_name = {"zh": "Chinese", "en": "English"}.get(language, language)
+        provider_cfg = self.providers_config.get("openai", {})
+        deep_model = provider_cfg.get("deep_read_model") or provider_cfg.get("model")
+
+        system_prompt = (
+            f"You are a senior AI-agents researcher writing a careful 'after-reading note' "
+            f"in {lang_name} for a peer, about ONE paper. Read the title and abstract closely "
+            f"and think hard before writing. Your goal is to cut to the essence: many papers "
+            f"dress up a fundamentally simple idea in heavy language — say the core plainly in "
+            f"one stroke (e.g. for a benchmark: what data was collected, what system/harness was "
+            f"built, what experiments were run, and the key insight). If the work is genuinely "
+            f"complex, explain it in proportionally more detail. Match length to substance: do "
+            f"NOT pad simple ideas, do NOT over-compress complex ones.\n"
+            f"Return ONLY a JSON object with:\n"
+            f"- 'summary': a flowing paragraph in {lang_name} (roughly 3-6 sentences, longer only "
+            f"if the work truly warrants it) that makes a smart colleague grasp the essence fast: "
+            f"the real motivation, the core mechanism/idea stated plainly, and why it matters. "
+            f"Lead with the one-sentence essence, then unfold.\n"
+            f"- 'achieved': 1-3 sentences in {lang_name} on what it concretely accomplished — "
+            f"contributions and concrete reported results/numbers from the abstract.\n"
+            f"- 'limitations': 1-3 sentences in {lang_name} — your critical read of what a strong "
+            f"paper on this exact problem would have done but this one did not: missing baselines, "
+            f"experiments, settings, ablations, or unsupported claims. Be specific and honest.\n"
+            f"Ground claims in the abstract; do not invent numbers, but you may reason about gaps."
+        )
+        user_content = json.dumps(
+            {"title": paper.get("title", ""), "abstract": paper.get("abstract", "")},
+            ensure_ascii=False,
+        )
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_content},
+        ]
+
+        content = self._call_openai(messages, temperature=0.4, model=deep_model)
+        if not content:
+            return None
+        try:
+            parsed = self._parse_json_block(content)
+        except json.JSONDecodeError as e:
+            logging.warning(f"Deep-read JSON parse failed: {e}")
+            return None
+        if not isinstance(parsed, dict):
+            return None
+        return {
+            "summary": str(parsed.get("summary", "")).strip(),
+            "achieved": str(parsed.get("achieved", "")).strip(),
+            "limitations": str(parsed.get("limitations", "")).strip(),
+        }
+
     def generate_summaries(
         self,
         papers: list[dict],
@@ -297,10 +471,22 @@ class LLMClient:
             
             # Build prompt
             system_prompt = (
-                f"You are a research assistant. For each paper, provide a summary in {lang_name}. "
-                f"Return a JSON array where each item has keys 'summary' (2-4 sentence summary in {lang_name}) "
-                f"and 'readability' (one sentence readability analysis in {lang_name}). "
-                f"Be faithful to the abstract. Do not invent claims not present in the text."
+                f"You are a sharp, senior researcher in AI agents writing a digest for a "
+                f"peer. For each paper, read the abstract carefully and write your own "
+                f"critical take in {lang_name} — do NOT just paraphrase the abstract. "
+                f"Return a JSON array with one object per paper IN THE SAME ORDER, each with:\n"
+                f"- 'summary': 2-3 plain-language sentences in {lang_name} that let the reader "
+                f"grasp the core idea fast — what problem it tackles, the key idea, and why it "
+                f"matters. Avoid jargon and marketing language; explain it like to a smart colleague.\n"
+                f"- 'achieved': 1-2 sentences in {lang_name} stating concretely what this paper "
+                f"actually accomplished — its real contribution and any reported results/metrics.\n"
+                f"- 'limitations': 1-2 sentences in {lang_name} with your critical read of what it "
+                f"did NOT do. Think like an expert who was asked to tackle this same title: what "
+                f"obvious experiments, baselines, settings, or claims a strong paper on this topic "
+                f"would include but this one is missing or leaves unaddressed. Be specific and "
+                f"honest, not generic. If the abstract truly gives no basis to judge, say so briefly.\n"
+                f"Ground everything in the abstract; do not fabricate specific numbers not present, "
+                f"but you MAY reason about gaps the abstract implies."
             )
             
             user_content = json.dumps(batch, ensure_ascii=False)
