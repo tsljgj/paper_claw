@@ -55,7 +55,19 @@ Your laptop does not need to be on.
 
 ## Tuning your recommendations
 
-All in `config/default.json`:
+**Easiest way — the interactive configurator:**
+
+```bash
+python scripts/configure.py
+```
+
+A menu-driven tool to edit the profile, watched authors, thresholds, models,
+deep-read, Hugging Face, arXiv categories, and the daily send time — with
+validation. On exit it shows what changed and offers to commit + push so the
+next scheduled run uses the new settings. (Sender display name lives in the
+`EMAIL_FROM_NAME` secret, not the config — the tool points you there.)
+
+Or edit `config/default.json` directly:
 
 - **`relevance.profile`** — plain-English description of what you want. Edit freely;
   this is the single biggest lever on quality.

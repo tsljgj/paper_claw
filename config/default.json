@@ -32,13 +32,22 @@
           "en": "CUA Benchmark & Evaluation"
         },
         "keywords": [
-          "osworld", "webarena", "visualwebarena",
-          "agentbench", "mind2web", "screenspot",
-          "androidworld", "windowsagentarena",
-          "browsergym", "workarena",
-          "agent benchmark", "gui benchmark",
-          "web navigation benchmark", "agent evaluation",
-          "agent leaderboard", "evaluation framework for agents"
+          "osworld",
+          "webarena",
+          "visualwebarena",
+          "agentbench",
+          "mind2web",
+          "screenspot",
+          "androidworld",
+          "windowsagentarena",
+          "browsergym",
+          "workarena",
+          "agent benchmark",
+          "gui benchmark",
+          "web navigation benchmark",
+          "agent evaluation",
+          "agent leaderboard",
+          "evaluation framework for agents"
         ]
       },
       {
@@ -48,12 +57,20 @@
           "en": "CUA / GUI Agent Methods"
         },
         "keywords": [
-          "computer use agent", "computer-use agent",
-          "gui agent", "web agent", "browser agent",
-          "os agent", "desktop agent", "screen agent",
-          "gui grounding", "visual grounding for agent",
-          "ui understanding", "screenshot agent",
-          "device control agent", "mobile gui agent"
+          "computer use agent",
+          "computer-use agent",
+          "gui agent",
+          "web agent",
+          "browser agent",
+          "os agent",
+          "desktop agent",
+          "screen agent",
+          "gui grounding",
+          "visual grounding for agent",
+          "ui understanding",
+          "screenshot agent",
+          "device control agent",
+          "mobile gui agent"
         ]
       },
       {
@@ -63,12 +80,19 @@
           "en": "Agent Learning & Architecture"
         },
         "keywords": [
-          "agent reinforcement learning", "rl for agents",
-          "agent fine-tuning", "agent training",
-          "multi-agent system", "multi-agent collaboration",
-          "agent architecture", "agentic framework",
-          "tool use", "tool learning", "function calling",
-          "agent planning", "language agent"
+          "agent reinforcement learning",
+          "rl for agents",
+          "agent fine-tuning",
+          "agent training",
+          "multi-agent system",
+          "multi-agent collaboration",
+          "agent architecture",
+          "agentic framework",
+          "tool use",
+          "tool learning",
+          "function calling",
+          "agent planning",
+          "language agent"
         ]
       },
       {
@@ -78,10 +102,14 @@
           "en": "Agent Memory"
         },
         "keywords": [
-          "agent memory", "long-term memory for agents",
-          "memory module", "episodic memory",
-          "memory-augmented agent", "retrieval-augmented agent",
-          "experience replay for agents", "self-evolving agent"
+          "agent memory",
+          "long-term memory for agents",
+          "memory module",
+          "episodic memory",
+          "memory-augmented agent",
+          "retrieval-augmented agent",
+          "experience replay for agents",
+          "self-evolving agent"
         ]
       },
       {
@@ -91,10 +119,14 @@
           "en": "Human-Agent Interaction"
         },
         "keywords": [
-          "human-agent interaction", "human-in-the-loop agent",
-          "agent supervision", "human-agent collaboration",
-          "interactive agent", "agent oversight",
-          "trust in agents", "agent steerability"
+          "human-agent interaction",
+          "human-in-the-loop agent",
+          "agent supervision",
+          "human-agent collaboration",
+          "interactive agent",
+          "agent oversight",
+          "trust in agents",
+          "agent steerability"
         ]
       },
       {
@@ -111,11 +143,26 @@
     "enabled": true,
     "_comment": "Papers by any of these people are ALWAYS included, pinned in a 'Authors you follow' section at the top, regardless of topic score. Each entry has a canonical 'name' (shown in the email) and 'aliases' (every name string to match against arXiv author lists, case-insensitive). Use the form the author uses on Google Scholar as the canonical name. Edit this list freely.",
     "authors": [
-      {"name": "Graham Neubig", "aliases": ["Graham Neubig"]},
-      {"name": "Yu Su", "aliases": ["Yu Su", "Su Yu"]},
-      {"name": "Zhou Yu", "aliases": ["Zhou Yu"]},
-      {"name": "Dawn Song", "aliases": ["Dawn Song"]},
-      {"name": "Diyi Yang", "aliases": ["Diyi Yang"]}
+      {
+        "name": "Graham Neubig",
+        "aliases": ["Graham Neubig"]
+      },
+      {
+        "name": "Yu Su",
+        "aliases": ["Yu Su", "Su Yu"]
+      },
+      {
+        "name": "Zhou Yu",
+        "aliases": ["Zhou Yu"]
+      },
+      {
+        "name": "Dawn Song",
+        "aliases": ["Dawn Song"]
+      },
+      {
+        "name": "Diyi Yang",
+        "aliases": ["Diyi Yang"]
+      }
     ]
   },
   "relevance": {
