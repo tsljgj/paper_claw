@@ -130,6 +130,22 @@ def filter_already_processed(papers: list[dict], state: dict) -> list[dict]:
     return [paper for paper in papers if paper["arxiv_id"] not in processed_ids]
 
 
+def build_subject(payload: dict, run_date: str) -> str:
+    """Build an eye-catching, all-English email subject that's easy to spot."""
+    total = payload.get("summary", {}).get("total", 0)
+    watched = payload.get("watched", [])
+    # A short MM-DD date reads more naturally than the full ISO date.
+    short_date = run_date[5:] if len(run_date) >= 10 else run_date
+    n_watched = len(watched)
+    if n_watched:
+        plural = "s" if n_watched > 1 else ""
+        return (
+            f"⭐ arXiv Picks {short_date} — {total} papers, "
+            f"{n_watched} from followed group{plural}"
+        )
+    return f"🔬 arXiv Picks {short_date} — {total} papers selected for you"
+
+
 def build_payload(window: FetchWindow, papers: list[dict], summary: dict, markdown_path: Path, category_priority: list[str], config: dict, model_name: str | None = None) -> dict:
     # Papers by a followed author are pinned at the top and excluded from the
     # regular category groups so they are not shown twice.
@@ -304,7 +320,7 @@ def main() -> None:
             return
         elif not args.no_email:
             email_html = render_email(TEMPLATE_DIR, payload)
-            subject = f"[Paper Claw] Digest - {run_date}"
+            subject = build_subject(payload, run_date)
             results = send_html_email(subject, email_html, [markdown_path])
             success_count = sum(1 for r in results if r["status"] == "sent")
             logging.info("Email sent to %s/%s recipients for %s", success_count, len(results), run_date)
@@ -352,7 +368,7 @@ def main() -> None:
         print(f"\n共 {len(results)} 位收件人")
     elif not args.no_email:
         email_html = render_email(TEMPLATE_DIR, payload)
-        subject = f"📰 Paper Claw Digest - {run_date}"
+        subject = build_subject(payload, run_date)
         results = send_html_email(subject, email_html, [markdown_path])
         success_count = sum(1 for r in results if r["status"] == "sent")
         logging.info("Email sent to %s/%s recipients", success_count, len(results))

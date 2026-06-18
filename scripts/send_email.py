@@ -8,7 +8,12 @@ import smtplib
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.utils import formataddr
 from pathlib import Path
+
+# Friendly display name shown to the recipient as the sender. Override with the
+# EMAIL_FROM_NAME environment variable / GitHub secret if you want a different one.
+SENDER_NAME = os.getenv("EMAIL_FROM_NAME", "Zhihao's Paper Assistant")
 
 
 def load_recipients_config() -> dict:
@@ -64,7 +69,9 @@ def send_single_email(host: str, port: int, user: str, password: str,
     # Create multipart message
     message = MIMEMultipart("mixed")
     message["Subject"] = subject
-    message["From"] = user
+    # Show a friendly sender name (e.g. "Zhihao's Paper Assistant <addr@gmail.com>")
+    # instead of the bare Gmail address.
+    message["From"] = formataddr((SENDER_NAME, user))
     message["To"] = recipient_email
     
     # Add HTML part

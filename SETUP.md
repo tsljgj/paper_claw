@@ -5,17 +5,26 @@ emailed to your inbox. Runs automatically on GitHub Actions.
 
 ## How the daily job works
 
-`.github/workflows/daily_digest.yml` runs `python scripts/main.py` on GitHub's
-servers every day at **12:00 UTC = 8 AM America/New_York**. Each run:
+`.github/workflows/daily_digest.yml` runs in **two phases** each day so the email
+lands as close to 08:00 ET as possible despite GitHub cron's drift:
+
+- **PREPARE — ~07:30 ET (11:30 UTC).** Fetch from arXiv → score every paper 0–10
+  against your interest profile → keep the top ones (and force-keep followed
+  authors) → summarize. Commits the prepared digest to the repo. This is the slow
+  part (the LLM work).
+- **SEND — 08:00 ET (12:00 UTC).** Reuses the prepared digest and just emails it —
+  takes a few seconds, so even if this cron fires a little late the email is still
+  near 8:00. If PREPARE hasn't finished yet, SEND falls back to building from
+  scratch (slower, but still sends).
+
+Each pipeline run:
 
 1. Fetches recent papers from arXiv (cs.AI, cs.CL, cs.HC, cs.LG).
 2. **Scores every paper 0–10** against your interest profile (`config/default.json` → `relevance.profile`).
 3. Keeps papers scoring `>= min_score` (default 6), capped at `max_papers` (default 18).
-4. **Force-keeps** any paper by a followed author (see below), pinned at the top.
-5. Summarizes only the survivors (Chinese summaries) and emails you a clean digest
-   with the full list attached as Markdown.
-6. Emails the digest (the generated files stay on the runner only — nothing is
-   committed back to the repo; `data/` artifacts are gitignored).
+4. **Force-keeps** any paper by a followed author, pinned at the top.
+5. Summarizes survivors (the top 5 get a deeper read with a stronger model) and
+   emails you a clean digest with the full list attached as Markdown.
 
 Your laptop does not need to be on.
 
@@ -33,6 +42,7 @@ Your laptop does not need to be on.
    | `SMTP_PASS` | your Gmail **app password** |
    | `OPENAI_API_KEY` | your OpenAI key |
    | `EMAIL_TO` | recipient address, e.g. `zhihaoyu@andrew.cmu.edu` |
+   | `EMAIL_FROM_NAME` | *(optional)* sender display name, e.g. `Zhihao's Paper Assistant`. Defaults to that if unset. |
 
    Note: `config/recipients.json` is **gitignored** (it holds a personal address),
    so it is NOT on GitHub — the runner has no recipients file and falls back to the

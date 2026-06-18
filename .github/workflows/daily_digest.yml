@@ -1,9 +1,10 @@
 name: 📰 Daily arXiv Digest
 
+# Runs once a day, fired ~10 min early so the ~5-min pipeline finishes and the
+# email lands near 08:00 ET even with GitHub cron's usual drift.
 on:
   schedule:
-    # 12:00 UTC = 08:00 America/New_York (EDT) / 07:00 (EST)
-    - cron: "0 12 * * *"
+    - cron: "50 11 * * *"  # 11:50 UTC = 07:50 America/New_York (EDT) / 06:50 (EST)
   workflow_dispatch:
     inputs:
       day:
@@ -18,14 +19,12 @@ jobs:
       contents: read
 
     env:
-      # SMTP config (set these as repository secrets)
       SMTP_HOST: ${{ secrets.SMTP_HOST }}
       SMTP_PORT: ${{ secrets.SMTP_PORT }}
       SMTP_USER: ${{ secrets.SMTP_USER }}
       SMTP_PASS: ${{ secrets.SMTP_PASS }}
-      # Optional fallback recipient list (config/recipients.json takes priority)
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-      # LLM + arXiv config
+      EMAIL_FROM_NAME: ${{ secrets.EMAIL_FROM_NAME }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       ARXIV_CONTACT_EMAIL: ${{ secrets.ARXIV_CONTACT_EMAIL }}
 
@@ -46,8 +45,8 @@ jobs:
 
       - name: 🔨 Build and email digest
         run: |
-          # Use an explicit day so the run is stateless (no committed state.json
-          # needed). Default to "today" in US Eastern; override via manual input.
+          # Stateless run for the given day (no committed state needed). Default
+          # to "today" in US Eastern; override via the manual-dispatch input.
           if [ -n "${{ github.event.inputs.day }}" ]; then
             DAY="${{ github.event.inputs.day }}"
           else
