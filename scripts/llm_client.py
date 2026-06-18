@@ -71,6 +71,13 @@ class LLMClient:
             return None
 
         config = self.providers_config["openai"]
+        model_name = model or config["model"]
+
+        payload = {"model": model_name, "messages": messages}
+        # Some newer OpenAI models (e.g. gpt-5.5) only accept the default
+        # temperature and reject an explicit value — omit it for those.
+        if not model_name.startswith("gpt-5.5"):
+            payload["temperature"] = temperature
 
         try:
             response = requests.post(
@@ -79,11 +86,7 @@ class LLMClient:
                     "Authorization": f"Bearer {api_key}",
                     "Content-Type": "application/json"
                 },
-                json={
-                    "model": model or config["model"],
-                    "temperature": temperature,
-                    "messages": messages
-                },
+                json=payload,
                 timeout=config.get("timeout", 90)
             )
             response.raise_for_status()
@@ -269,6 +272,29 @@ class LLMClient:
             content = content[:-3]
         return json.loads(content.strip())
 
+    def _zh_style_rule(self, language: str) -> str:
+        """Writing-style guidance appended to Chinese generation prompts."""
+        if language != "zh":
+            return ""
+        return (
+            "\n\n【中文写作硬性要求，必须严格遵守】\n"
+            "1) 所有技术术语、方法名、模型名、数据集/benchmark 名一律保留英文原文，"
+            "绝对不要翻译成中文。下列词（及类似的所有技术词）必须用英文写，违反即为错误：\n"
+            "   agent / web agent / GUI agent（不要写“代理”“网页代理”“智能体”）、"
+            "memory / memory module（不要写“记忆”“记忆模块”）、"
+            "retrieval / dense retrieval（不要写“检索”“密集检索”）、"
+            "GUI grounding、action planning（不要写“动作规划”）、"
+            "prompt（不要写“提示”）、tool use（不要写“工具使用”）、"
+            "in-context learning、reinforcement learning / RL、fine-tuning（不要写“微调”）、"
+            "benchmark、baseline（不要写“基线”）、ablation（不要写“消融”）、"
+            "trajectory、episodic、token、embedding 等。\n"
+            "   句子主干用中文，把这些英文术语原样嵌进句子里，例如："
+            "“给 web agent 加了一个 memory module，用 dense retrieval 把过去的 trajectory 调出来。”\n"
+            "2) 写得通俗、具体、口语化，像当面跟同事讲清楚这篇 paper。避免空泛套话："
+            "说“提升性能”必须讲清在哪个 benchmark、提升了什么指标多少。\n"
+            "3) 不要堆砌辞藻或营销腔（如“显著”“强大”“潜力”这类空词少用）。"
+        )
+
     def score_relevance(
         self,
         papers: list[dict],
@@ -325,7 +351,13 @@ class LLMClient:
             ]
 
             logging.info(f"Scoring relevance for batch {batch_num} ({len(batch)} papers)...")
-            content = self._call_provider(messages, self.default_provider)
+            # Relevance scoring is a cheap, high-volume task — use the configured
+            # score_model (a cheaper tier) when scoring through OpenAI.
+            score_model = self.providers_config.get("openai", {}).get("score_model")
+            if self.default_provider == "openai" and score_model:
+                content = self._call_openai(messages, model=score_model)
+            else:
+                content = self._call_provider(messages, self.default_provider)
             if not content:
                 for provider in self.fallback_chain:
                     if provider in ("rule_based", self.default_provider):
@@ -406,6 +438,7 @@ class LLMClient:
             f"paper on this exact problem would have done but this one did not: missing baselines, "
             f"experiments, settings, ablations, or unsupported claims. Be specific and honest.\n"
             f"Ground claims in the abstract; do not invent numbers, but you may reason about gaps."
+            + self._zh_style_rule(language)
         )
         user_content = json.dumps(
             {"title": paper.get("title", ""), "abstract": paper.get("abstract", "")},
@@ -487,8 +520,9 @@ class LLMClient:
                 f"honest, not generic. If the abstract truly gives no basis to judge, say so briefly.\n"
                 f"Ground everything in the abstract; do not fabricate specific numbers not present, "
                 f"but you MAY reason about gaps the abstract implies."
+                + self._zh_style_rule(language)
             )
-            
+
             user_content = json.dumps(batch, ensure_ascii=False)
             messages = [
                 {"role": "system", "content": system_prompt},
