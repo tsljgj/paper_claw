@@ -260,9 +260,14 @@ def enrich_papers(
         if profile:
             try:
                 scorer = create_client(config["llm"])
-                score_payload = [
-                    {"title": p["title_en"], "abstract": p["abstract_en"]} for p in papers
-                ]
+                score_payload = []
+                for p in papers:
+                    abstract = p["abstract_en"]
+                    # HF-only papers have no abstract; fall back to AI keywords so
+                    # the scorer still has something to judge.
+                    if not abstract and p.get("hf_keywords"):
+                        abstract = "Keywords: " + ", ".join(p["hf_keywords"])
+                    score_payload.append({"title": p["title_en"], "abstract": abstract})
                 scores = scorer.score_relevance(
                     score_payload,
                     profile,
@@ -277,6 +282,24 @@ def enrich_papers(
                     relevance_by_id[idx] = sc
                 min_score = int(relevance_cfg.get("min_score", 6))
                 max_papers = int(relevance_cfg.get("max_papers", 18))
+
+                # Popularity boost: papers on Hugging Face Daily get up to
+                # `upvote_boost` extra points, scaled by log(upvotes), capped at 10.
+                hf_cfg = config.get("huggingface", {})
+                max_boost = int(hf_cfg.get("upvote_boost", 0))
+                if max_boost:
+                    import math
+                    for idx, paper in enumerate(papers):
+                        up = paper.get("hf_upvotes")
+                        if not up:
+                            continue
+                        boost = min(max_boost, round(max_boost * math.log10(up + 1) / 2))
+                        if boost:
+                            rec = relevance_by_id.get(idx, {})
+                            base = rec.get("score", 0)
+                            rec["score"] = min(10, base + boost)
+                            rec["hf_boost"] = boost
+                            relevance_by_id[idx] = rec
 
                 ranked = sorted(
                     range(len(papers)),
@@ -415,6 +438,7 @@ def enrich_papers(
                 "relevance_reason": relevance.get("reason", ""),
                 "watched_authors": watched_hits,
                 "deep_read": index in deep_read_idx,
+                "hf_upvotes": paper.get("hf_upvotes"),
                 "review": {
                     "summary": summary_text,
                     "achieved": achieved_text,

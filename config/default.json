@@ -145,5 +145,11 @@
     "enabled": true,
     "_comment": "The top-scoring papers each get a separate, deeper LLM pass (deep_read_model) that reads the abstract closely and writes a fuller analysis. The rest get the concise batched summary.",
     "top_n": 5
+  },
+  "huggingface": {
+    "enabled": true,
+    "_comment": "Pull Hugging Face Daily Papers (community-curated, with upvotes) as both a popularity-boost signal and an extra source of papers the arXiv RSS feed missed. upvote_boost adds up to a few relevance points scaled by log(upvotes); papers on HF Daily get a 🔥 badge.",
+    "upvote_boost": 2,
+    "lookback_days": 2
   }
 }

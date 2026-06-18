@@ -47,6 +47,11 @@
       background: #f3edff; padding: 3px 9px; border-radius: 10px; margin-left: 8px;
       vertical-align: middle;
     }
+    .hf-badge {
+      display: inline-block; font-size: 12px; font-weight: 700; color: #c2410c;
+      background: #fff1e6; padding: 3px 9px; border-radius: 10px; margin-left: 8px;
+      vertical-align: middle;
+    }
     .why {
       font-size: 15px; color: #444; margin-top: 12px;
       padding: 11px 16px; background: #eff4ff; border-left: 4px solid #2563eb; border-radius: 4px;
@@ -144,7 +149,7 @@
       <h2>{{ items[0].category_label | default(category, true) }}</h2>
       {% for paper in items %}
       <div class="paper">
-        <div class="paper-title"><span class="num">{{ loop.index }}.</span>{{ paper.title_en }}{% if paper.deep_read %}<span class="deep-badge">🔍 {% if paper.language == 'en' %}Deep read{% else %}深读{% endif %}</span>{% endif %}</div>
+        <div class="paper-title"><span class="num">{{ loop.index }}.</span>{{ paper.title_en }}{% if paper.deep_read %}<span class="deep-badge">🔍 {% if paper.language == 'en' %}Deep read{% else %}深读{% endif %}</span>{% endif %}{% if paper.hf_upvotes %}<span class="hf-badge">🔥 HF {{ paper.hf_upvotes }}</span>{% endif %}</div>
         {% if paper.relevance_reason %}
         <div class="why">{% if paper.relevance_score is not none %}<span class="score">{{ paper.relevance_score }}/10</span> — {% endif %}{{ paper.relevance_reason }}</div>
         {% endif %}

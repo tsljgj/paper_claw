@@ -23,7 +23,16 @@ if env_path.exists():
 
 from build_markdown import render_email, render_markdown
 from config_loader import load_config
-from fetch_arxiv import FetchWindow, deduplicate_papers, fetch_category, save_raw_payload
+from fetch_arxiv import (
+    FetchWindow,
+    backfill_abstracts,
+    deduplicate_papers,
+    fetch_category,
+    fetch_huggingface_daily,
+    fetch_via_rss,
+    merge_huggingface,
+    save_raw_payload,
+)
 from process_papers import build_summary, enrich_papers
 from send_email import send_html_email
 
@@ -334,10 +343,26 @@ def main() -> None:
     source_categories = get_source_categories(config)
     logging.info("Fetching from categories: %s", source_categories)
 
+    # Fetch via the announcement-keyed RSS feed (one request for all categories),
+    # which reflects what arXiv actually announced today — unlike the search API's
+    # submittedDate window, which silently misses Thursday/Friday and held papers.
     with requests.Session() as session:
-        papers = []
-        for category in source_categories:
-            papers.extend(fetch_category(category, window, session=session))
+        papers = fetch_via_rss(source_categories, session=session)
+
+        # Hugging Face Daily Papers: popularity signal + extra source for papers
+        # the RSS feed missed.
+        hf_cfg = config.get("huggingface", {})
+        if hf_cfg.get("enabled"):
+            lookback = int(hf_cfg.get("lookback_days", 2))
+            hf_dates = [
+                (window.end - timedelta(days=d)).strftime("%Y-%m-%d")
+                for d in range(lookback)
+            ]
+            hf_by_id = fetch_huggingface_daily(hf_dates, session=session)
+            papers = merge_huggingface(papers, hf_by_id)
+            # HF papers carry no abstract — backfill them in one batch arXiv
+            # query so they score and deep-read like any other paper.
+            papers = backfill_abstracts(papers, session=session)
 
     deduped = deduplicate_papers(papers)
     filtered = filter_already_processed(deduped, state)
