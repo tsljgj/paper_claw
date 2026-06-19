@@ -376,7 +376,11 @@ def enrich_papers(
                     key=lambda k: relevance_by_id.get(k, {}).get("score", 0),
                     reverse=True,
                 )[:top_n]
-                for k in ranked_for_deep:
+                # Always deep-read watched-author papers too — they're the ones
+                # the user cares most about, so they deserve a full analysis even
+                # if their topic score is modest.
+                deep_targets = list(dict.fromkeys([*ranked_for_deep, *watched_by_id.keys()]))
+                for k in deep_targets:
                     deep = client.deep_read_paper(llm_payload[k], language=language)
                     if deep and deep.get("summary"):
                         llm_reviews[k] = deep

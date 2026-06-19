@@ -557,34 +557,38 @@ class LLMClient:
 
                     time.sleep(1)  # Brief delay between providers
 
-            if not content:
-                logging.warning(f"All LLM providers failed for batch {i//batch_size + 1}")
-            else:
-                # Parse JSON from content
+            # Parse this batch into exactly len(batch) items so results stay
+            # aligned with papers. A failed/short/over-long batch is padded or
+            # trimmed to length — those papers fall back to a rule-based summary
+            # rather than silently shifting every later paper's review onto the
+            # wrong paper.
+            batch_results: list[Any] = []
+            if content:
                 try:
-                    # Remove markdown code blocks if present
-                    content = content.strip()
-                    if content.startswith("```json"):
-                        content = content[7:]
-                    if content.startswith("```"):
-                        content = content[3:]
-                    if content.endswith("```"):
-                        content = content[:-3]
-                    content = content.strip()
-
-                    parsed = json.loads(content)
+                    parsed = self._parse_json_block(content)
                     if isinstance(parsed, list):
-                        all_results.extend(parsed)
+                        batch_results = parsed
                     else:
-                        logging.warning(f"Unexpected response format from LLM")
+                        logging.warning("Unexpected (non-list) summary response from LLM")
                 except json.JSONDecodeError as e:
-                    logging.warning(f"Failed to parse LLM response as JSON: {e}")
+                    logging.warning(f"Failed to parse LLM summary JSON for batch {i//batch_size + 1}: {e}")
+            else:
+                logging.warning(f"All LLM providers failed for batch {i//batch_size + 1}")
+
+            if len(batch_results) != len(batch):
+                logging.warning(
+                    "Batch %s returned %s summaries for %s papers; padding to keep alignment.",
+                    i // batch_size + 1, len(batch_results), len(batch),
+                )
+                batch_results = (batch_results + [{}] * len(batch))[:len(batch)]
+            all_results.extend(batch_results)
 
             # Delay between batches
             if i + batch_size < len(papers):
                 time.sleep(2)
-        
-        return (all_results if all_results else None), self.model_name
+
+        any_real = any(isinstance(r, dict) and r.get("summary") for r in all_results)
+        return (all_results if any_real else None), self.model_name
 
 
 def create_client(config: dict) -> LLMClient:
