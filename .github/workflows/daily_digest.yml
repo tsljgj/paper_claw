@@ -6,7 +6,7 @@ on:
   schedule:
     # Odd off-peak minute (not :00/:30/:50) to dodge GitHub's scheduled-run
     # congestion, which can otherwise delay the run by hours near round times.
-    - cron: "8 11 * * *"  # 11:08 UTC = 07:08 America/New_York (EDT) / 06:08 (EST)
+    - cron: "8 10 * * *"  # 10:08 UTC = 06:08 America/New_York (EDT) / 05:08 (EST)
   workflow_dispatch:
     inputs:
       day:
